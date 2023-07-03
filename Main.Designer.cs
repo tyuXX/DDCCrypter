@@ -67,7 +67,11 @@
             "SHA256",
             "SHA1",
             "SHA384",
-            "SHA512"});
+            "SHA512",
+            "Base64",
+            "Binary",
+            "ASCII to UTF8",
+            "UTF8 to ASCII"});
             this.comboBox1.Location = new System.Drawing.Point(12, 100);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 24);
@@ -126,6 +130,8 @@
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "trim"});
             this.comboBox2.Location = new System.Drawing.Point(12, 130);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 24);

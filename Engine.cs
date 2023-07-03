@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
 using System.Security.Cryptography;
-using System.Security.Policy;
 using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DDCCrypter
 {
@@ -18,7 +13,14 @@ namespace DDCCrypter
             foreach (string str in sargs)
             {
                 string[] strs = str.Split( new char[] { '=' } ,2);
-                args.Add(new Arg( strs[0], strs[1] ));
+                if(strs.Length == 2)
+                {
+                    args.Add( new Arg( strs[0], strs[1] ) );
+                }
+            }
+            if (sargs.Contains( "trim" ))
+            {
+                args.SetArgValue( "estring" ,args.GetArgValue( "estring" ).Replace(" ",string.Empty).Replace("\n",string.Empty) );
             }
             return Selector(args);
         }
@@ -45,11 +47,51 @@ namespace DDCCrypter
                     {
                         return ESHA512(args);
                     }
+                case nameof(EBASE64):
+                    {
+                        return EBASE64(args);
+                    }
+                case nameof(EBİNARY):
+                    {
+                        return EBİNARY(args);
+                    }
+                case nameof(EASCIITOUTF8):
+                    {
+                        return EASCIITOUTF8(args);
+                    }
+                case nameof(EUTF8TOASCII):
+                    {
+                        return EUTF8TOASCII(args);
+                    }
                 default:
                     {
                         return "";
                     }
             }
+        }
+        private static string EBASE64(ArgStore args)
+        {
+            if (bool.Parse( args.GetArgValue( "do" ) )) 
+            {
+                return Convert.ToBase64String(Encoding.UTF8.GetBytes(args.GetArgValue( "estring" )));
+            }
+            return Encoding.UTF8.GetString( Convert.FromBase64String( args.GetArgValue( "estring" ) ) );
+        }
+        private static string EBİNARY(ArgStore args)
+        {
+            if (bool.Parse( args.GetArgValue( "do" ) )) 
+            {
+
+            }
+            return "";
+        }
+        private static string EASCIITOUTF8(ArgStore args)
+        {
+            return Encoding.UTF8.GetString( Encoding.ASCII.GetBytes( args.GetArgValue( "estring" ) ) );
+        }
+        private static string EUTF8TOASCII(ArgStore args)
+        {
+            return Encoding.ASCII.GetString( Encoding.UTF8.GetBytes( args.GetArgValue( "estring" ) ) );
         }
         private static string EMD5(ArgStore args)
         {
@@ -125,6 +167,21 @@ namespace DDCCrypter
                 }
             }
             return "CFA";
+        }
+        public Arg GetArg(string Name)
+        {
+            foreach (Arg arg in args)
+            {
+                if(arg.arg == Name)
+                {
+                    return arg;
+                }
+            }
+            return new Arg();
+        }
+        public void SetArgValue(string Name,string value)
+        {
+            args[args.IndexOf( GetArg( Name ) )] = new Arg( GetArg( Name ).arg ,value);
         }
         public void Add(Arg arg)
         {

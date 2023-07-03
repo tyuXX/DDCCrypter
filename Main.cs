@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DDCCrypter
@@ -68,11 +62,11 @@ namespace DDCCrypter
         {
             string _hash = "";
             List<string> _ = new List<string> { };
-            foreach (string str in listBox1.SelectedItems)
+            foreach (string str in listBox1.Items)
             {
                 _.Add( str );
             }
-            _.Add( "type=" + comboBox1.Text );
+            _.Add( "type=" + comboBox1.Text.Replace( " ", string.Empty ).Replace( "\n", string.Empty ).ToUpper() );
             _.Add( "do="  + od);
             if(textBox1.Text == "Hash")
             {
