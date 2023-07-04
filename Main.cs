@@ -14,7 +14,7 @@ namespace DDCCrypter
 
         private void button2_Click( object sender, EventArgs e )
         {
-            if (!listBox1.Items.Contains( comboBox2.Text ))
+            if (!listBox1.Items.Contains( comboBox2.Text )&&string.IsNullOrEmpty(comboBox2.Text))
             {
                 listBox1.Items.Add( comboBox2.Text );
             }

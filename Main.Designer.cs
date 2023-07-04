@@ -182,7 +182,9 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.richTextBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Main";
+            this.ShowIcon = false;
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);

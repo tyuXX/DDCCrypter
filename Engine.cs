@@ -1,12 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows.Forms;
 
 namespace DDCCrypter
 {
     public static class Engine
     {
+        public static string ReadFromFile(string file,string passcode)
+        {
+            List<string> _ = new List<string>() { };
+            _.Add("estring="+File.ReadAllText(file));
+            _.Add("hash="+passcode);
+            _.Add( "do=true" );
+            return ArgProcess( _ );
+        }
         public static string ArgProcess( List<string> sargs)
         {
             ArgStore args = new ArgStore(true);
@@ -21,6 +31,41 @@ namespace DDCCrypter
             if (sargs.Contains( "trim" ))
             {
                 args.SetArgValue( "estring" ,args.GetArgValue( "estring" ).Replace(" ",string.Empty).Replace("\n",string.Empty) );
+            }
+            if (sargs.Contains( "file" ))
+            {
+                if (bool.Parse(args.GetArgValue("do")))
+                {
+                    ArgStore _args = new ArgStore( true );
+                    string[] strs = args.GetArgValue( "estring" ).Split( new char[] { '\n' }, 3 );
+                    if (strs.Length < 3)
+                    {
+                        return "error";
+                    }
+                    _args.Add( args.GetArg( "hash" ) );
+                    _args.Add( new Arg( "estring", strs[0] ) );
+                    _args.Add( new Arg("type", strs[1]) );
+                    _args.Add( args.GetArg( "do" ) );
+                    try
+                    {
+                        if (Selector( _args ) == args.GetArgValue( "hash" ))
+                        {
+                            _args.Remove( _args.GetArg( "estring" ) );
+                            _args.Add( new Arg( "estring", strs[2] ) );
+                            return Selector( _args );
+                        }
+                    }
+                    catch
+                    {
+                        return "error";
+                    }
+                }
+                else
+                {
+                    ArgStore _args = new ArgStore( true );
+                    _args.Add(args.GetArg("type"));
+                    //TODO - Continue
+                }
             }
             return Selector(args);
         }
@@ -186,6 +231,10 @@ namespace DDCCrypter
         public void Add(Arg arg)
         {
             args.Add(arg);
+        }
+        public void Remove(Arg arg)
+        {
+            args.Remove(arg);
         }
         public ArgStore(List<Arg> args)
         {
