@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -126,7 +128,12 @@ namespace DDCCrypter
         {
             if (bool.Parse( args.GetArgValue( "do" ) )) 
             {
-
+                StringBuilder sb = new StringBuilder();
+                foreach (char chr in args.GetArgValue( "estring" ))
+                {
+                    sb.Append( Convert.ToString( chr, 2 ).PadLeft( 8, '0' ) );
+                }
+                return sb.ToString();
             }
             return "";
         }
