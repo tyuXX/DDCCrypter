@@ -14,6 +14,7 @@ namespace DDCCrypter
         }
         private void Refresh()
         {
+            Text = $"{nameof( PastOperations )}:{index + 1}/{Engine.Ops.Count}";
             richTextBox1.Text = Engine.Ops.ElementAt( index ).ToString();
         }
 

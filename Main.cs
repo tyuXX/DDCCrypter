@@ -93,7 +93,12 @@ namespace DDCCrypter
 
         private void button6_Click( object sender, EventArgs e )
         {
-            Engine.OpenForm<Opener>();
+            contextMenuStrip1.Show( this, button6.Location );
+        }
+
+        private void pastOperationsToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            Engine.OpenForm<PastOperations>();
         }
     }
 }
