@@ -5,14 +5,45 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows.Forms;
 
 namespace DDCCrypter
 {
     public static class Engine
     {
-        static string[] DivideString( string str, int chunkSize )
+        public static List<Operation> Ops = new List<Operation>() { };
+        public static void OpenForm<T>() where T : Form, new()
         {
-            return Enumerable.Range( 0, (int)Math.Ceiling( (double)str.Length / chunkSize ) ).Select( i => str.Substring( i * chunkSize, Math.Min( chunkSize, str.Length - i * chunkSize ) ) ).ToArray();
+            T form = new T();
+            form.Show();
+        }
+        public static bool OrCompare<T>( T tc, params T[] tbc )
+        {
+            foreach (T tbci in tbc)
+            {
+                if (tc.Equals( tbci )) { return true; }
+            }
+            return false;
+        }
+        public static bool AndCompare<T>( T tc, T[] tbc )
+        {
+            foreach (T tbci in tbc)
+            {
+                if (!tc.Equals( tbci )) { return false; }
+            }
+            return true;
+        }
+        public static string GenerateHash()
+        {
+            using (Aes aes = Aes.Create())
+            {
+                aes.GenerateKey();
+                return Convert.ToBase64String( aes.Key );
+            }
+        }
+        private static string[] DivideString( string str, int chunkSize )
+        {
+            return Enumerable.Range( 0, (int)Math.Ceiling( (double)str.Length / chunkSize ) ).Select( i => str.Substring( i * chunkSize, Math.Min( chunkSize, str.Length - (i * chunkSize) ) ) ).ToArray();
         }
         public static string ReadFromFile( string file, string passcode )
         {
@@ -20,17 +51,26 @@ namespace DDCCrypter
             _.Add( "estring=" + File.ReadAllText( file ) );
             _.Add( "hash=" + passcode );
             _.Add( "do=true" );
-            return ArgProcess( _ );
+            return ArgProcess( _ ).Item1;
         }
-        public static (string, TimeSpan) Process( List<string> sargs )
+        public static (string, TimeSpan, bool, ArgStore) Process( List<string> sargs )
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            string rtstr = ArgProcess( sargs );
+            (string, ArgStore) rtstr = new ValueTuple<string, ArgStore>();
+            try
+            {
+                rtstr = ArgProcess( sargs );
+            }
+            catch (Exception)
+            {
+                stopwatch.Stop();
+                return (rtstr.Item1, stopwatch.Elapsed, false, rtstr.Item2);
+            }
             stopwatch.Stop();
-            return (rtstr, stopwatch.Elapsed);
+            return (rtstr.Item1, stopwatch.Elapsed, true, rtstr.Item2);
         }
-        private static string ArgProcess( List<string> sargs )
+        private static (string, ArgStore) ArgProcess( List<string> sargs )
         {
             ArgStore args = new ArgStore( true );
             foreach (string str in sargs)
@@ -53,7 +93,7 @@ namespace DDCCrypter
                     string[] strs = args.GetArgValue( "estring" ).Split( new char[] { '\n' }, 3 );
                     if (strs.Length < 3)
                     {
-                        return "error";
+                        return ("error", _args);
                     }
                     _args.Add( args.GetArg( "hash" ) );
                     _args.Add( new Arg( "estring", strs[0] ) );
@@ -65,12 +105,12 @@ namespace DDCCrypter
                         {
                             _args.Remove( _args.GetArg( "estring" ) );
                             _args.Add( new Arg( "estring", strs[2] ) );
-                            return Selector( _args );
+                            return (Selector( _args ), _args);
                         }
                     }
                     catch
                     {
-                        return "error";
+                        return ("error", _args);
                     }
                 }
                 else
@@ -80,7 +120,7 @@ namespace DDCCrypter
                     //TODO - Continue
                 }
             }
-            return Selector( args );
+            return (Selector( args ), args);
         }
         private static string Selector( ArgStore args )
         {
@@ -125,6 +165,10 @@ namespace DDCCrypter
                 case nameof( EMORSECODE ):
                     {
                         return EMORSECODE( args );
+                    }
+                case nameof( EAES ):
+                    {
+                        return EAES( args );
                     }
                 default:
                     {
@@ -189,6 +233,51 @@ namespace DDCCrypter
         private static string EUTF8TOASCII( ArgStore args )
         {
             return Encoding.ASCII.GetString( Encoding.UTF8.GetBytes( args.GetArgValue( "estring" ) ) );
+        }
+        private static string EAES( ArgStore args )
+        {
+            byte[] keyBytes = Convert.FromBase64String( args.GetArgValue( "hash" ) );
+            if (bool.Parse( args.GetArgValue( "do" ) ))
+            {
+                byte[] textBytes = Encoding.UTF8.GetBytes( args.GetArgValue( "estring" ) );
+                using (Aes aes = Aes.Create())
+                {
+                    aes.Key = keyBytes;
+                    aes.GenerateIV();
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        using (CryptoStream cs = new CryptoStream( ms, aes.CreateEncryptor(), CryptoStreamMode.Write ))
+                        {
+                            cs.Write( textBytes, 0, textBytes.Length );
+                        }
+                        byte[] _ = ms.ToArray();
+                        byte[] ivAndData = new byte[aes.IV.Length + _.Length];
+                        Array.Copy( aes.IV, ivAndData, aes.IV.Length );
+                        Array.Copy( _, 0, ivAndData, aes.IV.Length, _.Length );
+
+                        return Convert.ToBase64String( ivAndData );
+                    }
+                }
+            }
+            byte[] encryptedBytes = Convert.FromBase64String( args.GetArgValue( "estring" ) );
+            using (Aes aes = Aes.Create())
+            {
+                byte[] iv = new byte[aes.IV.Length];
+                Array.Copy( encryptedBytes, iv, iv.Length );
+                byte[] dataToDecrypt = new byte[encryptedBytes.Length - iv.Length];
+                Array.Copy( encryptedBytes, iv.Length, dataToDecrypt, 0, dataToDecrypt.Length );
+                aes.Key = keyBytes;
+                aes.IV = iv;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream( ms, aes.CreateDecryptor(), CryptoStreamMode.Write ))
+                    {
+                        cs.Write( dataToDecrypt, 0, dataToDecrypt.Length );
+                    }
+                    byte[] decryptedBytes = ms.ToArray();
+                    return Encoding.UTF8.GetString( decryptedBytes );
+                }
+            }
         }
         private static string EMD5( ArgStore args )
         {
@@ -258,6 +347,10 @@ namespace DDCCrypter
     }
     public struct Arg
     {
+        public override string ToString()
+        {
+            return $"{arg}={value}";
+        }
         public Arg( string arg, string value )
         {
             this.arg = arg;
@@ -311,6 +404,32 @@ namespace DDCCrypter
             args = new List<Arg> { };
         }
         public Array GetArray { get { return args.ToArray(); } }
-        private List<Arg> args;
+        public List<Arg> args;
+    }
+    public struct Operation
+    {
+        public Guid UUID;
+        public (string, TimeSpan, bool) Output;
+        public ArgStore Args;
+        public Operation( (string, TimeSpan, bool, ArgStore) OpOutput )
+        {
+            UUID = Guid.NewGuid();
+            Output = (OpOutput.Item1, OpOutput.Item2, OpOutput.Item3);
+            Args = OpOutput.Item4;
+        }
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine( "UUID:" + UUID.ToString() );
+            sb.AppendLine( "Output String:" + Output.Item1 );
+            sb.AppendLine( "Time:" + Output.Item2.Milliseconds + "ms" );
+            sb.AppendLine( "Sucksess:" + Output.Item3 );
+            sb.AppendLine( "Args:" );
+            foreach (Arg arg in Args.args)
+            {
+                sb.AppendLine( arg.ToString() );
+            }
+            return sb.ToString();
+        }
     }
 }

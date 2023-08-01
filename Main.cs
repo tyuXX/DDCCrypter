@@ -6,7 +6,6 @@ namespace DDCCrypter
 {
     public partial class Main : Form
     {
-        const string defaulthash = "DDCCrypter$PID";
         public Main()
         {
             InitializeComponent();
@@ -68,30 +67,33 @@ namespace DDCCrypter
             }
             _.Add( "type=" + comboBox1.Text.Replace( " ", string.Empty ).Replace( "\n", string.Empty ).ToUpper() );
             _.Add( "do=" + od );
-            if (textBox1.Text == "Hash")
+            if (Engine.OrCompare( textBox1.Text, "Hash", string.Empty ))
             {
-                _.Add( "hash=" + defaulthash );
-                _hash = defaulthash;
+                textBox1.Text = Engine.GenerateHash();
             }
-            else
-            {
-                _.Add( "hash=" + textBox1.Text );
-                _hash = textBox1.Text;
-            }
+            _.Add( "hash=" + textBox1.Text );
+            _hash = textBox1.Text;
             if (od)
             {
                 _.Add( "estring=" + richTextBox1.Text );
-                (string, TimeSpan) output = Engine.Process( _ );
+                (string, TimeSpan, bool, ArgStore) output = Engine.Process( _ );
+                Engine.Ops.Add( new Operation( output ) );
                 richTextBox2.Text = output.Item1;
-                richTextBox3.Text = $"Status:\nLenght:{richTextBox2.TextLength}\nHash:{_hash}\nTime:{output.Item2.Milliseconds}ms";
+                richTextBox3.Text = $"Status:\nLenght:{richTextBox2.TextLength}\nHash:{_hash}\nTime:{output.Item2.Milliseconds}ms\nSucksess:{output.Item3}";
             }
             else
             {
                 _.Add( "estring=" + richTextBox2.Text );
-                (string, TimeSpan) output = Engine.Process( _ );
+                (string, TimeSpan, bool, ArgStore) output = Engine.Process( _ );
+                Engine.Ops.Add( new Operation( output ) );
                 richTextBox1.Text = output.Item1;
-                richTextBox3.Text = $"Status:\nLenght:{richTextBox1.TextLength}\nHash:{_hash}\nTime:{output.Item2.Milliseconds}ms";
+                richTextBox3.Text = $"Status:\nLenght:{richTextBox1.TextLength}\nHash:{_hash}\nTime:{output.Item2.Milliseconds}ms\nSucksess:{output.Item3}";
             }
+        }
+
+        private void button6_Click( object sender, EventArgs e )
+        {
+            Engine.OpenForm<Opener>();
         }
     }
 }

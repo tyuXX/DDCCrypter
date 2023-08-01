@@ -82,7 +82,8 @@
             "Binary",
             "ASCII to UTF8",
             "UTF8 to ASCII",
-            "Morse Code"});
+            "Morse Code",
+            "Aes"});
             this.comboBox1.Location = new System.Drawing.Point(12, 100);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(163, 24);
@@ -214,8 +215,9 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(120, 28);
             this.button6.TabIndex = 14;
-            this.button6.Text = "Decode";
+            this.button6.Text = "Extras";
             this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Main
             // 
