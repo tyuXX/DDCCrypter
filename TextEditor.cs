@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DDCCrypter
@@ -19,7 +11,7 @@ namespace DDCCrypter
         {
             InitializeComponent();
         }
-        public TextEditor(string sfile, string passcode )
+        public TextEditor( string sfile, string passcode )
         {
             file = sfile;
             this.passcode = passcode;
