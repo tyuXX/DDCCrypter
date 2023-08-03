@@ -8,6 +8,7 @@ namespace DDCCrypter
 {
     public static class Engine
     {
+        public static readonly Version Version = Version.Parse("1.0.0.0");
         public static readonly HashSet<Crypter> crypters = new HashSet<Crypter>{
             new Crypter(EMD5,new Descriptor("Message Digest 5","MD5",""),CrypterType.TwoWay),
             new Crypter(ESHA1,new Descriptor("Secure Hash Algorithm 1", "SHA1", ""),CrypterType.OneWay),
@@ -114,7 +115,7 @@ namespace DDCCrypter
                 return Convert.ToBase64String( aes.Key );
             }
         }
-        private static string[] DivideString( string str, int chunkSize ) => Enumerable.Range( 0, (int)Math.Ceiling( (double)str.Length / chunkSize ) ).Select( i => str.Substring( i * chunkSize, Math.Min( chunkSize, str.Length - (i * chunkSize) ) ) ).ToArray();
+        private static string[] DivideString( string str, int chunkSize ) => Enumerable.Range( 0, (int)Math.Ceiling( (double)str.Length / chunkSize ) ).Select( i => str.Substring( i * chunkSize, System.Math.Min( chunkSize, str.Length - (i * chunkSize) ) ) ).ToArray();
         public static string ReadFromFile( string file, string passcode )
         {
             List<string> _ = new List<string>() { };

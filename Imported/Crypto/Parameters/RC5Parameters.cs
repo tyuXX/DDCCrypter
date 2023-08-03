@@ -1,0 +1,25 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: Org.BouncyCastle.Crypto.Parameters.RC5Parameters
+// Assembly: BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942
+// MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
+// Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
+
+using System;
+
+namespace Org.BouncyCastle.Crypto.Parameters
+{
+    public class RC5Parameters : KeyParameter
+    {
+        private readonly int rounds;
+
+        public RC5Parameters( byte[] key, int rounds )
+          : base( key )
+        {
+            if (key.Length > byte.MaxValue)
+                throw new ArgumentException( "RC5 key length can be no greater than 255" );
+            this.rounds = rounds;
+        }
+
+        public int Rounds => this.rounds;
+    }
+}
