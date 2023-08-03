@@ -7,9 +7,15 @@ namespace DDCCrypter
 {
     public partial class Main : Form
     {
+        bool init = false;
         public Main()
         {
             InitializeComponent();
+            foreach (IResizeable control in Controls)
+            {
+                control.SetSize();
+            }
+            init = true;
         }
 
         private void button2_Click( object sender, EventArgs e )
@@ -45,7 +51,7 @@ namespace DDCCrypter
             comboBox4.Hide();
             foreach (Crypter crypter in Engine.crypters)
             {
-                comboBox1.Items.Add( crypter.ID );
+                comboBox1.Items.Add( crypter.Description.ID );
             }
             foreach (EncodingInfo encoding in Encoding.GetEncodings())
             {
@@ -142,6 +148,27 @@ namespace DDCCrypter
                 comboBox3.Hide();
                 comboBox4.Hide();
             }
+        }
+
+        private void Main_SizeChanged( object sender, EventArgs e )
+        {
+            if (init)
+            {
+                foreach (IResizeable control in Controls)
+                {
+                    Engine.Resize(this,control);
+                }
+            }
+        }
+
+        private void notepadToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            Engine.OpenForm<TextEditor>();
+        }
+
+        private void cryptLibraryToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            Engine.OpenForm<CryptLibrary>();
         }
     }
 }

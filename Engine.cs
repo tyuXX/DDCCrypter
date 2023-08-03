@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -12,20 +13,52 @@ namespace DDCCrypter
     public static class Engine
     {
         public static readonly HashSet<Crypter> crypters = new HashSet<Crypter>{
-            new Crypter(EMD5,"Message Digest 5","MD5",CrypterType.TwoWay),
-            new Crypter(ESHA1,"Secure Hash Algorithm 1","SHA1",CrypterType.OneWay),
-            new Crypter(ESHA256,"Secure Hash Algorithm 256","SHA256",CrypterType.OneWay),
-            new Crypter(ESHA384,"Secure Hash Algorithm 384","SHA384",CrypterType.OneWay),
-            new Crypter(ESHA512,"Secure Hash Algorithm 512","SHA512",CrypterType.OneWay),
-            new Crypter(EAES,"Advanced Encryption Standard","AES",CrypterType.TwoWay),
-            new Crypter(EAES,"Advanced Encryption Standard","AES",CrypterType.TwoWay),
-            new Crypter(EBINARY,"Binary (Base2)","Binary",CrypterType.TwoWay),
-            new Crypter(EBASE64,"Base64","Base64",CrypterType.TwoWay),
-            new Crypter(EMORSECODE,"Morse Code","Morse Code",CrypterType.TwoWay),
-            new Crypter(EOCTAL,"Octal (Base8)","Octal",CrypterType.TwoWay),
-            new Crypter(EENCODINGCONVERT,"Converter For Encodings","Encoding Converter",CrypterType.Encoding),
+            new Crypter(EMD5,new Descriptor("Message Digest 5","MD5",""),CrypterType.TwoWay),
+            new Crypter(ESHA1,new Descriptor("Secure Hash Algorithm 1", "SHA1", ""),CrypterType.OneWay),
+            new Crypter(ESHA256,new Descriptor("Secure Hash Algorithm 256", "SHA256", ""),CrypterType.OneWay),
+            new Crypter(ESHA384,new Descriptor("Secure Hash Algorithm 384", "SHA384", ""),CrypterType.OneWay),
+            new Crypter(ESHA512,new Descriptor("Secure Hash Algorithm 512", "SHA512", ""),CrypterType.OneWay),
+            new Crypter(EAES,new Descriptor("Advanced Encryption Standard", "AES", ""),CrypterType.TwoWay),
+            new Crypter(EBINARY,new Descriptor("Binary (Base2)", "Binary", ""),CrypterType.TwoWay),
+            new Crypter(EBASE64,new Descriptor("Base64", "Base64", ""),CrypterType.TwoWay),
+            new Crypter(EMORSECODE,new Descriptor("Morse Code", "Morse Code", ""),CrypterType.TwoWay),
+            new Crypter(EOCTAL,new Descriptor("Octal (Base8)", "Octal", "NYI"),CrypterType.TwoWay),
+            new Crypter(EENCODINGCONVERT,new Descriptor("Converter For Encodings", "Encoding Converter", "Encodings:\n" + ArrayToString(ArrayGetValue(Encoding.GetEncodings(),GetEncodingName),"\n\n")),CrypterType.Encoding),
         };
         public static List<Operation> Ops = new List<Operation>() { };
+        private static string GetEncodingName(EncodingInfo encodingInfo)
+        {
+            return encodingInfo.Name + '\n' + encodingInfo.DisplayName;
+        }
+        public static T2[] ArrayGetValue<T,T2>( T[] array,Func<T,T2> func)
+        {
+            T2[] _ = new T2[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                _[i] = func( array[i] );
+            }
+            return _;
+        }
+        public static string ArrayToString<T>( T[] array,string divider = default)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (T t in array)
+            {
+                sb.Append(t.ToString() + divider);
+            }
+            return sb.ToString().TrimEnd(divider.ToCharArray());
+        }
+        public static void Resize<T>(Control containerControl,T control) where T : IResizeable
+        {
+            float xRatio = (float)containerControl.Width / control.ContainerOrigin.Width;
+            float yRatio = (float)containerControl.Height / control.ContainerOrigin.Height;
+            int newX = (int)(control.Origin.X * xRatio);
+            int newY = (int)(control.Origin.Y * yRatio);
+            int newWidth = (int)(control.Origin.Width * xRatio);
+            int newHeight = (int)(control.Origin.Height * yRatio);
+            control.Location = new Point(newX, newY);
+            control.Size = new Size(newWidth, newHeight);
+        }
         public static T2[] ArrayConvert<T, T2>( T[] array, Converter<T, T2> converter )
         {
             T2[] t2s = new T2[array.Length];
@@ -51,12 +84,12 @@ namespace DDCCrypter
         {
             foreach (Crypter crypter in crypters)
             {
-                if (crypter.ID == ID)
+                if (crypter.Description.ID == ID)
                 {
                     return crypter;
                 }
             }
-            return new Crypter( EOnError, "Error", "err", CrypterType.None );
+            return new Crypter( EOnError,new Descriptor("Error","err","") , CrypterType.None );
         }
         public static void OpenForm<T>() where T : Form, new()
         {
@@ -452,16 +485,14 @@ namespace DDCCrypter
     public struct Crypter
     {
         public readonly Guid UUID;
-        public readonly string Name;
-        public readonly string ID;
+        public readonly Descriptor Description;
         public readonly CrypterType Type;
         private readonly Func<ArgStore, string> Run;
-        public Crypter( Func<ArgStore, string> func, string name, string ID, CrypterType type )
+        public Crypter( Func<ArgStore, string> func,Descriptor descriptor , CrypterType type )
         {
             Type = type;
             Run = func;
-            Name = name;
-            this.ID = ID;
+            Description = descriptor;
             UUID = Guid.NewGuid();
         }
         public string Process( ArgStore args )
@@ -477,5 +508,17 @@ namespace DDCCrypter
         OneWay,
         Encoding,
         DualInput
+    }
+    public struct Descriptor
+    {
+        public readonly string Name;
+        public readonly string ID;
+        public readonly string Description;
+        public Descriptor(string name,string id,string description )
+        {
+            Name = name;
+            ID = id;
+            Description = description;
+        }
     }
 }
