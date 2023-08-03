@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-
-namespace DDCCrypter
+﻿namespace DDCCrypter
 {
     public partial class Main : Form
     {
@@ -27,10 +22,7 @@ namespace DDCCrypter
             comboBox2.Text = "";
         }
 
-        private void button4_Click( object sender, EventArgs e )
-        {
-            listBox1.Items.Clear();
-        }
+        private void button4_Click( object sender, EventArgs e ) => listBox1.Items.Clear();
 
         private void button3_Click( object sender, EventArgs e )
         {
@@ -65,15 +57,9 @@ namespace DDCCrypter
 
         }
 
-        private void button1_Click( object sender, EventArgs e )
-        {
-            Send( true );
-        }
+        private void button1_Click( object sender, EventArgs e ) => Send( true );
 
-        private void button5_Click( object sender, EventArgs e )
-        {
-            Send( false );
-        }
+        private void button5_Click( object sender, EventArgs e ) => Send( false );
         private void Send( bool od )
         {
             string _hash = "";
@@ -118,15 +104,9 @@ namespace DDCCrypter
             }
         }
 
-        private void button6_Click( object sender, EventArgs e )
-        {
-            contextMenuStrip1.Show( this, button6.Location );
-        }
+        private void button6_Click( object sender, EventArgs e ) => contextMenuStrip1.Show( this, button6.Location );
 
-        private void pastOperationsToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            Engine.OpenForm<PastOperations>();
-        }
+        private void pastOperationsToolStripMenuItem_Click( object sender, EventArgs e ) => Engine.OpenForm<PastOperations>();
 
         private void comboBox1_SelectedIndexChanged( object sender, EventArgs e )
         {
@@ -156,19 +136,13 @@ namespace DDCCrypter
             {
                 foreach (IResizeable control in Controls)
                 {
-                    Engine.Resize(this,control);
+                    Engine.Resize( this, control );
                 }
             }
         }
 
-        private void notepadToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            Engine.OpenForm<TextEditor>();
-        }
+        private void notepadToolStripMenuItem_Click( object sender, EventArgs e ) => Engine.OpenForm<TextEditor>();
 
-        private void cryptLibraryToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            Engine.OpenForm<CryptLibrary>();
-        }
+        private void cryptLibraryToolStripMenuItem_Click( object sender, EventArgs e ) => Engine.OpenForm<CryptLibrary>();
     }
 }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Windows.Forms;
 
 namespace DDCCrypter
 {
@@ -26,11 +22,8 @@ namespace DDCCrypter
             new Crypter(EENCODINGCONVERT,new Descriptor("Converter For Encodings", "Encoding Converter", "Encodings:\n" + ArrayToString(ArrayGetValue(Encoding.GetEncodings(),GetEncodingName),"\n\n")),CrypterType.Encoding),
         };
         public static List<Operation> Ops = new List<Operation>() { };
-        private static string GetEncodingName(EncodingInfo encodingInfo)
-        {
-            return encodingInfo.Name + '\n' + encodingInfo.DisplayName;
-        }
-        public static T2[] ArrayGetValue<T,T2>( T[] array,Func<T,T2> func)
+        private static string GetEncodingName( EncodingInfo encodingInfo ) => encodingInfo.Name + '\n' + encodingInfo.DisplayName;
+        public static T2[] ArrayGetValue<T, T2>( T[] array, Func<T, T2> func )
         {
             T2[] _ = new T2[array.Length];
             for (int i = 0; i < array.Length; i++)
@@ -39,16 +32,16 @@ namespace DDCCrypter
             }
             return _;
         }
-        public static string ArrayToString<T>( T[] array,string divider = default)
+        public static string ArrayToString<T>( T[] array, string divider = default )
         {
             StringBuilder sb = new StringBuilder();
             foreach (T t in array)
             {
-                sb.Append(t.ToString() + divider);
+                sb.Append( t.ToString() + divider );
             }
-            return sb.ToString().TrimEnd(divider.ToCharArray());
+            return sb.ToString().TrimEnd( divider.ToCharArray() );
         }
-        public static void Resize<T>(Control containerControl,T control) where T : IResizeable
+        public static void Resize<T>( Control containerControl, T control ) where T : IResizeable
         {
             float xRatio = (float)containerControl.Width / control.ContainerOrigin.Width;
             float yRatio = (float)containerControl.Height / control.ContainerOrigin.Height;
@@ -56,8 +49,8 @@ namespace DDCCrypter
             int newY = (int)(control.Origin.Y * yRatio);
             int newWidth = (int)(control.Origin.Width * xRatio);
             int newHeight = (int)(control.Origin.Height * yRatio);
-            control.Location = new Point(newX, newY);
-            control.Size = new Size(newWidth, newHeight);
+            control.Location = new Point( newX, newY );
+            control.Size = new Size( newWidth, newHeight );
         }
         public static T2[] ArrayConvert<T, T2>( T[] array, Converter<T, T2> converter )
         {
@@ -89,17 +82,14 @@ namespace DDCCrypter
                     return crypter;
                 }
             }
-            return new Crypter( EOnError,new Descriptor("Error","err","") , CrypterType.None );
+            return new Crypter( EOnError, new Descriptor( "Error", "err", "" ), CrypterType.None );
         }
         public static void OpenForm<T>() where T : Form, new()
         {
             T form = new T();
             form.Show();
         }
-        public static string EncodingConvert( string str, Encoding currentEncoding, Encoding destinationEncoding )
-        {
-            return currentEncoding.GetString( Encoding.Convert( currentEncoding, destinationEncoding, currentEncoding.GetBytes( str ) ) );
-        }
+        public static string EncodingConvert( string str, Encoding currentEncoding, Encoding destinationEncoding ) => currentEncoding.GetString( Encoding.Convert( currentEncoding, destinationEncoding, currentEncoding.GetBytes( str ) ) );
         public static bool OrCompare<T>( T tc, params T[] tbc )
         {
             foreach (T tbci in tbc)
@@ -124,10 +114,7 @@ namespace DDCCrypter
                 return Convert.ToBase64String( aes.Key );
             }
         }
-        private static string[] DivideString( string str, int chunkSize )
-        {
-            return Enumerable.Range( 0, (int)Math.Ceiling( (double)str.Length / chunkSize ) ).Select( i => str.Substring( i * chunkSize, Math.Min( chunkSize, str.Length - (i * chunkSize) ) ) ).ToArray();
-        }
+        private static string[] DivideString( string str, int chunkSize ) => Enumerable.Range( 0, (int)Math.Ceiling( (double)str.Length / chunkSize ) ).Select( i => str.Substring( i * chunkSize, Math.Min( chunkSize, str.Length - (i * chunkSize) ) ) ).ToArray();
         public static string ReadFromFile( string file, string passcode )
         {
             List<string> _ = new List<string>() { };
@@ -205,14 +192,8 @@ namespace DDCCrypter
             }
             return (Selector( args ), args);
         }
-        private static string Selector( ArgStore args )
-        {
-            return GetCrypter( args.GetArgValue( "type" ) ).Process( args );
-        }
-        private static string EOnError( ArgStore args )
-        {
-            return args.GetArgValue( "estring" );
-        }
+        private static string Selector( ArgStore args ) => GetCrypter( args.GetArgValue( "type" ) ).Process( args );
+        private static string EOnError( ArgStore args ) => args.GetArgValue( "estring" );
         private static string EBASE64( ArgStore args )
         {
             if (bool.Parse( args.GetArgValue( "do" ) ))
@@ -280,10 +261,7 @@ namespace DDCCrypter
             }
             return sb.ToString();
         }
-        private static string EENCODINGCONVERT( ArgStore args )
-        {
-            return EncodingConvert( args.GetArgValue( "estring" ), Encoding.GetEncoding( args.GetArgValue( "encoding1" ) ), Encoding.GetEncoding( args.GetArgValue( "encoding2" ) ) );
-        }
+        private static string EENCODINGCONVERT( ArgStore args ) => EncodingConvert( args.GetArgValue( "estring" ), Encoding.GetEncoding( args.GetArgValue( "encoding1" ) ), Encoding.GetEncoding( args.GetArgValue( "encoding2" ) ) );
         private static string EAES( ArgStore args )
         {
             byte[] keyBytes = Convert.FromBase64String( args.GetArgValue( "hash" ) );
@@ -397,10 +375,7 @@ namespace DDCCrypter
     }
     public struct Arg
     {
-        public override string ToString()
-        {
-            return $"{arg}={value}";
-        }
+        public override string ToString() => $"{arg}={value}";
         public Arg( string arg, string value )
         {
             this.arg = arg;
@@ -433,18 +408,9 @@ namespace DDCCrypter
             }
             return new Arg();
         }
-        public void SetArgValue( string Name, string value )
-        {
-            args[args.IndexOf( GetArg( Name ) )] = new Arg( GetArg( Name ).arg, value );
-        }
-        public void Add( Arg arg )
-        {
-            args.Add( arg );
-        }
-        public void Remove( Arg arg )
-        {
-            args.Remove( arg );
-        }
+        public void SetArgValue( string Name, string value ) => args[args.IndexOf( GetArg( Name ) )] = new Arg( GetArg( Name ).arg, value );
+        public void Add( Arg arg ) => args.Add( arg );
+        public void Remove( Arg arg ) => args.Remove( arg );
         public ArgStore( List<Arg> args )
         {
             this.args = args;
@@ -488,7 +454,7 @@ namespace DDCCrypter
         public readonly Descriptor Description;
         public readonly CrypterType Type;
         private readonly Func<ArgStore, string> Run;
-        public Crypter( Func<ArgStore, string> func,Descriptor descriptor , CrypterType type )
+        public Crypter( Func<ArgStore, string> func, Descriptor descriptor, CrypterType type )
         {
             Type = type;
             Run = func;
@@ -514,7 +480,7 @@ namespace DDCCrypter
         public readonly string Name;
         public readonly string ID;
         public readonly string Description;
-        public Descriptor(string name,string id,string description )
+        public Descriptor( string name, string id, string description )
         {
             Name = name;
             ID = id;

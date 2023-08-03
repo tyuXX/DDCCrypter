@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Linq;
 
 namespace DDCCrypter
 {
@@ -28,10 +20,7 @@ namespace DDCCrypter
             Text = $"{nameof( CryptLibrary )}:{index + 1}/{Engine.crypters.Count}";
             try { sizedRichTextBox1.Text = "Description:\n" + Engine.crypters.ElementAt( index ).Description.Description; sizedTextBox2.Text = "Name:" + Engine.crypters.ElementAt( index ).Description.Name; sizedTextBox1.Text = "ID:" + Engine.crypters.ElementAt( index ).Description.ID; } catch (Exception e) { sizedRichTextBox1.Text = e.Message; }
         }
-        private void sizedButton3_Click( object sender, EventArgs e )
-        {
-            ERefresh();
-        }
+        private void sizedButton3_Click( object sender, EventArgs e ) => ERefresh();
 
         private void CryptLibrary_SizeChanged( object sender, EventArgs e )
         {
@@ -62,9 +51,6 @@ namespace DDCCrypter
             ERefresh();
         }
 
-        private void CryptLibrary_Load( object sender, EventArgs e )
-        {
-            ERefresh();
-        }
+        private void CryptLibrary_Load( object sender, EventArgs e ) => ERefresh();
     }
 }

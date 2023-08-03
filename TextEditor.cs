@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace DDCCrypter
+﻿namespace DDCCrypter
 {
     public partial class TextEditor : Form
     {
@@ -17,9 +14,6 @@ namespace DDCCrypter
             this.passcode = passcode;
             InitializeComponent();
         }
-        private void exitToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            Application.Exit();
-        }
+        private void exitToolStripMenuItem_Click( object sender, EventArgs e ) => Application.Exit();
     }
 }

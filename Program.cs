@@ -1,13 +1,12 @@
-﻿using System;
-using System.Windows.Forms;
+﻿global using System;
+global using System.Collections.Generic;
+global using System.Text;
+global using System.Windows.Forms;
 
 namespace DDCCrypter
 {
     internal static class Program
     {
-        /// <summary>
-        /// Uygulamanın ana girdi noktası.
-        /// </summary>
         [STAThread]
         static void Main()
         {

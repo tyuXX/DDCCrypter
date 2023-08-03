@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.Linq;
 
 namespace DDCCrypter
 {
@@ -21,13 +19,10 @@ namespace DDCCrypter
         private void ERefresh()
         {
             Text = $"{nameof( PastOperations )}:{index + 1}/{Engine.Ops.Count}";
-            try { richTextBox1.Text = Engine.Ops.ElementAt( index ).ToString(); }catch(Exception e) { richTextBox1.Text = e.Message; }
+            try { richTextBox1.Text = Engine.Ops.ElementAt( index ).ToString(); } catch (Exception e) { richTextBox1.Text = e.Message; }
         }
 
-        private void button3_Click( object sender, EventArgs e )
-        {
-            Refresh();
-        }
+        private void button3_Click( object sender, EventArgs e ) => Refresh();
 
         private void button1_Click( object sender, EventArgs e )
         {
