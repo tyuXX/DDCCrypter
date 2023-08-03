@@ -11,11 +11,61 @@ namespace DDCCrypter
 {
     public static class Engine
     {
+        public static readonly HashSet<Crypter> crypters = new HashSet<Crypter>{
+            new Crypter(EMD5,"Message Digest 5","MD5",CrypterType.TwoWay),
+            new Crypter(ESHA1,"Secure Hash Algorithm 1","SHA1",CrypterType.OneWay),
+            new Crypter(ESHA256,"Secure Hash Algorithm 256","SHA256",CrypterType.OneWay),
+            new Crypter(ESHA384,"Secure Hash Algorithm 384","SHA384",CrypterType.OneWay),
+            new Crypter(ESHA512,"Secure Hash Algorithm 512","SHA512",CrypterType.OneWay),
+            new Crypter(EAES,"Advanced Encryption Standard","AES",CrypterType.TwoWay),
+            new Crypter(EAES,"Advanced Encryption Standard","AES",CrypterType.TwoWay),
+            new Crypter(EBINARY,"Binary (Base2)","Binary",CrypterType.TwoWay),
+            new Crypter(EBASE64,"Base64","Base64",CrypterType.TwoWay),
+            new Crypter(EMORSECODE,"Morse Code","Morse Code",CrypterType.TwoWay),
+            new Crypter(EOCTAL,"Octal (Base8)","Octal",CrypterType.TwoWay),
+            new Crypter(EENCODINGCONVERT,"Converter For Encodings","Encoding Converter",CrypterType.Encoding),
+        };
         public static List<Operation> Ops = new List<Operation>() { };
+        public static T2[] ArrayConvert<T, T2>( T[] array, Converter<T, T2> converter )
+        {
+            T2[] t2s = new T2[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                t2s[i] = converter( array[i] );
+            }
+            return t2s;
+        }
+        public static HashSet<T> FilterSet<T>( HashSet<T> values, Predicate<T> filter )
+        {
+            HashSet<T> result = new HashSet<T>();
+            foreach (T value in values)
+            {
+                if (filter( value ))
+                {
+                    result.Add( value );
+                }
+            }
+            return result;
+        }
+        public static Crypter GetCrypter( string ID )
+        {
+            foreach (Crypter crypter in crypters)
+            {
+                if (crypter.ID == ID)
+                {
+                    return crypter;
+                }
+            }
+            return new Crypter( EOnError, "Error", "err", CrypterType.None );
+        }
         public static void OpenForm<T>() where T : Form, new()
         {
             T form = new T();
             form.Show();
+        }
+        public static string EncodingConvert( string str, Encoding currentEncoding, Encoding destinationEncoding )
+        {
+            return currentEncoding.GetString( Encoding.Convert( currentEncoding, destinationEncoding, currentEncoding.GetBytes( str ) ) );
         }
         public static bool OrCompare<T>( T tc, params T[] tbc )
         {
@@ -124,57 +174,11 @@ namespace DDCCrypter
         }
         private static string Selector( ArgStore args )
         {
-            switch ('E' + args.GetArgValue( "type" ))
-            {
-                case nameof( EMD5 ):
-                    {
-                        return EMD5( args );
-                    }
-                case nameof( ESHA256 ):
-                    {
-                        return ESHA256( args );
-                    }
-                case nameof( ESHA1 ):
-                    {
-                        return ESHA1( args );
-                    }
-                case nameof( ESHA384 ):
-                    {
-                        return ESHA384( args );
-                    }
-                case nameof( ESHA512 ):
-                    {
-                        return ESHA512( args );
-                    }
-                case nameof( EBASE64 ):
-                    {
-                        return EBASE64( args );
-                    }
-                case nameof( EBİNARY ):
-                    {
-                        return EBİNARY( args );
-                    }
-                case nameof( EASCIITOUTF8 ):
-                    {
-                        return EASCIITOUTF8( args );
-                    }
-                case nameof( EUTF8TOASCII ):
-                    {
-                        return EUTF8TOASCII( args );
-                    }
-                case nameof( EMORSECODE ):
-                    {
-                        return EMORSECODE( args );
-                    }
-                case nameof( EAES ):
-                    {
-                        return EAES( args );
-                    }
-                default:
-                    {
-                        return "";
-                    }
-            }
+            return GetCrypter( args.GetArgValue( "type" ) ).Process( args );
+        }
+        private static string EOnError( ArgStore args )
+        {
+            return args.GetArgValue( "estring" );
         }
         private static string EBASE64( ArgStore args )
         {
@@ -207,12 +211,11 @@ namespace DDCCrypter
             }
             return sb.ToString().ToLower();
         }
-        private static string EBİNARY( ArgStore args )
+        private static string EBINARY( ArgStore args )
         {
             StringBuilder sb = new StringBuilder();
             if (bool.Parse( args.GetArgValue( "do" ) ))
             {
-
                 foreach (char chr in args.GetArgValue( "estring" ))
                 {
                     sb.Append( Convert.ToString( chr, 2 ).PadLeft( 8, '0' ) );
@@ -226,13 +229,27 @@ namespace DDCCrypter
             }
             return sb.ToString();
         }
-        private static string EASCIITOUTF8( ArgStore args )
+        private static string EOCTAL( ArgStore args )
         {
-            return Encoding.UTF8.GetString( Encoding.ASCII.GetBytes( args.GetArgValue( "estring" ) ) );
+            StringBuilder sb = new StringBuilder();
+            if (bool.Parse( args.GetArgValue( "do" ) ))
+            {
+                foreach (char chr in args.GetArgValue( "estring" ))
+                {
+                    sb.Append( Convert.ToString( chr, 8 ).PadLeft( 3, '0' ) );
+                }
+                return sb.ToString();
+            }
+            string[] strs = DivideString( args.GetArgValue( "estring" ), 3 );
+            foreach (string str in strs)
+            {
+                sb.Append( Convert.ToChar( Convert.ToInt32( str.TrimStart( '0' ), 8 ) ) );
+            }
+            return sb.ToString();
         }
-        private static string EUTF8TOASCII( ArgStore args )
+        private static string EENCODINGCONVERT( ArgStore args )
         {
-            return Encoding.ASCII.GetString( Encoding.UTF8.GetBytes( args.GetArgValue( "estring" ) ) );
+            return EncodingConvert( args.GetArgValue( "estring" ), Encoding.GetEncoding( args.GetArgValue( "encoding1" ) ), Encoding.GetEncoding( args.GetArgValue( "encoding2" ) ) );
         }
         private static string EAES( ArgStore args )
         {
@@ -431,5 +448,34 @@ namespace DDCCrypter
             }
             return sb.ToString();
         }
+    }
+    public struct Crypter
+    {
+        public readonly Guid UUID;
+        public readonly string Name;
+        public readonly string ID;
+        public readonly CrypterType Type;
+        private readonly Func<ArgStore, string> Run;
+        public Crypter( Func<ArgStore, string> func, string name, string ID, CrypterType type )
+        {
+            Type = type;
+            Run = func;
+            Name = name;
+            this.ID = ID;
+            UUID = Guid.NewGuid();
+        }
+        public string Process( ArgStore args )
+        {
+            if (Type == CrypterType.OneWay && !bool.Parse( args.GetArgValue( "do" ) )) { return args.GetArgValue( "estring" ); }
+            return Run( args );
+        }
+    }
+    public enum CrypterType
+    {
+        None,
+        TwoWay,
+        OneWay,
+        Encoding,
+        DualInput
     }
 }

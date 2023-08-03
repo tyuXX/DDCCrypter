@@ -44,6 +44,9 @@
             this.button6 = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pastOperationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,23 +79,12 @@
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "MD5",
-            "SHA256",
-            "SHA1",
-            "SHA384",
-            "SHA512",
-            "Base64",
-            "Binary",
-            "ASCII to UTF8",
-            "UTF8 to ASCII",
-            "Morse Code",
-            "Aes"});
             this.comboBox1.Location = new System.Drawing.Point(12, 100);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(163, 24);
             this.comboBox1.TabIndex = 2;
             this.comboBox1.Text = "Type";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -193,7 +185,7 @@
             this.textBox1.Location = new System.Drawing.Point(12, 160);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(163, 22);
-            this.textBox1.TabIndex = 12;
+            this.textBox1.TabIndex = 16;
             this.textBox1.Text = "Hash";
             // 
             // richTextBox3
@@ -231,15 +223,54 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pastOperationsToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 56);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 28);
             this.contextMenuStrip1.Text = "Extras";
             // 
             // pastOperationsToolStripMenuItem
             // 
             this.pastOperationsToolStripMenuItem.Name = "pastOperationsToolStripMenuItem";
-            this.pastOperationsToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.pastOperationsToolStripMenuItem.Size = new System.Drawing.Size(181, 24);
             this.pastOperationsToolStripMenuItem.Text = "Past Operations";
             this.pastOperationsToolStripMenuItem.Click += new System.EventHandler(this.pastOperationsToolStripMenuItem_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.textBox2.Location = new System.Drawing.Point(93, 160);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(82, 22);
+            this.textBox2.TabIndex = 12;
+            this.textBox2.Text = "Hash2";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "trim"});
+            this.comboBox3.Location = new System.Drawing.Point(12, 160);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(75, 24);
+            this.comboBox3.TabIndex = 17;
+            this.comboBox3.Text = "Source Encoding";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.comboBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "trim"});
+            this.comboBox4.Location = new System.Drawing.Point(93, 160);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(82, 24);
+            this.comboBox4.TabIndex = 18;
+            this.comboBox4.Text = "Destination Encoding";
             // 
             // Main
             // 
@@ -247,6 +278,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(428, 281);
+            this.Controls.Add(this.comboBox4);
+            this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.richTextBox3);
             this.Controls.Add(this.textBox1);
@@ -260,6 +293,7 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.textBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Main";
             this.ShowIcon = false;
@@ -288,6 +322,9 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem pastOperationsToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboBox4;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows.Forms;
 
 namespace DDCCrypter
@@ -40,7 +41,17 @@ namespace DDCCrypter
 
         private void Main_Load( object sender, EventArgs e )
         {
-
+            comboBox3.Hide();
+            comboBox4.Hide();
+            foreach (Crypter crypter in Engine.crypters)
+            {
+                comboBox1.Items.Add( crypter.ID );
+            }
+            foreach (EncodingInfo encoding in Encoding.GetEncodings())
+            {
+                comboBox3.Items.Add( encoding.Name );
+                comboBox4.Items.Add( encoding.Name );
+            }
         }
 
         private void richTextBox2_TextChanged( object sender, EventArgs e )
@@ -73,9 +84,17 @@ namespace DDCCrypter
             }
             _.Add( "hash=" + textBox1.Text );
             _hash = textBox1.Text;
+            if (Engine.OrCompare( textBox2.Text, "Hash2", string.Empty ))
+            {
+                textBox2.Text = Engine.GenerateHash();
+            }
+            _.Add( "hash2=" + textBox2.Text );
+            _hash = textBox2.Text;
             if (od)
             {
                 _.Add( "estring=" + richTextBox1.Text );
+                _.Add( "encoding1=" + comboBox3.Text );
+                _.Add( "encoding2=" + comboBox4.Text );
                 (string, TimeSpan, bool, ArgStore) output = Engine.Process( _ );
                 Engine.Ops.Add( new Operation( output ) );
                 richTextBox2.Text = output.Item1;
@@ -84,6 +103,8 @@ namespace DDCCrypter
             else
             {
                 _.Add( "estring=" + richTextBox2.Text );
+                _.Add( "encoding1=" + comboBox4.Text );
+                _.Add( "encoding2=" + comboBox3.Text );
                 (string, TimeSpan, bool, ArgStore) output = Engine.Process( _ );
                 Engine.Ops.Add( new Operation( output ) );
                 richTextBox1.Text = output.Item1;
@@ -99,6 +120,28 @@ namespace DDCCrypter
         private void pastOperationsToolStripMenuItem_Click( object sender, EventArgs e )
         {
             Engine.OpenForm<PastOperations>();
+        }
+
+        private void comboBox1_SelectedIndexChanged( object sender, EventArgs e )
+        {
+            if (Engine.GetCrypter( comboBox1.Text ).Type == CrypterType.DualInput)
+            {
+                textBox1.Width = 62;
+            }
+            else
+            {
+                textBox1.Width = 123;
+            }
+            if (Engine.GetCrypter( comboBox1.Text ).Type == CrypterType.Encoding)
+            {
+                comboBox3.Show();
+                comboBox4.Show();
+            }
+            else
+            {
+                comboBox3.Hide();
+                comboBox4.Hide();
+            }
         }
     }
 }
