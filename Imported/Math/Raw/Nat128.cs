@@ -494,7 +494,7 @@ namespace Org.BouncyCastle.Math.Raw
             }
             while (num3 > 0);
             ulong num8 = num1 * num1;
-            ulong num9 = num2 << 31 | (num8 >> 33);
+            ulong num9 = (num2 << 31) | (num8 >> 33);
             zz[0] = (uint)num8;
             uint num10 = (uint)(num8 >> 32) & 1U;
             ulong num11 = x[1];
@@ -554,7 +554,7 @@ namespace Org.BouncyCastle.Math.Raw
             }
             while (num3 > 0);
             ulong num8 = num1 * num1;
-            ulong num9 = num2 << 31 | (num8 >> 33);
+            ulong num9 = (num2 << 31) | (num8 >> 33);
             zz[zzOff] = (uint)num8;
             uint num10 = (uint)(num8 >> 32) & 1U;
             ulong num11 = x[xOff + 1];

@@ -28,7 +28,7 @@ namespace Org.BouncyCastle.Crypto.Digests
 
         public IMemoable Copy() => new SkeinDigest( this );
 
-        public string AlgorithmName => "Skein-" + this.engine.BlockSize * 8 + "-" + this.engine.OutputSize * 8;
+        public string AlgorithmName => "Skein-" + (this.engine.BlockSize * 8) + "-" + (this.engine.OutputSize * 8);
 
         public int GetDigestSize() => this.engine.OutputSize;
 

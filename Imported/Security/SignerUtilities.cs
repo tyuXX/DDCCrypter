@@ -353,7 +353,7 @@ namespace Org.BouncyCastle.Security
                         break;
                     }
             }
-            throw new ArgumentException("");
+            throw new ArgumentException( "" );
         }
 
         public static string GetEncodingName( DerObjectIdentifier oid ) => (string)algorithms[oid.Id];

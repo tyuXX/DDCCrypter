@@ -640,8 +640,10 @@ namespace Org.BouncyCastle.Pkix
                 PkixPolicyNode parent = (PkixPolicyNode)policyNode[index1];
                 if (parent.ExpectedPolicies.Contains( pOid.Id ))
                 {
-                    ISet expectedPolicies = new HashSet();
-                    expectedPolicies.Add( pOid.Id );
+                    ISet expectedPolicies = new HashSet
+                    {
+                        pOid.Id
+                    };
                     PkixPolicyNode child = new( Platform.CreateArrayList(), index, expectedPolicies, parent, pq, pOid.Id, false );
                     parent.AddChild( child );
                     policyNodes[index].Add( child );
@@ -663,8 +665,10 @@ namespace Org.BouncyCastle.Pkix
                 PkixPolicyNode parent = (PkixPolicyNode)policyNode[index1];
                 if (ANY_POLICY.Equals( parent.ValidPolicy ))
                 {
-                    ISet expectedPolicies = new HashSet();
-                    expectedPolicies.Add( _poid.Id );
+                    ISet expectedPolicies = new HashSet
+                    {
+                        _poid.Id
+                    };
                     PkixPolicyNode child = new( Platform.CreateArrayList(), index, expectedPolicies, parent, _pq, _poid.Id, false );
                     parent.AddChild( child );
                     policyNodes[index].Add( child );

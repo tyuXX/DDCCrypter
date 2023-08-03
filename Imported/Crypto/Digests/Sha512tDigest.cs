@@ -41,7 +41,7 @@ namespace Org.BouncyCastle.Crypto.Digests
             this.Reset( t );
         }
 
-        public override string AlgorithmName => "SHA-512/" + this.digestLength * 8;
+        public override string AlgorithmName => "SHA-512/" + (this.digestLength * 8);
 
         public override int GetDigestSize() => this.digestLength;
 

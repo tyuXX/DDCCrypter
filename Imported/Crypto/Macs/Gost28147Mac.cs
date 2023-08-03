@@ -221,7 +221,7 @@ namespace Org.BouncyCastle.Crypto.Macs
             intTobytes( num2, output, outOff + 4 );
         }
 
-        private static int bytesToint( byte[] input, int inOff ) => (int)(input[inOff + 3] << 24 & 4278190080L) + ((input[inOff + 2] << 16) & 16711680) + ((input[inOff + 1] << 8) & 65280) + (input[inOff] & byte.MaxValue);
+        private static int bytesToint( byte[] input, int inOff ) => (int)((input[inOff + 3] << 24) & 4278190080L) + ((input[inOff + 2] << 16) & 16711680) + ((input[inOff + 1] << 8) & 65280) + (input[inOff] & byte.MaxValue);
 
         private static void intTobytes( int num, byte[] output, int outOff )
         {

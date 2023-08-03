@@ -1193,7 +1193,7 @@ namespace Org.BouncyCastle.Crypto.Engines
             intTobytes( num8, outBytes, outOff + 4 );
         }
 
-        private static int bytesToint( byte[] inBytes, int inOff ) => (int)(inBytes[inOff + 3] << 24 & 4278190080L) + ((inBytes[inOff + 2] << 16) & 16711680) + ((inBytes[inOff + 1] << 8) & 65280) + (inBytes[inOff] & byte.MaxValue);
+        private static int bytesToint( byte[] inBytes, int inOff ) => (int)((inBytes[inOff + 3] << 24) & 4278190080L) + ((inBytes[inOff + 2] << 16) & 16711680) + ((inBytes[inOff + 1] << 8) & 65280) + (inBytes[inOff] & byte.MaxValue);
 
         private static void intTobytes( int num, byte[] outBytes, int outOff )
         {

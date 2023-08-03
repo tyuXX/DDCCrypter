@@ -136,7 +136,7 @@ namespace Org.BouncyCastle.Crypto.Engines
             this.t[4] = this.t[1];
         }
 
-        public virtual string AlgorithmName => "Threefish-" + this.blocksizeBytes * 8;
+        public virtual string AlgorithmName => "Threefish-" + (this.blocksizeBytes * 8);
 
         public virtual bool IsPartialBlockOkay => false;
 

@@ -247,8 +247,10 @@ namespace Org.BouncyCastle.Pkix
                                 }
                                 if (!flag)
                                 {
-                                    ISet expectedPolicies = new HashSet();
-                                    expectedPolicies.Add( str );
+                                    ISet expectedPolicies = new HashSet
+                                    {
+                                        str
+                                    };
                                     PkixPolicyNode child = new( Platform.CreateArrayList(), index1, expectedPolicies, parent, qualifierSet, str, false );
                                     parent.AddChild( child );
                                     policyNodes[index1].Add( child );
@@ -666,8 +668,10 @@ namespace Org.BouncyCastle.Pkix
                     string id2 = ((DerObjectIdentifier)asn1Sequence2[1]).Id;
                     if (!hashtable.Contains( id1 ))
                     {
-                        ISet set2 = new HashSet();
-                        set2.Add( id2 );
+                        ISet set2 = new HashSet
+                        {
+                            id2
+                        };
                         hashtable[id1] = set2;
                         set1.Add( id1 );
                     }

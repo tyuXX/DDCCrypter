@@ -405,7 +405,7 @@ namespace Org.BouncyCastle.Security
                 string s2 = digitIndex >= 0 ? s1.Substring( 0, digitIndex ) : s1;
                 try
                 {
-                    switch (s2 == "" ? 1 : Convert.ToInt32(Enums.GetEnumValue( typeof( CipherMode ), s2 )))
+                    switch (s2 == "" ? 1 : Convert.ToInt32( Enums.GetEnumValue( typeof( CipherMode ), s2 ) ))
                     {
                         case 0:
                         case 1:

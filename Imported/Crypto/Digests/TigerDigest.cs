@@ -1069,7 +1069,7 @@ namespace Org.BouncyCastle.Crypto.Digests
 
         private void ProcessWord( byte[] b, int off )
         {
-            this.x[this.xOff++] = ((long)(b[off + 7] & byte.MaxValue) << 56) | ((long)(b[off + 6] & byte.MaxValue) << 48) | ((long)(b[off + 5] & byte.MaxValue) << 40) | ((long)(b[off + 4] & byte.MaxValue) << 32) | ((long)(b[off + 3] & byte.MaxValue) << 24) | ((long)(b[off + 2] & byte.MaxValue) << 16) | ((long)(b[off + 1] & byte.MaxValue) << 8) | b[off] & (uint)byte.MaxValue;
+            this.x[this.xOff++] = ((long)(b[off + 7] & byte.MaxValue) << 56) | ((long)(b[off + 6] & byte.MaxValue) << 48) | ((long)(b[off + 5] & byte.MaxValue) << 40) | ((long)(b[off + 4] & byte.MaxValue) << 32) | ((long)(b[off + 3] & byte.MaxValue) << 24) | ((long)(b[off + 2] & byte.MaxValue) << 16) | ((long)(b[off + 1] & byte.MaxValue) << 8) | (b[off] & (uint)byte.MaxValue);
             if (this.xOff == this.x.Length)
                 this.ProcessBlock();
             this.bOff = 0;

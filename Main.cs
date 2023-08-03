@@ -90,7 +90,7 @@
                 (string, TimeSpan, bool, ArgStore) output = Engine.Process( _ );
                 Engine.Ops.Add( new Operation( output ) );
                 richTextBox2.Text = output.Item1;
-                richTextBox3.Text = $"Status:\nLenght:{richTextBox2.TextLength}\nHash:{_hash}\nTime:{output.Item2.Milliseconds}ms\nSucksess:{output.Item3}";
+                richTextBox3.Text = $"Status:\nLenght:{richTextBox2.TextLength:N0}\nHash:{_hash}\nTime:{output.Item2.Milliseconds}ms\nSucksess:{output.Item3}";
             }
             else
             {
@@ -100,7 +100,7 @@
                 (string, TimeSpan, bool, ArgStore) output = Engine.Process( _ );
                 Engine.Ops.Add( new Operation( output ) );
                 richTextBox1.Text = output.Item1;
-                richTextBox3.Text = $"Status:\nLenght:{richTextBox1.TextLength}\nHash:{_hash}\nTime:{output.Item2.Milliseconds}ms\nSucksess:{output.Item3}";
+                richTextBox3.Text = $"Status:\nLenght:{richTextBox1.TextLength:N0}\nHash:{_hash}\nTime:{output.Item2.Milliseconds}ms\nSucksess:{output.Item3}";
             }
         }
 
@@ -144,5 +144,10 @@
         private void notepadToolStripMenuItem_Click( object sender, EventArgs e ) => Engine.OpenForm<TextEditor>();
 
         private void cryptLibraryToolStripMenuItem_Click( object sender, EventArgs e ) => Engine.OpenForm<CryptLibrary>();
+
+        private void aboutToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            Engine.OpenForm<About>();
+        }
     }
 }

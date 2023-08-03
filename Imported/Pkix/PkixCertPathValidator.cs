@@ -41,8 +41,10 @@ namespace Org.BouncyCastle.Pkix
             IList[] policyNodes = new IList[count + 1];
             for (int index = 0; index < policyNodes.Length; ++index)
                 policyNodes[index] = Platform.CreateArrayList();
-            ISet expectedPolicies = new HashSet();
-            expectedPolicies.Add( Rfc3280CertPathUtilities.ANY_POLICY );
+            ISet expectedPolicies = new HashSet
+            {
+                Rfc3280CertPathUtilities.ANY_POLICY
+            };
             PkixPolicyNode validPolicyTree1 = new( Platform.CreateArrayList(), 0, expectedPolicies, null, new HashSet(), Rfc3280CertPathUtilities.ANY_POLICY, false );
             policyNodes[0].Add( validPolicyTree1 );
             PkixNameConstraintValidator nameConstraintValidator = new();

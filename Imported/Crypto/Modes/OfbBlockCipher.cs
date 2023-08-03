@@ -49,7 +49,7 @@ namespace Org.BouncyCastle.Crypto.Modes
             this.cipher.Init( true, parameters );
         }
 
-        public string AlgorithmName => this.cipher.AlgorithmName + "/OFB" + this.blockSize * 8;
+        public string AlgorithmName => this.cipher.AlgorithmName + "/OFB" + (this.blockSize * 8);
 
         public bool IsPartialBlockOkay => true;
 

@@ -199,7 +199,7 @@ namespace Org.BouncyCastle.Utilities.Zlib
                             r = f;
                             --z.avail_in;
                             ++z.total_in;
-                            z.istate.need = (z.next_in[z.next_in_index++] & byte.MaxValue) << 24 & 4278190080L;
+                            z.istate.need = ((z.next_in[z.next_in_index++] & byte.MaxValue) << 24) & 4278190080L;
                             z.istate.mode = 9;
                             goto case 9;
                         }
@@ -211,7 +211,7 @@ namespace Org.BouncyCastle.Utilities.Zlib
                             r = f;
                             --z.avail_in;
                             ++z.total_in;
-                            z.istate.need += (z.next_in[z.next_in_index++] & byte.MaxValue) << 16 & 16711680L;
+                            z.istate.need += ((z.next_in[z.next_in_index++] & byte.MaxValue) << 16) & 16711680L;
                             z.istate.mode = 10;
                             goto case 10;
                         }
@@ -223,7 +223,7 @@ namespace Org.BouncyCastle.Utilities.Zlib
                             r = f;
                             --z.avail_in;
                             ++z.total_in;
-                            z.istate.need += (z.next_in[z.next_in_index++] & byte.MaxValue) << 8 & 65280L;
+                            z.istate.need += ((z.next_in[z.next_in_index++] & byte.MaxValue) << 8) & 65280L;
                             z.istate.mode = 11;
                             goto case 11;
                         }
@@ -267,7 +267,7 @@ namespace Org.BouncyCastle.Utilities.Zlib
             r = f;
             --z.avail_in;
             ++z.total_in;
-            z.istate.need = (z.next_in[z.next_in_index++] & byte.MaxValue) << 24 & 4278190080L;
+            z.istate.need = ((z.next_in[z.next_in_index++] & byte.MaxValue) << 24) & 4278190080L;
             z.istate.mode = 3;
         label_21:
             if (z.avail_in == 0)
@@ -275,7 +275,7 @@ namespace Org.BouncyCastle.Utilities.Zlib
             r = f;
             --z.avail_in;
             ++z.total_in;
-            z.istate.need += (z.next_in[z.next_in_index++] & byte.MaxValue) << 16 & 16711680L;
+            z.istate.need += ((z.next_in[z.next_in_index++] & byte.MaxValue) << 16) & 16711680L;
             z.istate.mode = 4;
         label_24:
             if (z.avail_in == 0)
@@ -283,7 +283,7 @@ namespace Org.BouncyCastle.Utilities.Zlib
             r = f;
             --z.avail_in;
             ++z.total_in;
-            z.istate.need += (z.next_in[z.next_in_index++] & byte.MaxValue) << 8 & 65280L;
+            z.istate.need += ((z.next_in[z.next_in_index++] & byte.MaxValue) << 8) & 65280L;
             z.istate.mode = 5;
         label_27:
             if (z.avail_in == 0)

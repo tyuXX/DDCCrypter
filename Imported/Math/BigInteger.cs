@@ -2427,7 +2427,7 @@ namespace Org.BouncyCastle.Math
                 return this;
             int[] numArray1 = this.sign > 0 ? this.magnitude : this.Add( One ).magnitude;
             int[] numArray2 = value.sign > 0 ? value.magnitude : value.Add( One ).magnitude;
-            bool flag = this.sign < 0 && value.sign >= 0 || this.sign >= 0 && value.sign < 0;
+            bool flag = (this.sign < 0 && value.sign >= 0) || (this.sign >= 0 && value.sign < 0);
             int[] mag = new int[System.Math.Max( numArray1.Length, numArray2.Length )];
             int num1 = mag.Length - numArray1.Length;
             int num2 = mag.Length - numArray2.Length;

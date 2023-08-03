@@ -21,7 +21,7 @@ namespace Org.BouncyCastle.Crypto.Macs
 
         public SkeinMac( SkeinMac mac ) => this.engine = new SkeinEngine( mac.engine );
 
-        public string AlgorithmName => "Skein-MAC-" + this.engine.BlockSize * 8 + "-" + this.engine.OutputSize * 8;
+        public string AlgorithmName => "Skein-MAC-" + (this.engine.BlockSize * 8) + "-" + (this.engine.OutputSize * 8);
 
         public void Init( ICipherParameters parameters )
         {

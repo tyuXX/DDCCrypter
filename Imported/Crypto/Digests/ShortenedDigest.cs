@@ -19,7 +19,7 @@ namespace Org.BouncyCastle.Crypto.Digests
             this.length = length;
         }
 
-        public string AlgorithmName => this.baseDigest.AlgorithmName + "(" + this.length * 8 + ")";
+        public string AlgorithmName => this.baseDigest.AlgorithmName + "(" + (this.length * 8) + ")";
 
         public int GetDigestSize() => this.length;
 

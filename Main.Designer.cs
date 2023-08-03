@@ -30,10 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.pastOperationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.pastOperationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notepadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cryptLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBox4 = new DDCCrypter.SizedComboBox();
             this.comboBox3 = new DDCCrypter.SizedComboBox();
             this.button6 = new DDCCrypter.SizedButton();
@@ -50,7 +51,6 @@
             this.richTextBox2 = new DDCCrypter.SizedRichTextBox();
             this.richTextBox1 = new DDCCrypter.SizedRichTextBox();
             this.textBox2 = new DDCCrypter.SizedTextBox();
-            this.cryptLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,6 +69,18 @@
             this.contextMenuStrip1.Size = new System.Drawing.Size(211, 134);
             this.contextMenuStrip1.Text = "Extras";
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
+            // 
             // pastOperationsToolStripMenuItem
             // 
             this.pastOperationsToolStripMenuItem.Name = "pastOperationsToolStripMenuItem";
@@ -76,23 +88,19 @@
             this.pastOperationsToolStripMenuItem.Text = "Past Operations";
             this.pastOperationsToolStripMenuItem.Click += new System.EventHandler(this.pastOperationsToolStripMenuItem_Click);
             // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
-            // 
             // notepadToolStripMenuItem
             // 
             this.notepadToolStripMenuItem.Name = "notepadToolStripMenuItem";
             this.notepadToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.notepadToolStripMenuItem.Text = "Notepad";
             this.notepadToolStripMenuItem.Click += new System.EventHandler(this.notepadToolStripMenuItem_Click);
+            // 
+            // cryptLibraryToolStripMenuItem
+            // 
+            this.cryptLibraryToolStripMenuItem.Name = "cryptLibraryToolStripMenuItem";
+            this.cryptLibraryToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.cryptLibraryToolStripMenuItem.Text = "Crypt Library";
+            this.cryptLibraryToolStripMenuItem.Click += new System.EventHandler(this.cryptLibraryToolStripMenuItem_Click);
             // 
             // comboBox4
             // 
@@ -329,13 +337,6 @@
             this.textBox2.Size = new System.Drawing.Size(82, 22);
             this.textBox2.TabIndex = 12;
             this.textBox2.Text = "Hash2";
-            // 
-            // cryptLibraryToolStripMenuItem
-            // 
-            this.cryptLibraryToolStripMenuItem.Name = "cryptLibraryToolStripMenuItem";
-            this.cryptLibraryToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
-            this.cryptLibraryToolStripMenuItem.Text = "Crypt Library";
-            this.cryptLibraryToolStripMenuItem.Click += new System.EventHandler(this.cryptLibraryToolStripMenuItem_Click);
             // 
             // Main
             // 

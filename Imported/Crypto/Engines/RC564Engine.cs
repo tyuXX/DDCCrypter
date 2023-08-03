@@ -92,9 +92,9 @@ namespace Org.BouncyCastle.Crypto.Engines
             return 2 * bytesPerWord;
         }
 
-        private long RotateLeft( long x, long y ) => (x << (int)(y & wordSize - 1)) | x >>> (int)(wordSize - (y & wordSize - 1));
+        private long RotateLeft( long x, long y ) => (x << (int)(y & (wordSize - 1))) | x >>> (int)(wordSize - (y & (wordSize - 1)));
 
-        private long RotateRight( long x, long y ) => x >>> (int)(y & wordSize - 1) | (x << (int)(wordSize - (y & wordSize - 1)));
+        private long RotateRight( long x, long y ) => x >>> (int)(y & (wordSize - 1)) | (x << (int)(wordSize - (y & (wordSize - 1))));
 
         private long BytesToWord( byte[] src, int srcOff )
         {

@@ -394,7 +394,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             int num = bigInteger.BitLength < 32 ? bigInteger.IntValue : throw new TlsFatalAlert( 47 );
             if (num > 0 && num < fieldSize)
                 return num;
-            throw new ArgumentException("Error");
+            throw new ArgumentException( "Error" );
         }
 
         public static BigInteger ReadECFieldElement( int fieldSize, Stream input ) => DeserializeECFieldElement( fieldSize, TlsUtilities.ReadOpaque8( input ) );

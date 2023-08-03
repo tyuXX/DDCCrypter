@@ -4,13 +4,14 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 
 namespace DDCCrypter
 {
     public static class Engine
     {
-        public static readonly Version Version = Version.Parse( "1.0.0.0" );
+        public static readonly Version Version = Assembly.GetExecutingAssembly().GetName().Version;
         public static readonly HashSet<Crypter> crypters = new()
         {
             new Crypter(EMD5,new Descriptor("Message Digest 5","MD5",""),CrypterType.TwoWay),

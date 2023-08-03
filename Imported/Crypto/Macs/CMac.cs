@@ -34,7 +34,7 @@ namespace Org.BouncyCastle.Crypto.Macs
             if (macSizeInBits % 8 != 0)
                 throw new ArgumentException( "MAC size must be multiple of 8" );
             if (macSizeInBits > cipher.GetBlockSize() * 8)
-                throw new ArgumentException( "MAC size must be less or equal to " + cipher.GetBlockSize() * 8 );
+                throw new ArgumentException( "MAC size must be less or equal to " + (cipher.GetBlockSize() * 8) );
             this.cipher = cipher.GetBlockSize() == 8 || cipher.GetBlockSize() == 16 ? (IBlockCipher)new CbcBlockCipher( cipher ) : throw new ArgumentException( "Block size must be either 64 or 128 bits" );
             this.macSize = macSizeInBits / 8;
             this.mac = new byte[cipher.GetBlockSize()];

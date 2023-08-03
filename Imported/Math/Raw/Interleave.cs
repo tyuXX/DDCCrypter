@@ -40,7 +40,7 @@ namespace Org.BouncyCastle.Math.Raw
             x ^= num3 ^ (num3 << 2);
             uint num4 = (uint)(((int)x ^ (int)(x >> 1)) & 572662306);
             x ^= num4 ^ (num4 << 1);
-            return (ulong)(((x >> 1 & 1431655765L) << 32) | (x & 1431655765L));
+            return (ulong)((((x >> 1) & 1431655765L) << 32) | (x & 1431655765L));
         }
 
         internal static void Expand64To128( ulong x, ulong[] z, int zOff )

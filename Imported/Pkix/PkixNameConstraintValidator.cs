@@ -217,8 +217,10 @@ namespace Org.BouncyCastle.Pkix
                 return new HashSet();
             byte[] ip = Or( numArray3[0], numArray3[2] );
             byte[] subnetMask = Or( numArray1, numArray2 );
-            ISet set = new HashSet();
-            set.Add( this.IpWithSubnetMask( ip, subnetMask ) );
+            ISet set = new HashSet
+            {
+                this.IpWithSubnetMask( ip, subnetMask )
+            };
             return set;
         }
 
