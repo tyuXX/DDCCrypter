@@ -14,7 +14,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.Utilities.Encoders;
 using Org.BouncyCastle.X509;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -24,9 +23,9 @@ namespace Org.BouncyCastle.Pkcs
     {
         private const int MinIterations = 1024;
         private const int SaltSize = 20;
-        private readonly Pkcs12Store.IgnoresCaseHashtable keys = new Pkcs12Store.IgnoresCaseHashtable();
+        private readonly Pkcs12Store.IgnoresCaseHashtable keys = new();
         private readonly IDictionary localIds = Platform.CreateHashtable();
-        private readonly Pkcs12Store.IgnoresCaseHashtable certs = new Pkcs12Store.IgnoresCaseHashtable();
+        private readonly Pkcs12Store.IgnoresCaseHashtable certs = new();
         private readonly IDictionary chainCerts = Platform.CreateHashtable();
         private readonly IDictionary keyCerts = Platform.CreateHashtable();
         private readonly DerObjectIdentifier keyAlgorithm;
@@ -34,7 +33,7 @@ namespace Org.BouncyCastle.Pkcs
         private readonly bool useDerEncoding;
         private AsymmetricKeyEntry unmarkedKeyEntry = null;
 
-        private static SubjectKeyIdentifier CreateSubjectKeyID( AsymmetricKeyParameter pubKey ) => new SubjectKeyIdentifier( SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo( pubKey ) );
+        private static SubjectKeyIdentifier CreateSubjectKeyID( AsymmetricKeyParameter pubKey ) => new( SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo( pubKey ) );
 
         internal Pkcs12Store(
           DerObjectIdentifier keyAlgorithm,
@@ -61,7 +60,7 @@ namespace Org.BouncyCastle.Pkcs
         {
             AsymmetricKeyParameter key = PrivateKeyFactory.CreateKey( privKeyInfo );
             IDictionary hashtable = Platform.CreateHashtable();
-            AsymmetricKeyEntry asymmetricKeyEntry = new AsymmetricKeyEntry( key, hashtable );
+            AsymmetricKeyEntry asymmetricKeyEntry = new( key, hashtable );
             string str = null;
             Asn1OctetString asn1OctetString = null;
             if (bagAttributes != null)
@@ -158,7 +157,7 @@ namespace Org.BouncyCastle.Pkcs
                     {
                         foreach (Asn1Sequence fromByte in (Asn1Sequence)Asn1Object.FromByteArray( data ))
                         {
-                            SafeBag safeBag = new SafeBag( fromByte );
+                            SafeBag safeBag = new( fromByte );
                             if (safeBag.BagID.Equals( PkcsObjectIdentifiers.CertBag ))
                                 arrayList.Add( safeBag );
                             else if (safeBag.BagID.Equals( PkcsObjectIdentifiers.Pkcs8ShroudedKeyBag ))
@@ -201,8 +200,8 @@ namespace Org.BouncyCastle.Pkcs
                         }
                     }
                 }
-                Pkcs12Store.CertId key = new Pkcs12Store.CertId( cert.GetPublicKey() );
-                X509CertificateEntry certificateEntry = new X509CertificateEntry( cert, hashtable );
+                Pkcs12Store.CertId key = new( cert.GetPublicKey() );
+                X509CertificateEntry certificateEntry = new( cert, hashtable );
                 this.chainCerts[key] = certificateEntry;
                 if (this.unmarkedKeyEntry != null)
                 {
@@ -417,7 +416,7 @@ namespace Org.BouncyCastle.Pkcs
                 throw new ArgumentNullException( nameof( stream ) );
             if (random == null)
                 throw new ArgumentNullException( nameof( random ) );
-            Asn1EncodableVector v1 = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v1 = new( new Asn1Encodable[0] );
             foreach (string key1 in (IEnumerable)this.keys.Keys)
             {
                 byte[] numArray = new byte[20];
@@ -435,7 +434,7 @@ namespace Org.BouncyCastle.Pkcs
                     oid = PkcsObjectIdentifiers.Pkcs8ShroudedKeyBag;
                     asn1Encodable1 = EncryptedPrivateKeyInfoFactory.CreateEncryptedPrivateKeyInfo( this.keyAlgorithm, password, numArray, 1024, key2.Key );
                 }
-                Asn1EncodableVector v2 = new Asn1EncodableVector( new Asn1Encodable[0] );
+                Asn1EncodableVector v2 = new( new Asn1Encodable[0] );
                 foreach (string bagAttributeKey in key2.BagAttributeKeys)
                 {
                     Asn1Encodable asn1Encodable2 = key2[bagAttributeKey];
@@ -463,17 +462,17 @@ namespace Org.BouncyCastle.Pkcs
                 v1.Add( new SafeBag( oid, asn1Encodable1.ToAsn1Object(), new DerSet( v2 ) ) );
             }
             byte[] derEncoded1 = new DerSequence( v1 ).GetDerEncoded();
-            ContentInfo contentInfo1 = new ContentInfo( PkcsObjectIdentifiers.Data, new BerOctetString( derEncoded1 ) );
+            ContentInfo contentInfo1 = new( PkcsObjectIdentifiers.Data, new BerOctetString( derEncoded1 ) );
             byte[] numArray1 = new byte[20];
             random.NextBytes( numArray1 );
-            Asn1EncodableVector v3 = new Asn1EncodableVector( new Asn1Encodable[0] );
-            AlgorithmIdentifier algorithmIdentifier = new AlgorithmIdentifier( this.certAlgorithm, new Pkcs12PbeParams( numArray1, 1024 ).ToAsn1Object() );
+            Asn1EncodableVector v3 = new( new Asn1Encodable[0] );
+            AlgorithmIdentifier algorithmIdentifier = new( this.certAlgorithm, new Pkcs12PbeParams( numArray1, 1024 ).ToAsn1Object() );
             ISet set = new HashSet();
             foreach (string key in (IEnumerable)this.keys.Keys)
             {
                 X509CertificateEntry certificate = this.GetCertificate( key );
-                CertBag certBag = new CertBag( PkcsObjectIdentifiers.X509Certificate, new DerOctetString( certificate.Certificate.GetEncoded() ) );
-                Asn1EncodableVector v4 = new Asn1EncodableVector( new Asn1Encodable[0] );
+                CertBag certBag = new( PkcsObjectIdentifiers.X509Certificate, new DerOctetString( certificate.Certificate.GetEncoded() ) );
+                Asn1EncodableVector v4 = new( new Asn1Encodable[0] );
                 foreach (string bagAttributeKey in certificate.BagAttributeKeys)
                 {
                     Asn1Encodable asn1Encodable = certificate[bagAttributeKey];
@@ -506,8 +505,8 @@ namespace Org.BouncyCastle.Pkcs
                 X509CertificateEntry cert = (X509CertificateEntry)this.certs[key];
                 if (this.keys[key] == null)
                 {
-                    CertBag certBag = new CertBag( PkcsObjectIdentifiers.X509Certificate, new DerOctetString( cert.Certificate.GetEncoded() ) );
-                    Asn1EncodableVector v5 = new Asn1EncodableVector( new Asn1Encodable[0] );
+                    CertBag certBag = new( PkcsObjectIdentifiers.X509Certificate, new DerOctetString( cert.Certificate.GetEncoded() ) );
+                    Asn1EncodableVector v5 = new( new Asn1Encodable[0] );
                     foreach (string bagAttributeKey in cert.BagAttributeKeys)
                     {
                         if (!bagAttributeKey.Equals( PkcsObjectIdentifiers.Pkcs9AtLocalKeyID.Id ))
@@ -535,8 +534,8 @@ namespace Org.BouncyCastle.Pkcs
                 X509CertificateEntry chainCert = (X509CertificateEntry)this.chainCerts[key];
                 if (!set.Contains( chainCert.Certificate ))
                 {
-                    CertBag certBag = new CertBag( PkcsObjectIdentifiers.X509Certificate, new DerOctetString( chainCert.Certificate.GetEncoded() ) );
-                    Asn1EncodableVector v6 = new Asn1EncodableVector( new Asn1Encodable[0] );
+                    CertBag certBag = new( PkcsObjectIdentifiers.X509Certificate, new DerOctetString( chainCert.Certificate.GetEncoded() ) );
+                    Asn1EncodableVector v6 = new( new Asn1Encodable[0] );
                     foreach (string bagAttributeKey in chainCert.BagAttributeKeys)
                     {
                         if (!bagAttributeKey.Equals( PkcsObjectIdentifiers.Pkcs9AtLocalKeyID.Id ))
@@ -558,7 +557,7 @@ namespace Org.BouncyCastle.Pkcs
             else
             {
                 byte[] str = CryptPbeData( true, algorithmIdentifier, password, false, derEncoded2 );
-                EncryptedData encryptedData = new EncryptedData( PkcsObjectIdentifiers.Data, algorithmIdentifier, new BerOctetString( str ) );
+                EncryptedData encryptedData = new( PkcsObjectIdentifiers.Data, algorithmIdentifier, new BerOctetString( str ) );
                 contentInfo2 = new ContentInfo( PkcsObjectIdentifiers.EncryptedData, encryptedData.ToAsn1Object() );
             }
             byte[] encoded = new AuthenticatedSafe( new ContentInfo[2]
@@ -566,7 +565,7 @@ namespace Org.BouncyCastle.Pkcs
         contentInfo1,
         contentInfo2
             } ).GetEncoded( this.useDerEncoding ? "DER" : "BER" );
-            ContentInfo contentInfo3 = new ContentInfo( PkcsObjectIdentifiers.Data, new BerOctetString( encoded ) );
+            ContentInfo contentInfo3 = new( PkcsObjectIdentifiers.Data, new BerOctetString( encoded ) );
             MacData macData = null;
             if (password != null)
             {
@@ -575,7 +574,7 @@ namespace Org.BouncyCastle.Pkcs
                 byte[] pbeMac = CalculatePbeMac( OiwObjectIdentifiers.IdSha1, numArray2, 1024, password, false, encoded );
                 macData = new MacData( new DigestInfo( new AlgorithmIdentifier( OiwObjectIdentifiers.IdSha1, DerNull.Instance ), pbeMac ), numArray2, 1024 );
             }
-            Pfx pfx = new Pfx( contentInfo3, macData );
+            Pfx pfx = new( contentInfo3, macData );
             (!this.useDerEncoding ? new BerOutputStream( stream ) : new DerOutputStream( stream )).WriteObject( pfx );
         }
 

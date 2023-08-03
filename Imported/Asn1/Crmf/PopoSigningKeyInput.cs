@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Crmf
 {
@@ -62,7 +61,7 @@ namespace Org.BouncyCastle.Asn1.Crmf
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (this.sender != null)
                 v.Add( new DerTaggedObject( false, 0, sender ) );
             else

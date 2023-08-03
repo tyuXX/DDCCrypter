@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Crypto.Tls

@@ -24,7 +24,7 @@ namespace Org.BouncyCastle.Apache.Bzip2
         private bool blockRandomised;
         private int bsBuff;
         private int bsLive;
-        private CRC mCrc = new CRC();
+        private CRC mCrc = new();
         private bool[] inUse = new bool[256];
         private int nInUse;
         private char[] seqToUnseq = new char[256];

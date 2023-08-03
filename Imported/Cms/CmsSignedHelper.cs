@@ -20,14 +20,13 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Cms
 {
     internal class CmsSignedHelper
     {
-        internal static readonly CmsSignedHelper Instance = new CmsSignedHelper();
+        internal static readonly CmsSignedHelper Instance = new();
         private static readonly string EncryptionECDsaWithSha1 = X9ObjectIdentifiers.ECDsaWithSha1.Id;
         private static readonly string EncryptionECDsaWithSha224 = X9ObjectIdentifiers.ECDsaWithSha224.Id;
         private static readonly string EncryptionECDsaWithSha256 = X9ObjectIdentifiers.ECDsaWithSha256.Id;
@@ -241,7 +240,7 @@ namespace Org.BouncyCastle.Cms
 
         private void AddCertsFromSet( IList certs, Asn1Set certSet )
         {
-            X509CertificateParser certificateParser = new X509CertificateParser();
+            X509CertificateParser certificateParser = new();
             foreach (Asn1Encodable cert in certSet)
             {
                 try
@@ -259,7 +258,7 @@ namespace Org.BouncyCastle.Cms
 
         private void AddCrlsFromSet( IList crls, Asn1Set crlSet )
         {
-            X509CrlParser x509CrlParser = new X509CrlParser();
+            X509CrlParser x509CrlParser = new();
             foreach (Asn1Encodable crl in crlSet)
             {
                 try

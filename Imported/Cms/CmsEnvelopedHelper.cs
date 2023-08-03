@@ -14,7 +14,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -22,7 +21,7 @@ namespace Org.BouncyCastle.Cms
 {
     internal class CmsEnvelopedHelper
     {
-        internal static readonly CmsEnvelopedHelper Instance = new CmsEnvelopedHelper();
+        internal static readonly CmsEnvelopedHelper Instance = new();
         private static readonly IDictionary KeySizes = Platform.CreateHashtable();
         private static readonly IDictionary BaseCipherNames = Platform.CreateHashtable();
 

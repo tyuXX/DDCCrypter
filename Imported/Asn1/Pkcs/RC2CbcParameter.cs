@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Pkcs
 {
@@ -44,7 +43,7 @@ namespace Org.BouncyCastle.Asn1.Pkcs
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (this.version != null)
                 v.Add( version );
             v.Add( iv );

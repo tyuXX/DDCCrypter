@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Bcpg.Sig;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Date;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -55,7 +54,7 @@ namespace Org.BouncyCastle.Bcpg
                 this.hashAlgorithm = (HashAlgorithmTag)bcpgIn.ReadByte();
                 byte[] buffer1 = new byte[(bcpgIn.ReadByte() << 8) | bcpgIn.ReadByte()];
                 bcpgIn.ReadFully( buffer1 );
-                SignatureSubpacketsParser subpacketsParser1 = new SignatureSubpacketsParser( new MemoryStream( buffer1, false ) );
+                SignatureSubpacketsParser subpacketsParser1 = new( new MemoryStream( buffer1, false ) );
                 IList arrayList = Platform.CreateArrayList();
                 SignatureSubpacket signatureSubpacket1;
                 while ((signatureSubpacket1 = subpacketsParser1.ReadPacket()) != null)
@@ -77,7 +76,7 @@ namespace Org.BouncyCastle.Bcpg
                 }
                 byte[] buffer2 = new byte[(bcpgIn.ReadByte() << 8) | bcpgIn.ReadByte()];
                 bcpgIn.ReadFully( buffer2 );
-                SignatureSubpacketsParser subpacketsParser2 = new SignatureSubpacketsParser( new MemoryStream( buffer2, false ) );
+                SignatureSubpacketsParser subpacketsParser2 = new( new MemoryStream( buffer2, false ) );
                 arrayList.Clear();
                 SignatureSubpacket signatureSubpacket3;
                 while ((signatureSubpacket3 = subpacketsParser2.ReadPacket()) != null)
@@ -129,7 +128,7 @@ namespace Org.BouncyCastle.Bcpg
                     if (this.keyAlgorithm < PublicKeyAlgorithmTag.Experimental_1 || this.keyAlgorithm > PublicKeyAlgorithmTag.Experimental_11)
                         throw new IOException( "unknown signature key algorithm: " + keyAlgorithm );
                     this.signature = null;
-                    MemoryStream memoryStream = new MemoryStream();
+                    MemoryStream memoryStream = new();
                     int num;
                     while ((num = bcpgIn.ReadByte()) >= 0)
                         memoryStream.WriteByte( (byte)num );
@@ -211,12 +210,12 @@ namespace Org.BouncyCastle.Bcpg
             }
             else
             {
-                MemoryStream memoryStream = new MemoryStream();
+                MemoryStream memoryStream = new();
                 memoryStream.WriteByte( (byte)this.Version );
                 memoryStream.WriteByte( (byte)this.SignatureType );
                 memoryStream.WriteByte( (byte)this.KeyAlgorithm );
                 memoryStream.WriteByte( (byte)this.HashAlgorithm );
-                MemoryStream os = new MemoryStream();
+                MemoryStream os = new();
                 SignatureSubpacket[] hashedSubPackets = this.GetHashedSubPackets();
                 for (int index = 0; index != hashedSubPackets.Length; ++index)
                     hashedSubPackets[index].Encode( os );
@@ -246,8 +245,8 @@ namespace Org.BouncyCastle.Bcpg
         {
             if (this.signatureEncoding != null)
                 return (byte[])this.signatureEncoding.Clone();
-            MemoryStream outStr = new MemoryStream();
-            BcpgOutputStream bcpgOutputStream = new BcpgOutputStream( outStr );
+            MemoryStream outStr = new();
+            BcpgOutputStream bcpgOutputStream = new( outStr );
             foreach (MPInteger mpInteger in this.signature)
             {
                 try
@@ -270,8 +269,8 @@ namespace Org.BouncyCastle.Bcpg
 
         public override void Encode( BcpgOutputStream bcpgOut )
         {
-            MemoryStream outStr = new MemoryStream();
-            BcpgOutputStream pOut = new BcpgOutputStream( outStr );
+            MemoryStream outStr = new();
+            BcpgOutputStream pOut = new( outStr );
             pOut.WriteByte( (byte)this.version );
             if (this.version == 3 || this.version == 2)
             {
@@ -304,7 +303,7 @@ namespace Org.BouncyCastle.Bcpg
 
         private static byte[] GetEncodedSubpackets( SignatureSubpacket[] ps )
         {
-            MemoryStream os = new MemoryStream();
+            MemoryStream os = new();
             foreach (SignatureSubpacket p in ps)
                 p.Encode( os );
             return os.ToArray();

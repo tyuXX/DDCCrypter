@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Agreement
 {

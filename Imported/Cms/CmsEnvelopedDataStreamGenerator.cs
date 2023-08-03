@@ -13,7 +13,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -39,7 +38,7 @@ namespace Org.BouncyCastle.Cms
 
         public void SetBerEncodeRecipients( bool berEncodeRecipientSet ) => this._berEncodeRecipientSet = berEncodeRecipientSet;
 
-        private DerInteger Version => new DerInteger( this._originatorInfo != null || this._unprotectedAttributes != null ? 2 : 0 );
+        private DerInteger Version => new( this._originatorInfo != null || this._unprotectedAttributes != null ? 2 : 0 );
 
         private Stream Open( Stream outStream, string encryptionOid, CipherKeyGenerator keyGen )
         {
@@ -48,7 +47,7 @@ namespace Org.BouncyCastle.Cms
             Asn1Encodable asn1Parameters = this.GenerateAsn1Parameters( encryptionOid, key );
             ICipherParameters cipherParameters;
             AlgorithmIdentifier algorithmIdentifier = this.GetAlgorithmIdentifier( encryptionOid, keyParameter, asn1Parameters, out cipherParameters );
-            Asn1EncodableVector recipientInfos = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector recipientInfos = new( new Asn1Encodable[0] );
             foreach (RecipientInfoGenerator recipientInfoGenerator in (IEnumerable)this.recipientInfoGenerators)
             {
                 try
@@ -75,16 +74,16 @@ namespace Org.BouncyCastle.Cms
         {
             try
             {
-                BerSequenceGenerator cGen = new BerSequenceGenerator( outStream );
+                BerSequenceGenerator cGen = new( outStream );
                 cGen.AddObject( CmsObjectIdentifiers.EnvelopedData );
-                BerSequenceGenerator envGen = new BerSequenceGenerator( cGen.GetRawOutputStream(), 0, true );
+                BerSequenceGenerator envGen = new( cGen.GetRawOutputStream(), 0, true );
                 envGen.AddObject( Version );
                 Stream rawOutputStream = envGen.GetRawOutputStream();
                 Asn1Generator asn1Generator = this._berEncodeRecipientSet ? new BerSetGenerator( rawOutputStream ) : (Asn1Generator)new DerSetGenerator( rawOutputStream );
                 foreach (Asn1Encodable recipientInfo in recipientInfos)
                     asn1Generator.AddObject( recipientInfo );
                 asn1Generator.Close();
-                BerSequenceGenerator eiGen = new BerSequenceGenerator( rawOutputStream );
+                BerSequenceGenerator eiGen = new( rawOutputStream );
                 eiGen.AddObject( CmsObjectIdentifiers.Data );
                 eiGen.AddObject( encAlgID );
                 Stream octetOutputStream = CmsUtilities.CreateBerOctetOutputStream( eiGen.GetRawOutputStream(), 0, false, this._bufferSize );

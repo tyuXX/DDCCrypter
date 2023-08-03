@@ -12,7 +12,6 @@ using Org.BouncyCastle.Crypto.IO;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -46,8 +45,8 @@ namespace Org.BouncyCastle.Cms
                 algorithmIdentifier = this.GetAlgorithmIdentifier( encryptionOid, keyParameter, asn1Parameters, out cipherParameters );
                 IBufferedCipher cipher = CipherUtilities.GetCipher( encryptionOid );
                 cipher.Init( true, new ParametersWithRandom( cipherParameters, this.rand ) );
-                MemoryStream memoryStream = new MemoryStream();
-                CipherStream cipherStream = new CipherStream( memoryStream, null, cipher );
+                MemoryStream memoryStream = new();
+                CipherStream cipherStream = new( memoryStream, null, cipher );
                 content.Write( cipherStream );
                 Platform.Dispose( cipherStream );
                 encryptedContent = new BerOctetString( memoryStream.ToArray() );
@@ -64,7 +63,7 @@ namespace Org.BouncyCastle.Cms
             {
                 throw new CmsException( "exception decoding algorithm parameters.", ex );
             }
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             foreach (RecipientInfoGenerator recipientInfoGenerator in (IEnumerable)this.recipientInfoGenerators)
             {
                 try
@@ -80,7 +79,7 @@ namespace Org.BouncyCastle.Cms
                     throw new CmsException( "error making encrypted content.", ex );
                 }
             }
-            EncryptedContentInfo encryptedContentInfo = new EncryptedContentInfo( CmsObjectIdentifiers.Data, algorithmIdentifier, encryptedContent );
+            EncryptedContentInfo encryptedContentInfo = new( CmsObjectIdentifiers.Data, algorithmIdentifier, encryptedContent );
             Asn1Set unprotectedAttrs = null;
             if (this.unprotectedAttributeGenerator != null)
                 unprotectedAttrs = new BerSet( this.unprotectedAttributeGenerator.GetAttributes( Platform.CreateHashtable() ).ToAsn1EncodableVector() );

@@ -8,13 +8,12 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Engines
 {
     public class RsaBlindedEngine : IAsymmetricBlockCipher
     {
-        private readonly RsaCoreEngine core = new RsaCoreEngine();
+        private readonly RsaCoreEngine core = new();
         private RsaKeyParameters key;
         private SecureRandom random;
 

@@ -9,7 +9,6 @@ using Org.BouncyCastle.Crypto.IO;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Bcpg.OpenPgp

@@ -11,7 +11,7 @@ namespace Org.BouncyCastle.Pkix
     internal class ReasonsMask
     {
         private int _reasons;
-        internal static readonly ReasonsMask AllReasons = new ReasonsMask( 33023 );
+        internal static readonly ReasonsMask AllReasons = new( 33023 );
 
         internal ReasonsMask( int reasons ) => this._reasons = reasons;
 
@@ -26,13 +26,13 @@ namespace Org.BouncyCastle.Pkix
 
         internal ReasonsMask Intersect( ReasonsMask mask )
         {
-            ReasonsMask reasonsMask = new ReasonsMask();
+            ReasonsMask reasonsMask = new();
             reasonsMask.AddReasons( new ReasonsMask( this._reasons & mask.Reasons.IntValue ) );
             return reasonsMask;
         }
 
         internal bool HasNewReasons( ReasonsMask mask ) => (this._reasons | (mask.Reasons.IntValue ^ this._reasons)) != 0;
 
-        public ReasonFlags Reasons => new ReasonFlags( this._reasons );
+        public ReasonFlags Reasons => new( this._reasons );
     }
 }

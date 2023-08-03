@@ -6,14 +6,13 @@
 
 using Org.BouncyCastle.Asn1.X500;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.IsisMtt.X509
 {
     public class NamingAuthority : Asn1Encodable
     {
-        public static readonly DerObjectIdentifier IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern = new DerObjectIdentifier( IsisMttObjectIdentifiers.IdIsisMttATNamingAuthorities.ToString() + ".1" );
+        public static readonly DerObjectIdentifier IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern = new( IsisMttObjectIdentifiers.IdIsisMttATNamingAuthorities.ToString() + ".1" );
         private readonly DerObjectIdentifier namingAuthorityID;
         private readonly string namingAuthorityUrl;
         private readonly DirectoryString namingAuthorityText;
@@ -94,7 +93,7 @@ namespace Org.BouncyCastle.Asn1.IsisMtt.X509
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (this.namingAuthorityID != null)
                 v.Add( namingAuthorityID );
             if (this.namingAuthorityUrl != null)

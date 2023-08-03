@@ -13,7 +13,6 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -51,7 +50,7 @@ namespace Org.BouncyCastle.Ocsp
           X509Certificate[] chain,
           SecureRandom random )
         {
-            Asn1EncodableVector v1 = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v1 = new( new Asn1Encodable[0] );
             foreach (OcspReqGenerator.RequestObject requestObject in (IEnumerable)this.list)
             {
                 try
@@ -63,7 +62,7 @@ namespace Org.BouncyCastle.Ocsp
                     throw new OcspException( "exception creating Request", ex );
                 }
             }
-            TbsRequest tbsRequest = new TbsRequest( this.requestorName, new DerSequence( v1 ), this.requestExtensions );
+            TbsRequest tbsRequest = new( this.requestorName, new DerSequence( v1 ), this.requestExtensions );
             Org.BouncyCastle.Asn1.Ocsp.Signature optionalSignature = null;
             if (signingAlgorithm != null)
             {
@@ -93,10 +92,10 @@ namespace Org.BouncyCastle.Ocsp
                 {
                     throw new OcspException( "exception processing TBSRequest: " + ex, ex );
                 }
-                AlgorithmIdentifier signatureAlgorithm = new AlgorithmIdentifier( signingAlgorithm, DerNull.Instance );
+                AlgorithmIdentifier signatureAlgorithm = new( signingAlgorithm, DerNull.Instance );
                 if (chain != null && chain.Length > 0)
                 {
-                    Asn1EncodableVector v2 = new Asn1EncodableVector( new Asn1Encodable[0] );
+                    Asn1EncodableVector v2 = new( new Asn1Encodable[0] );
                     try
                     {
                         for (int index = 0; index != chain.Length; ++index)
@@ -159,7 +158,7 @@ namespace Org.BouncyCastle.Ocsp
                 this.extensions = extensions;
             }
 
-            public Request ToRequest() => new Request( this.certId.ToAsn1Object(), this.extensions );
+            public Request ToRequest() => new( this.certId.ToAsn1Object(), this.extensions );
         }
     }
 }

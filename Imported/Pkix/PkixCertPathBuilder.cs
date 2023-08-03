@@ -9,7 +9,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Pkix
@@ -60,7 +59,7 @@ namespace Org.BouncyCastle.Pkix
                 return null;
             tbvPath.Add( tbvCert );
             PkixCertPathBuilderResult pathBuilderResult = null;
-            PkixCertPathValidator certPathValidator = new PkixCertPathValidator();
+            PkixCertPathValidator certPathValidator = new();
             try
             {
                 if (PkixCertPathValidatorUtilities.FindTrustAnchor( tbvCert, pkixParams.GetTrustAnchors() ) != null)
@@ -93,7 +92,7 @@ namespace Org.BouncyCastle.Pkix
                 {
                     throw new Exception( "No additiontal X.509 stores can be added from certificate locations.", ex );
                 }
-                HashSet hashSet = new HashSet();
+                HashSet hashSet = new();
                 try
                 {
                     hashSet.AddAll( PkixCertPathValidatorUtilities.FindIssuerCerts( tbvCert, pkixParams ) );

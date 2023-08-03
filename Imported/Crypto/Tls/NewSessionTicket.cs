@@ -29,6 +29,6 @@ namespace Org.BouncyCastle.Crypto.Tls
             TlsUtilities.WriteOpaque16( this.mTicket, output );
         }
 
-        public static NewSessionTicket Parse( Stream input ) => new NewSessionTicket( TlsUtilities.ReadUint32( input ), TlsUtilities.ReadOpaque16( input ) );
+        public static NewSessionTicket Parse( Stream input ) => new( TlsUtilities.ReadUint32( input ), TlsUtilities.ReadOpaque16( input ) );
     }
 }

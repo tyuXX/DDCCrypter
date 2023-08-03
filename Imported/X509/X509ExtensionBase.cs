@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities.Collections;
-using System;
 
 namespace Org.BouncyCastle.X509
 {
@@ -20,7 +19,7 @@ namespace Org.BouncyCastle.X509
             X509Extensions x509Extensions = this.GetX509Extensions();
             if (x509Extensions == null)
                 return null;
-            HashSet extensionOids = new HashSet();
+            HashSet extensionOids = new();
             foreach (DerObjectIdentifier extensionOid in x509Extensions.ExtensionOids)
             {
                 if (x509Extensions.GetExtension( extensionOid ).IsCritical == critical)

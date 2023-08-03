@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Signers
 {

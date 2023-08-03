@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Crypto.Prng.Drbg;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Prng
 {

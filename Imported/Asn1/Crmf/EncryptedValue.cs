@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Asn1.X509;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Crmf
 {
@@ -85,7 +84,7 @@ namespace Org.BouncyCastle.Asn1.Crmf
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             this.AddOptional( v, 0, intendedAlg );
             this.AddOptional( v, 1, symmAlg );
             this.AddOptional( v, 2, encSymmKey );

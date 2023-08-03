@@ -11,7 +11,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Crypto.Utilities;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Tls
 {
@@ -25,8 +24,8 @@ namespace Org.BouncyCastle.Crypto.Tls
         {
             this.context = TlsUtilities.IsTlsV12( context ) ? context : throw new TlsFatalAlert( 80 );
             byte[] keyBlock = TlsUtilities.CalculateKeyBlock( context, 64 );
-            KeyParameter keyParameter1 = new KeyParameter( keyBlock, 0, 32 );
-            KeyParameter keyParameter2 = new KeyParameter( keyBlock, 32, 32 );
+            KeyParameter keyParameter1 = new( keyBlock, 0, 32 );
+            KeyParameter keyParameter2 = new( keyBlock, 32, 32 );
             this.encryptCipher = new ChaChaEngine( 20 );
             this.decryptCipher = new ChaChaEngine( 20 );
             KeyParameter parameters1;
@@ -94,7 +93,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             byte[] numArray2 = new byte[64];
             cipher.ProcessBytes( numArray2, 0, numArray2.Length, numArray2, 0 );
             Array.Copy( numArray2, 0, numArray2, 32, 16 );
-            KeyParameter keyParameter = new KeyParameter( numArray2, 16, 32 );
+            KeyParameter keyParameter = new( numArray2, 16, 32 );
             Poly1305KeyGenerator.Clamp( keyParameter.GetKey() );
             return keyParameter;
         }

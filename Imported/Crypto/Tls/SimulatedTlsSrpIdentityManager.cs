@@ -23,9 +23,9 @@ namespace Org.BouncyCastle.Crypto.Tls
           Srp6GroupParameters group,
           byte[] seedKey )
         {
-            Srp6VerifierGenerator verifierGenerator = new Srp6VerifierGenerator();
+            Srp6VerifierGenerator verifierGenerator = new();
             verifierGenerator.Init( group, TlsUtilities.CreateHash( 2 ) );
-            HMac hmac = new HMac( TlsUtilities.CreateHash( 2 ) );
+            HMac hmac = new( TlsUtilities.CreateHash( 2 ) );
             hmac.Init( new KeyParameter( seedKey ) );
             return new SimulatedTlsSrpIdentityManager( group, verifierGenerator, hmac );
         }

@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Cmp
 {
@@ -76,7 +75,7 @@ namespace Org.BouncyCastle.Asn1.Cmp
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[1]
+            Asn1EncodableVector v = new( new Asn1Encodable[1]
             {
          status
             } );

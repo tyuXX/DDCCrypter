@@ -14,7 +14,6 @@ using Org.BouncyCastle.Math.EC;
 using Org.BouncyCastle.Math.Field;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -321,7 +320,7 @@ namespace Org.BouncyCastle.Crypto.Tls
           ECPublicKeyParameters publicKey,
           ECPrivateKeyParameters privateKey )
         {
-            ECDHBasicAgreement ecdhBasicAgreement = new ECDHBasicAgreement();
+            ECDHBasicAgreement ecdhBasicAgreement = new();
             ecdhBasicAgreement.Init( privateKey );
             BigInteger agreement = ecdhBasicAgreement.CalculateAgreement( publicKey );
             return BigIntegers.AsUnsignedByteArray( ecdhBasicAgreement.GetFieldSize(), agreement );
@@ -331,7 +330,7 @@ namespace Org.BouncyCastle.Crypto.Tls
           SecureRandom random,
           ECDomainParameters ecParams )
         {
-            ECKeyPairGenerator keyPairGenerator = new ECKeyPairGenerator();
+            ECKeyPairGenerator keyPairGenerator = new();
             keyPairGenerator.Init( new ECKeyGenerationParameters( ecParams, random ) );
             return keyPairGenerator.GenerateKeyPair();
         }
@@ -400,7 +399,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         public static BigInteger ReadECFieldElement( int fieldSize, Stream input ) => DeserializeECFieldElement( fieldSize, TlsUtilities.ReadOpaque8( input ) );
 
-        public static BigInteger ReadECParameter( Stream input ) => new BigInteger( 1, TlsUtilities.ReadOpaque8( input ) );
+        public static BigInteger ReadECParameter( Stream input ) => new( 1, TlsUtilities.ReadOpaque8( input ) );
 
         public static ECDomainParameters ReadECParameters(
           int[] namedCurves,

@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Bcpg.OpenPgp
@@ -158,7 +157,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
         {
             try
             {
-                PgpSignatureGenerator signatureGenerator = new PgpSignatureGenerator( this.masterKey.PublicKey.Algorithm, HashAlgorithmTag.Sha1 );
+                PgpSignatureGenerator signatureGenerator = new( this.masterKey.PublicKey.Algorithm, HashAlgorithmTag.Sha1 );
                 signatureGenerator.InitSign( 24, this.masterKey.PrivateKey );
                 signatureGenerator.SetHashedSubpackets( hashedPackets );
                 signatureGenerator.SetUnhashedSubpackets( unhashedPackets );
@@ -184,7 +183,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
         {
             try
             {
-                PgpSignatureGenerator signatureGenerator = new PgpSignatureGenerator( this.masterKey.PublicKey.Algorithm, hashAlgorithm );
+                PgpSignatureGenerator signatureGenerator = new( this.masterKey.PublicKey.Algorithm, hashAlgorithm );
                 signatureGenerator.InitSign( 24, this.masterKey.PrivateKey );
                 signatureGenerator.SetHashedSubpackets( hashedPackets );
                 signatureGenerator.SetUnhashedSubpackets( unhashedPackets );
@@ -202,7 +201,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
             }
         }
 
-        public PgpSecretKeyRing GenerateSecretKeyRing() => new PgpSecretKeyRing( this.keys );
+        public PgpSecretKeyRing GenerateSecretKeyRing() => new( this.keys );
 
         public PgpPublicKeyRing GeneratePublicKeyRing()
         {
@@ -213,7 +212,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
             arrayList.Add( current.PublicKey );
             while (enumerator.MoveNext())
             {
-                PgpPublicKey pgpPublicKey = new PgpPublicKey( ((PgpSecretKey)enumerator.Current).PublicKey );
+                PgpPublicKey pgpPublicKey = new( ((PgpSecretKey)enumerator.Current).PublicKey );
                 pgpPublicKey.publicPk = new PublicSubkeyPacket( pgpPublicKey.Algorithm, pgpPublicKey.CreationTime, pgpPublicKey.publicPk.Key );
                 arrayList.Add( pgpPublicKey );
             }

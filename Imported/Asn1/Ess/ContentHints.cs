@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Ess
 {
@@ -58,7 +57,7 @@ namespace Org.BouncyCastle.Asn1.Ess
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (this.contentDescription != null)
                 v.Add( contentDescription );
             v.Add( contentType );

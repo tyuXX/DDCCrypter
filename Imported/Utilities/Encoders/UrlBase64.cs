@@ -4,7 +4,6 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Utilities.Encoders
@@ -15,7 +14,7 @@ namespace Org.BouncyCastle.Utilities.Encoders
 
         public static byte[] Encode( byte[] data )
         {
-            MemoryStream outStream = new MemoryStream();
+            MemoryStream outStream = new();
             try
             {
                 encoder.Encode( data, 0, data.Length, outStream );
@@ -31,7 +30,7 @@ namespace Org.BouncyCastle.Utilities.Encoders
 
         public static byte[] Decode( byte[] data )
         {
-            MemoryStream outStream = new MemoryStream();
+            MemoryStream outStream = new();
             try
             {
                 encoder.Decode( data, 0, data.Length, outStream );
@@ -47,7 +46,7 @@ namespace Org.BouncyCastle.Utilities.Encoders
 
         public static byte[] Decode( string data )
         {
-            MemoryStream outStream = new MemoryStream();
+            MemoryStream outStream = new();
             try
             {
                 encoder.DecodeString( data, outStream );

@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Crypto.Tls
@@ -41,7 +40,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             int prfAlgorithm = this.mContext.SecurityParameters.PrfAlgorithm;
             if (prfAlgorithm == 0)
             {
-                CombinedHash d = new CombinedHash();
+                CombinedHash d = new();
                 d.Init( this.mContext );
                 this.mBuf.UpdateDigest( d );
                 return d.NotifyPrfDetermined();
@@ -66,7 +65,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             IDigest digest = TlsUtilities.CloneHash( prfHashAlgorithm, (IDigest)this.mHashes[prfHashAlgorithm] );
             if (this.mBuf != null)
                 this.mBuf.UpdateDigest( digest );
-            DeferredHash deferredHash = new DeferredHash( prfHashAlgorithm, digest );
+            DeferredHash deferredHash = new( prfHashAlgorithm, digest );
             deferredHash.Init( this.mContext );
             return deferredHash;
         }

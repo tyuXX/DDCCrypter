@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Engines
 {
@@ -58,7 +57,7 @@ namespace Org.BouncyCastle.Crypto.Engines
 
         private byte[] DecryptBlock( byte[] in_enc, int inOff, int inLen, byte[] z )
         {
-            KdfParameters kdfParameters = new KdfParameters( z, this.param.GetDerivationV() );
+            KdfParameters kdfParameters = new( z, this.param.GetDerivationV() );
             int macKeySize = this.param.MacKeySize;
             this.kdf.Init( kdfParameters );
             if (inLen < this.mac.GetMacSize())
@@ -95,7 +94,7 @@ namespace Org.BouncyCastle.Crypto.Engines
 
         private byte[] EncryptBlock( byte[] input, int inOff, int inLen, byte[] z )
         {
-            KdfParameters kParam = new KdfParameters( z, this.param.GetDerivationV() );
+            KdfParameters kParam = new( z, this.param.GetDerivationV() );
             int macKeySize = this.param.MacKeySize;
             byte[] numArray1;
             int num;

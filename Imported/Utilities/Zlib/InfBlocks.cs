@@ -4,8 +4,6 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System;
-
 namespace Org.BouncyCastle.Utilities.Zlib
 {
     internal sealed class InfBlocks
@@ -79,7 +77,7 @@ namespace Org.BouncyCastle.Utilities.Zlib
         internal int[] blens;
         internal int[] bb = new int[1];
         internal int[] tb = new int[1];
-        internal InfCodes codes = new InfCodes();
+        internal InfCodes codes = new();
         private int last;
         internal int bitk;
         internal int bitb;
@@ -90,7 +88,7 @@ namespace Org.BouncyCastle.Utilities.Zlib
         internal int write;
         internal object checkfn;
         internal long check;
-        internal InfTree inftree = new InfTree();
+        internal InfTree inftree = new();
 
         internal InfBlocks( ZStream z, object checkfn, int w )
         {

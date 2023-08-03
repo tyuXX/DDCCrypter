@@ -26,7 +26,7 @@
 
         private void button3_Click( object sender, EventArgs e )
         {
-            List<string> _ = new List<string> { };
+            List<string> _ = new() { };
             foreach (string str in listBox1.SelectedItems)
             {
                 _.Add( str );
@@ -63,7 +63,7 @@
         private void Send( bool od )
         {
             string _hash = "";
-            List<string> _ = new List<string> { };
+            List<string> _ = new() { };
             foreach (string str in listBox1.Items)
             {
                 _.Add( str );

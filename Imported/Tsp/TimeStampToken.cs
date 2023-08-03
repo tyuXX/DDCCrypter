@@ -17,7 +17,6 @@ using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -47,7 +46,7 @@ namespace Org.BouncyCastle.Tsp
             try
             {
                 CmsProcessable signedContent = this.tsToken.SignedContent;
-                MemoryStream outStream = new MemoryStream();
+                MemoryStream outStream = new();
                 signedContent.Write( outStream );
                 this.tstInfo = new TimeStampTokenInfo( TstInfo.GetInstance( Asn1Object.FromByteArray( outStream.ToArray() ) ) );
                 Org.BouncyCastle.Asn1.Cms.Attribute signedAttribute = this.tsaSignerInfo.SignedAttributes[PkcsObjectIdentifiers.IdAASigningCertificate];

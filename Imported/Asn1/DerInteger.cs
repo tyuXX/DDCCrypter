@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1
 {
@@ -38,9 +37,9 @@ namespace Org.BouncyCastle.Asn1
 
         public DerInteger( byte[] bytes ) => this.bytes = bytes;
 
-        public BigInteger Value => new BigInteger( this.bytes );
+        public BigInteger Value => new( this.bytes );
 
-        public BigInteger PositiveValue => new BigInteger( 1, this.bytes );
+        public BigInteger PositiveValue => new( 1, this.bytes );
 
         internal override void Encode( DerOutputStream derOut ) => derOut.WriteEncoded( 2, this.bytes );
 

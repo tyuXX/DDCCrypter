@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -46,7 +45,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             Arrays.Fill( this.mMasterSecret, 0 );
         }
 
-        public SessionParameters Copy() => new SessionParameters( this.mCipherSuite, this.mCompressionAlgorithm, this.mMasterSecret, this.mPeerCertificate, this.mPskIdentity, this.mSrpIdentity, this.mEncodedServerExtensions );
+        public SessionParameters Copy() => new( this.mCipherSuite, this.mCompressionAlgorithm, this.mMasterSecret, this.mPeerCertificate, this.mPskIdentity, this.mSrpIdentity, this.mEncodedServerExtensions );
 
         public int CipherSuite => this.mCipherSuite;
 
@@ -124,7 +123,7 @@ namespace Org.BouncyCastle.Crypto.Tls
                 }
                 else
                 {
-                    MemoryStream output = new MemoryStream();
+                    MemoryStream output = new();
                     TlsProtocol.WriteExtensions( output, serverExtensions );
                     this.mEncodedServerExtensions = output.ToArray();
                 }

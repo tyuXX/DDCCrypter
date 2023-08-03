@@ -10,14 +10,13 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Cms
 {
     public abstract class RecipientInformation
     {
-        internal RecipientID rid = new RecipientID();
+        internal RecipientID rid = new();
         internal AlgorithmIdentifier keyEncAlg;
         internal CmsSecureReadable secureReadable;
         private byte[] resultMac;

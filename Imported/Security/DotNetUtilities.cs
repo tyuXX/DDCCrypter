@@ -10,7 +10,6 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.X509;
-using System;
 using System.Security.Cryptography;
 
 namespace Org.BouncyCastle.Security
@@ -40,7 +39,7 @@ namespace Org.BouncyCastle.Security
         public static AsymmetricCipherKeyPair GetDsaKeyPair( DSAParameters dp )
         {
             DsaValidationParameters parameters1 = dp.Seed != null ? new DsaValidationParameters( dp.Seed, dp.Counter ) : null;
-            DsaParameters parameters2 = new DsaParameters( new BigInteger( 1, dp.P ), new BigInteger( 1, dp.Q ), new BigInteger( 1, dp.G ), parameters1 );
+            DsaParameters parameters2 = new( new BigInteger( 1, dp.P ), new BigInteger( 1, dp.Q ), new BigInteger( 1, dp.G ), parameters1 );
             return new AsymmetricCipherKeyPair( new DsaPublicKeyParameters( new BigInteger( 1, dp.Y ), parameters2 ), new DsaPrivateKeyParameters( new BigInteger( 1, dp.X ), parameters2 ) );
         }
 
@@ -49,7 +48,7 @@ namespace Org.BouncyCastle.Security
         public static DsaPublicKeyParameters GetDsaPublicKey( DSAParameters dp )
         {
             DsaValidationParameters parameters1 = dp.Seed != null ? new DsaValidationParameters( dp.Seed, dp.Counter ) : null;
-            DsaParameters parameters2 = new DsaParameters( new BigInteger( 1, dp.P ), new BigInteger( 1, dp.Q ), new BigInteger( 1, dp.G ), parameters1 );
+            DsaParameters parameters2 = new( new BigInteger( 1, dp.P ), new BigInteger( 1, dp.Q ), new BigInteger( 1, dp.G ), parameters1 );
             return new DsaPublicKeyParameters( new BigInteger( 1, dp.Y ), parameters2 );
         }
 
@@ -57,14 +56,14 @@ namespace Org.BouncyCastle.Security
 
         public static AsymmetricCipherKeyPair GetRsaKeyPair( RSAParameters rp )
         {
-            BigInteger modulus = new BigInteger( 1, rp.Modulus );
-            BigInteger bigInteger = new BigInteger( 1, rp.Exponent );
+            BigInteger modulus = new( 1, rp.Modulus );
+            BigInteger bigInteger = new( 1, rp.Exponent );
             return new AsymmetricCipherKeyPair( new RsaKeyParameters( false, modulus, bigInteger ), new RsaPrivateCrtKeyParameters( modulus, bigInteger, new BigInteger( 1, rp.D ), new BigInteger( 1, rp.P ), new BigInteger( 1, rp.Q ), new BigInteger( 1, rp.DP ), new BigInteger( 1, rp.DQ ), new BigInteger( 1, rp.InverseQ ) ) );
         }
 
         public static RsaKeyParameters GetRsaPublicKey( RSA rsa ) => GetRsaPublicKey( rsa.ExportParameters( false ) );
 
-        public static RsaKeyParameters GetRsaPublicKey( RSAParameters rp ) => new RsaKeyParameters( false, new BigInteger( 1, rp.Modulus ), new BigInteger( 1, rp.Exponent ) );
+        public static RsaKeyParameters GetRsaPublicKey( RSAParameters rp ) => new( false, new BigInteger( 1, rp.Modulus ), new BigInteger( 1, rp.Exponent ) );
 
         public static AsymmetricCipherKeyPair GetKeyPair( AsymmetricAlgorithm privateKey )
         {
@@ -87,7 +86,7 @@ namespace Org.BouncyCastle.Security
 
         public static RSAParameters ToRSAParameters( RsaKeyParameters rsaKey )
         {
-            RSAParameters rsaParameters = new RSAParameters
+            RSAParameters rsaParameters = new()
             {
                 Modulus = rsaKey.Modulus.ToByteArrayUnsigned()
             };
@@ -100,7 +99,7 @@ namespace Org.BouncyCastle.Security
 
         public static RSAParameters ToRSAParameters( RsaPrivateCrtKeyParameters privKey )
         {
-            RSAParameters rsaParameters = new RSAParameters()
+            RSAParameters rsaParameters = new()
             {
                 Modulus = privKey.Modulus.ToByteArrayUnsigned(),
                 Exponent = privKey.PublicExponent.ToByteArrayUnsigned(),
@@ -116,7 +115,7 @@ namespace Org.BouncyCastle.Security
 
         public static RSAParameters ToRSAParameters( RsaPrivateKeyStructure privKey )
         {
-            RSAParameters rsaParameters = new RSAParameters()
+            RSAParameters rsaParameters = new()
             {
                 Modulus = privKey.Modulus.ToByteArrayUnsigned(),
                 Exponent = privKey.PublicExponent.ToByteArrayUnsigned(),
@@ -144,7 +143,7 @@ namespace Org.BouncyCastle.Security
 
         private static RSA CreateRSAProvider( RSAParameters rp )
         {
-            RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider( new CspParameters()
+            RSACryptoServiceProvider rsaProvider = new( new CspParameters()
             {
                 KeyContainerName = string.Format( "BouncyCastle-{0}", Guid.NewGuid() )
             } );

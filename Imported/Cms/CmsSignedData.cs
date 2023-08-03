@@ -8,7 +8,6 @@ using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -144,12 +143,12 @@ namespace Org.BouncyCastle.Cms
           CmsSignedData signedData,
           SignerInformationStore signerInformationStore )
         {
-            CmsSignedData cmsSignedData = new CmsSignedData( signedData )
+            CmsSignedData cmsSignedData = new( signedData )
             {
                 signerInfoStore = signerInformationStore
             };
-            Asn1EncodableVector v1 = new Asn1EncodableVector( new Asn1Encodable[0] );
-            Asn1EncodableVector v2 = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v1 = new( new Asn1Encodable[0] );
+            Asn1EncodableVector v2 = new( new Asn1Encodable[0] );
             foreach (SignerInformation signer in (IEnumerable)signerInformationStore.GetSigners())
             {
                 v1.Add( Helper.FixAlgID( signer.DigestAlgorithmID ) );
@@ -158,7 +157,7 @@ namespace Org.BouncyCastle.Cms
             Asn1Set asn1Set1 = new DerSet( v1 );
             Asn1Set asn1Set2 = new DerSet( v2 );
             Asn1Sequence asn1Object = (Asn1Sequence)signedData.signedData.ToAsn1Object();
-            Asn1EncodableVector v3 = new Asn1EncodableVector( new Asn1Encodable[2]
+            Asn1EncodableVector v3 = new( new Asn1Encodable[2]
             {
         asn1Object[0],
          asn1Set1
@@ -179,7 +178,7 @@ namespace Org.BouncyCastle.Cms
         {
             if (x509AttrCerts != null)
                 throw Platform.CreateNotImplementedException( "Currently can't replace attribute certificates" );
-            CmsSignedData cmsSignedData = new CmsSignedData( signedData );
+            CmsSignedData cmsSignedData = new( signedData );
             Asn1Set certificates = null;
             try
             {

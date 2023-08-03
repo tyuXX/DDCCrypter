@@ -8,7 +8,6 @@ using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities.Date;
 using Org.BouncyCastle.X509;
-using System;
 
 namespace Org.BouncyCastle.Ocsp
 {
@@ -18,7 +17,7 @@ namespace Org.BouncyCastle.Ocsp
 
         public SingleResp( SingleResponse resp ) => this.resp = resp;
 
-        public CertificateID GetCertID() => new CertificateID( this.resp.CertId );
+        public CertificateID GetCertID() => new( this.resp.CertId );
 
         public object GetCertStatus()
         {

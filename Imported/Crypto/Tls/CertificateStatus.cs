@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.Ocsp;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Crypto.Tls

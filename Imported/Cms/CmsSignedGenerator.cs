@@ -18,7 +18,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Cms
@@ -102,8 +101,8 @@ namespace Org.BouncyCastle.Cms
         {
         }
 
-        internal static SignerIdentifier GetSignerIdentifier( X509Certificate cert ) => new SignerIdentifier( CmsUtilities.GetIssuerAndSerialNumber( cert ) );
+        internal static SignerIdentifier GetSignerIdentifier( X509Certificate cert ) => new( CmsUtilities.GetIssuerAndSerialNumber( cert ) );
 
-        internal static SignerIdentifier GetSignerIdentifier( byte[] subjectKeyIdentifier ) => new SignerIdentifier( new DerOctetString( subjectKeyIdentifier ) );
+        internal static SignerIdentifier GetSignerIdentifier( byte[] subjectKeyIdentifier ) => new( new DerOctetString( subjectKeyIdentifier ) );
     }
 }

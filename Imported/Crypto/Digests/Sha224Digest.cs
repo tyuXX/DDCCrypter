@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Crypto.Utilities;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Digests
 {

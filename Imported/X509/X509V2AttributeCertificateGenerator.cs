@@ -12,14 +12,13 @@ using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.X509
 {
     public class X509V2AttributeCertificateGenerator
     {
-        private readonly X509ExtensionsGenerator extGenerator = new X509ExtensionsGenerator();
+        private readonly X509ExtensionsGenerator extGenerator = new();
         private V2AttributeCertificateInfoGenerator acInfoGen;
         private DerObjectIdentifier sigOID;
         private AlgorithmIdentifier sigAlgId;
@@ -87,7 +86,7 @@ namespace Org.BouncyCastle.X509
             IStreamCalculator calculator = signatureCalculatorFactory.CreateCalculator();
             calculator.Stream.Write( derEncoded, 0, derEncoded.Length );
             Platform.Dispose( calculator.Stream );
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] )
+            Asn1EncodableVector v = new( new Asn1Encodable[0] )
             {
                 { attributeCertificateInfo, (Asn1Encodable)signatureCalculatorFactory.AlgorithmDetails }
             };

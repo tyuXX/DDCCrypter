@@ -9,7 +9,6 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Bcpg.OpenPgp
@@ -118,7 +117,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
         public void SetUnhashedSubpackets( PgpSignatureSubpacketVector unhashedPackets ) => this.unhashed = unhashedPackets == null ? EmptySignatureSubpackets : unhashedPackets.ToSubpacketArray();
 
-        public PgpOnePassSignature GenerateOnePassVersion( bool isNested ) => new PgpOnePassSignature( new OnePassSignaturePacket( this.signatureType, this.hashAlgorithm, this.keyAlgorithm, this.privKey.KeyId, isNested ) );
+        public PgpOnePassSignature GenerateOnePassVersion( bool isNested ) => new( new OnePassSignaturePacket( this.signatureType, this.hashAlgorithm, this.keyAlgorithm, this.privKey.KeyId, isNested ) );
 
         public PgpSignature Generate()
         {
@@ -132,11 +131,11 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
             byte[] array1;
             try
             {
-                MemoryStream os = new MemoryStream();
+                MemoryStream os = new();
                 for (int index = 0; index != signatureSubpacketArray1.Length; ++index)
                     signatureSubpacketArray1[index].Encode( os );
                 byte[] array2 = os.ToArray();
-                MemoryStream memoryStream = new MemoryStream( array2.Length + 6 );
+                MemoryStream memoryStream = new( array2.Length + 6 );
                 memoryStream.WriteByte( (byte)num );
                 memoryStream.WriteByte( (byte)this.signatureType );
                 memoryStream.WriteByte( (byte)this.keyAlgorithm );
@@ -188,7 +187,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
             this.UpdateWithPublicKey( pubKey );
             try
             {
-                MemoryStream os = new MemoryStream();
+                MemoryStream os = new();
                 foreach (UserAttributeSubpacket subpacket in userAttributes.ToSubpacketArray())
                     subpacket.Encode( os );
                 this.UpdateWithIdData( 209, os.ToArray() );

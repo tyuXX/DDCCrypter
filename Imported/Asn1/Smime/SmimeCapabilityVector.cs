@@ -8,7 +8,7 @@ namespace Org.BouncyCastle.Asn1.Smime
 {
     public class SmimeCapabilityVector
     {
-        private readonly Asn1EncodableVector capabilities = new Asn1EncodableVector( new Asn1Encodable[0] );
+        private readonly Asn1EncodableVector capabilities = new( new Asn1Encodable[0] );
 
         public void AddCapability( DerObjectIdentifier capability ) => this.capabilities.Add( new DerSequence( capability ) );
 

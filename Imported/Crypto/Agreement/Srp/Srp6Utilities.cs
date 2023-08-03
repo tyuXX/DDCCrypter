@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Agreement.Srp
 {

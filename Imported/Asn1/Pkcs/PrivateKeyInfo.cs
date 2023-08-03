@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Math;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -82,7 +81,7 @@ namespace Org.BouncyCastle.Asn1.Pkcs
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[3]
+            Asn1EncodableVector v = new( new Asn1Encodable[3]
             {
          new DerInteger(0),
          algID,

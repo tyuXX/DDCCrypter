@@ -40,8 +40,8 @@ namespace Org.BouncyCastle.Bcpg
                     break;
                 case PublicKeyAlgorithmTag.ElGamalEncrypt:
                 case PublicKeyAlgorithmTag.ElGamalGeneral:
-                    MPInteger mpInteger1 = new MPInteger( bcpgIn );
-                    MPInteger mpInteger2 = new MPInteger( bcpgIn );
+                    MPInteger mpInteger1 = new( bcpgIn );
+                    MPInteger mpInteger2 = new( bcpgIn );
                     this.data = new byte[2][]
                     {
             mpInteger1.GetEncoded(),
@@ -79,8 +79,8 @@ namespace Org.BouncyCastle.Bcpg
 
         public override void Encode( BcpgOutputStream bcpgOut )
         {
-            MemoryStream outStr = new MemoryStream();
-            BcpgOutputStream s = new BcpgOutputStream( outStr );
+            MemoryStream outStr = new();
+            BcpgOutputStream s = new( outStr );
             s.WriteByte( (byte)this.version );
             s.WriteLong( this.keyId );
             s.WriteByte( (byte)this.algorithm );

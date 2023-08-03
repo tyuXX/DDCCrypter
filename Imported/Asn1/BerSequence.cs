@@ -8,7 +8,7 @@ namespace Org.BouncyCastle.Asn1
 {
     public class BerSequence : DerSequence
     {
-        public static readonly BerSequence Empty = new BerSequence();
+        public static readonly BerSequence Empty = new();
 
         public static BerSequence FromVector( Asn1EncodableVector v ) => v.Count >= 1 ? new BerSequence( v ) : Empty;
 

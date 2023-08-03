@@ -14,7 +14,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.Utilities.IO;
 using Org.BouncyCastle.X509;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -185,17 +184,17 @@ namespace Org.BouncyCastle.Cms
             if (dataOutputStream != null && !dataOutputStream.CanWrite)
                 throw new ArgumentException( "Expected writeable stream", nameof( dataOutputStream ) );
             this._messageDigestsLocked = true;
-            BerSequenceGenerator sGen = new BerSequenceGenerator( outStream );
+            BerSequenceGenerator sGen = new( outStream );
             sGen.AddObject( CmsObjectIdentifiers.SignedData );
-            BerSequenceGenerator sigGen = new BerSequenceGenerator( sGen.GetRawOutputStream(), 0, true );
+            BerSequenceGenerator sigGen = new( sGen.GetRawOutputStream(), 0, true );
             DerObjectIdentifier contentOid = signedContentType == null ? null : new DerObjectIdentifier( signedContentType );
             sigGen.AddObject( this.CalculateVersion( contentOid ) );
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             foreach (string messageDigestOid in (IEnumerable)this._messageDigestOids)
                 v.Add( new AlgorithmIdentifier( new DerObjectIdentifier( messageDigestOid ), DerNull.Instance ) );
             byte[] encoded = new DerSet( v ).GetEncoded();
             sigGen.GetRawOutputStream().Write( encoded, 0, encoded.Length );
-            BerSequenceGenerator eiGen = new BerSequenceGenerator( sigGen.GetRawOutputStream() );
+            BerSequenceGenerator eiGen = new( sigGen.GetRawOutputStream() );
             eiGen.AddObject( contentOid );
             Stream octetOutputStream = encapsulate ? CmsUtilities.CreateBerOctetOutputStream( eiGen.GetRawOutputStream(), 0, true, this._bufferSize ) : null;
             return new CmsSignedDataStreamGenerator.CmsSignedDataOutputStream( this, AttachDigestsToOutputStream( this._messageDigests.Values, GetSafeTeeOutputStream( dataOutputStream, octetOutputStream ) ), signedContentType, sGen, sigGen, eiGen );
@@ -319,7 +318,7 @@ namespace Org.BouncyCastle.Cms
                 this.digestOID = digestOID;
             }
 
-            internal AlgorithmIdentifier DigestAlgorithm => new AlgorithmIdentifier( new DerObjectIdentifier( this.digestOID ), DerNull.Instance );
+            internal AlgorithmIdentifier DigestAlgorithm => new( new DerObjectIdentifier( this.digestOID ), DerNull.Instance );
         }
 
         private class SignerInfoGeneratorImpl : ISignerInfoGenerator
@@ -459,7 +458,7 @@ namespace Org.BouncyCastle.Cms
                     WriteToGenerator( _sigGen, new BerTaggedObject( false, 1, CmsUtilities.CreateBerSetFromList( this.outer._crls ) ) );
                 foreach (DictionaryEntry messageDigest in this.outer._messageDigests)
                     this.outer._messageHashes.Add( messageDigest.Key, DigestUtilities.DoFinal( (IDigest)messageDigest.Value ) );
-                Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+                Asn1EncodableVector v = new( new Asn1Encodable[0] );
                 foreach (CmsSignedDataStreamGenerator.DigestAndSignerInfoGeneratorHolder signerInf in (IEnumerable)this.outer._signerInfs)
                 {
                     AlgorithmIdentifier digestAlgorithm = signerInf.DigestAlgorithm;

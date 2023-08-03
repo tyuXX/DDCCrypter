@@ -8,7 +8,7 @@ namespace Org.BouncyCastle.Asn1
 {
     public class BerSet : DerSet
     {
-        public static readonly BerSet Empty = new BerSet();
+        public static readonly BerSet Empty = new();
 
         public static BerSet FromVector( Asn1EncodableVector v ) => v.Count >= 1 ? new BerSet( v ) : Empty;
 

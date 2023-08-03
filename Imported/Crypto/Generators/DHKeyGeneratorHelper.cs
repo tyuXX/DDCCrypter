@@ -9,13 +9,12 @@ using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC.Multiplier;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Generators
 {
     internal class DHKeyGeneratorHelper
     {
-        internal static readonly DHKeyGeneratorHelper Instance = new DHKeyGeneratorHelper();
+        internal static readonly DHKeyGeneratorHelper Instance = new();
 
         private DHKeyGeneratorHelper()
         {

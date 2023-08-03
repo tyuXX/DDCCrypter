@@ -9,7 +9,6 @@ using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Pkcs
 {

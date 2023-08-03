@@ -4,9 +4,6 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System;
-using System.Text;
-
 namespace Org.BouncyCastle.Math.EC.Abc
 {
     internal class SimpleBigDecimal
@@ -14,7 +11,7 @@ namespace Org.BouncyCastle.Math.EC.Abc
         private readonly BigInteger bigInt;
         private readonly int scale;
 
-        public static SimpleBigDecimal GetInstance( BigInteger val, int scale ) => new SimpleBigDecimal( val.ShiftLeft( scale ), scale );
+        public static SimpleBigDecimal GetInstance( BigInteger val, int scale ) => new( val.ShiftLeft( scale ), scale );
 
         public SimpleBigDecimal( BigInteger bigInt, int scale )
         {
@@ -49,13 +46,13 @@ namespace Org.BouncyCastle.Math.EC.Abc
             return new SimpleBigDecimal( this.bigInt.Add( b.bigInt ), this.scale );
         }
 
-        public SimpleBigDecimal Add( BigInteger b ) => new SimpleBigDecimal( this.bigInt.Add( b.ShiftLeft( this.scale ) ), this.scale );
+        public SimpleBigDecimal Add( BigInteger b ) => new( this.bigInt.Add( b.ShiftLeft( this.scale ) ), this.scale );
 
-        public SimpleBigDecimal Negate() => new SimpleBigDecimal( this.bigInt.Negate(), this.scale );
+        public SimpleBigDecimal Negate() => new( this.bigInt.Negate(), this.scale );
 
         public SimpleBigDecimal Subtract( SimpleBigDecimal b ) => this.Add( b.Negate() );
 
-        public SimpleBigDecimal Subtract( BigInteger b ) => new SimpleBigDecimal( this.bigInt.Subtract( b.ShiftLeft( this.scale ) ), this.scale );
+        public SimpleBigDecimal Subtract( BigInteger b ) => new( this.bigInt.Subtract( b.ShiftLeft( this.scale ) ), this.scale );
 
         public SimpleBigDecimal Multiply( SimpleBigDecimal b )
         {
@@ -63,7 +60,7 @@ namespace Org.BouncyCastle.Math.EC.Abc
             return new SimpleBigDecimal( this.bigInt.Multiply( b.bigInt ), this.scale + this.scale );
         }
 
-        public SimpleBigDecimal Multiply( BigInteger b ) => new SimpleBigDecimal( this.bigInt.Multiply( b ), this.scale );
+        public SimpleBigDecimal Multiply( BigInteger b ) => new( this.bigInt.Multiply( b ), this.scale );
 
         public SimpleBigDecimal Divide( SimpleBigDecimal b )
         {
@@ -71,9 +68,9 @@ namespace Org.BouncyCastle.Math.EC.Abc
             return new SimpleBigDecimal( this.bigInt.ShiftLeft( this.scale ).Divide( b.bigInt ), this.scale );
         }
 
-        public SimpleBigDecimal Divide( BigInteger b ) => new SimpleBigDecimal( this.bigInt.Divide( b ), this.scale );
+        public SimpleBigDecimal Divide( BigInteger b ) => new( this.bigInt.Divide( b ), this.scale );
 
-        public SimpleBigDecimal ShiftLeft( int n ) => new SimpleBigDecimal( this.bigInt.ShiftLeft( n ), this.scale );
+        public SimpleBigDecimal ShiftLeft( int n ) => new( this.bigInt.ShiftLeft( n ), this.scale );
 
         public int CompareTo( SimpleBigDecimal val )
         {
@@ -112,8 +109,8 @@ namespace Org.BouncyCastle.Math.EC.Abc
                 chArray[index] = '0';
             for (int index = 0; index < length; ++index)
                 chArray[num + index] = str2[index];
-            string str3 = new string( chArray );
-            StringBuilder stringBuilder = new StringBuilder( str1 );
+            string str3 = new( chArray );
+            StringBuilder stringBuilder = new( str1 );
             stringBuilder.Append( "." );
             stringBuilder.Append( str3 );
             return stringBuilder.ToString();

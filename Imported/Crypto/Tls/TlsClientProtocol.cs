@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -83,7 +82,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         protected override void HandleHandshakeMessage( byte type, byte[] data )
         {
-            MemoryStream memoryStream = new MemoryStream( data, false );
+            MemoryStream memoryStream = new( data, false );
             if (this.mResumedSession)
             {
                 if (type != 20 || this.mConnectionState != 2)
@@ -386,7 +385,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         protected virtual void SendCertificateVerifyMessage( DigitallySigned certificateVerify )
         {
-            TlsProtocol.HandshakeMessage output = new TlsProtocol.HandshakeMessage( 15 );
+            TlsProtocol.HandshakeMessage output = new( 15 );
             certificateVerify.Encode( output );
             output.WriteToRecordStream( this );
         }
@@ -411,7 +410,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             if (buf.Length > 0 && this.mSessionParameters != null && (!Arrays.Contains( this.mOfferedCipherSuites, this.mSessionParameters.CipherSuite ) || !Arrays.Contains( this.mOfferedCompressionMethods, this.mSessionParameters.CompressionAlgorithm )))
                 buf = TlsUtilities.EmptyBytes;
             this.mClientExtensions = this.mTlsClient.GetClientExtensions();
-            TlsProtocol.HandshakeMessage output = new TlsProtocol.HandshakeMessage( 1 );
+            TlsProtocol.HandshakeMessage output = new( 1 );
             TlsUtilities.WriteVersion( clientVersion, output );
             output.Write( this.mSecurityParameters.ClientRandom );
             TlsUtilities.WriteOpaque8( buf, output );
@@ -430,7 +429,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         protected virtual void SendClientKeyExchangeMessage()
         {
-            TlsProtocol.HandshakeMessage output = new TlsProtocol.HandshakeMessage( 16 );
+            TlsProtocol.HandshakeMessage output = new( 16 );
             this.mKeyExchange.GenerateClientKeyExchange( output );
             output.WriteToRecordStream( this );
         }

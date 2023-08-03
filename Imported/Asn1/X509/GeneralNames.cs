@@ -5,8 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
-using System.Text;
 
 namespace Org.BouncyCastle.Asn1.X509
 {
@@ -50,7 +48,7 @@ namespace Org.BouncyCastle.Asn1.X509
 
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             string newLine = Platform.NewLine;
             stringBuilder.Append( "GeneralNames:" );
             stringBuilder.Append( newLine );

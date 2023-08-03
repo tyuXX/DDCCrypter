@@ -8,7 +8,6 @@ using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Agreement
 {
@@ -39,7 +38,7 @@ namespace Org.BouncyCastle.Crypto.Agreement
 
         public BigInteger CalculateMessage()
         {
-            DHKeyPairGenerator keyPairGenerator = new DHKeyPairGenerator();
+            DHKeyPairGenerator keyPairGenerator = new();
             keyPairGenerator.Init( new DHKeyGenerationParameters( this.random, this.dhParams ) );
             AsymmetricCipherKeyPair keyPair = keyPairGenerator.GenerateKeyPair();
             this.privateValue = ((DHPrivateKeyParameters)keyPair.Private).X;

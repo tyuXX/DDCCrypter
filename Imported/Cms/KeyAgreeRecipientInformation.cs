@@ -13,7 +13,6 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Pkcs;
 using Org.BouncyCastle.Security;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -34,7 +33,7 @@ namespace Org.BouncyCastle.Cms
                 foreach (Asn1Encodable recipientEncryptedKey in info.RecipientEncryptedKeys)
                 {
                     RecipientEncryptedKey instance = RecipientEncryptedKey.GetInstance( recipientEncryptedKey.ToAsn1Object() );
-                    RecipientID rid = new RecipientID();
+                    RecipientID rid = new();
                     KeyAgreeRecipientIdentifier identifier = instance.Identifier;
                     IssuerAndSerialNumber issuerAndSerialNumber = identifier.IssuerAndSerialNumber;
                     if (issuerAndSerialNumber != null)
@@ -75,7 +74,7 @@ namespace Org.BouncyCastle.Cms
             OriginatorPublicKey originatorPublicKey = originator.OriginatorPublicKey;
             if (originatorPublicKey != null)
                 return this.GetPublicKeyFromOriginatorPublicKey( receiverPrivateKey, originatorPublicKey );
-            OriginatorID origID = new OriginatorID();
+            OriginatorID origID = new();
             IssuerAndSerialNumber issuerAndSerialNumber = originator.IssuerAndSerialNumber;
             if (issuerAndSerialNumber != null)
             {

@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Math;
-using System;
 
 namespace Org.BouncyCastle.Asn1.X9
 {
@@ -28,7 +27,7 @@ namespace Org.BouncyCastle.Asn1.X9
         public X9FieldID( int m, int k1, int k2, int k3 )
         {
             this.id = X9ObjectIdentifiers.CharacteristicTwoField;
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[1]
+            Asn1EncodableVector v = new( new Asn1Encodable[1]
             {
          new DerInteger(m)
             } );

@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Asn1.IsisMtt.Ocsp

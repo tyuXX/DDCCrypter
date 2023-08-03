@@ -4,8 +4,6 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System.Text;
-
 namespace Org.BouncyCastle.Asn1.X509
 {
     public class CertificatePolicies : Asn1Encodable
@@ -46,7 +44,7 @@ namespace Org.BouncyCastle.Asn1.X509
 
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder( "CertificatePolicies:" );
+            StringBuilder stringBuilder = new( "CertificatePolicies:" );
             if (this.policyInformation != null && this.policyInformation.Length > 0)
             {
                 stringBuilder.Append( ' ' );

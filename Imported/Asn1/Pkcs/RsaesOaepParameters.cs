@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1.Oiw;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Pkcs
 {
@@ -16,9 +15,9 @@ namespace Org.BouncyCastle.Asn1.Pkcs
         private AlgorithmIdentifier hashAlgorithm;
         private AlgorithmIdentifier maskGenAlgorithm;
         private AlgorithmIdentifier pSourceAlgorithm;
-        public static readonly AlgorithmIdentifier DefaultHashAlgorithm = new AlgorithmIdentifier( OiwObjectIdentifiers.IdSha1, DerNull.Instance );
-        public static readonly AlgorithmIdentifier DefaultMaskGenFunction = new AlgorithmIdentifier( PkcsObjectIdentifiers.IdMgf1, DefaultHashAlgorithm );
-        public static readonly AlgorithmIdentifier DefaultPSourceAlgorithm = new AlgorithmIdentifier( PkcsObjectIdentifiers.IdPSpecified, new DerOctetString( new byte[0] ) );
+        public static readonly AlgorithmIdentifier DefaultHashAlgorithm = new( OiwObjectIdentifiers.IdSha1, DerNull.Instance );
+        public static readonly AlgorithmIdentifier DefaultMaskGenFunction = new( PkcsObjectIdentifiers.IdMgf1, DefaultHashAlgorithm );
+        public static readonly AlgorithmIdentifier DefaultPSourceAlgorithm = new( PkcsObjectIdentifiers.IdPSpecified, new DerOctetString( new byte[0] ) );
 
         public static RsaesOaepParameters GetInstance( object obj )
         {
@@ -83,7 +82,7 @@ namespace Org.BouncyCastle.Asn1.Pkcs
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (!this.hashAlgorithm.Equals( DefaultHashAlgorithm ))
                 v.Add( new DerTaggedObject( true, 0, hashAlgorithm ) );
             if (!this.maskGenAlgorithm.Equals( DefaultMaskGenFunction ))

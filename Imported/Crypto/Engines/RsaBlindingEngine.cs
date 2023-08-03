@@ -11,7 +11,7 @@ namespace Org.BouncyCastle.Crypto.Engines
 {
     public class RsaBlindingEngine : IAsymmetricBlockCipher
     {
-        private readonly RsaCoreEngine core = new RsaCoreEngine();
+        private readonly RsaCoreEngine core = new();
         private RsaKeyParameters key;
         private BigInteger blindingFactor;
         private bool forEncryption;

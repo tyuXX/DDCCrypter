@@ -4,8 +4,6 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System;
-
 namespace Org.BouncyCastle.Utilities.Zlib
 {
     public sealed class ZStream
@@ -40,7 +38,7 @@ namespace Org.BouncyCastle.Utilities.Zlib
         internal Inflate istate;
         internal int data_type;
         public long adler;
-        internal Adler32 _adler = new Adler32();
+        internal Adler32 _adler = new();
 
         public int inflateInit() => this.inflateInit( 15 );
 

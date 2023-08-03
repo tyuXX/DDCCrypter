@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.Cms
@@ -78,7 +77,7 @@ namespace Org.BouncyCastle.Asn1.Cms
 
         public Asn1EncodableVector GetAll( DerObjectIdentifier oid )
         {
-            Asn1EncodableVector all = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector all = new( new Asn1Encodable[0] );
             object attribute1 = this.attributes[oid];
             if (attribute1 is IList)
             {
@@ -109,11 +108,11 @@ namespace Org.BouncyCastle.Asn1.Cms
         public IDictionary ToDictionary() => Platform.CreateHashtable( this.attributes );
 
         [Obsolete( "Use 'ToDictionary' instead" )]
-        public Hashtable ToHashtable() => new Hashtable( this.attributes );
+        public Hashtable ToHashtable() => new( this.attributes );
 
         public Asn1EncodableVector ToAsn1EncodableVector()
         {
-            Asn1EncodableVector asn1EncodableVector = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector asn1EncodableVector = new( new Asn1Encodable[0] );
             foreach (object obj1 in (IEnumerable)this.attributes.Values)
             {
                 if (obj1 is IList)
@@ -127,18 +126,18 @@ namespace Org.BouncyCastle.Asn1.Cms
             return asn1EncodableVector;
         }
 
-        public Attributes ToAttributes() => new Attributes( this.ToAsn1EncodableVector() );
+        public Attributes ToAttributes() => new( this.ToAsn1EncodableVector() );
 
         public AttributeTable Add( DerObjectIdentifier attrType, Asn1Encodable attrValue )
         {
-            AttributeTable attributeTable = new AttributeTable( this.attributes );
+            AttributeTable attributeTable = new( this.attributes );
             attributeTable.AddAttribute( new Attribute( attrType, new DerSet( attrValue ) ) );
             return attributeTable;
         }
 
         public AttributeTable Remove( DerObjectIdentifier attrType )
         {
-            AttributeTable attributeTable = new AttributeTable( this.attributes );
+            AttributeTable attributeTable = new( this.attributes );
             attributeTable.attributes.Remove( attrType );
             return attributeTable;
         }

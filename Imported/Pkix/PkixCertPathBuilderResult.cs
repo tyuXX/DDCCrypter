@@ -5,8 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Crypto;
-using System;
-using System.Text;
 
 namespace Org.BouncyCastle.Pkix
 {
@@ -28,7 +26,7 @@ namespace Org.BouncyCastle.Pkix
 
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             stringBuilder.Append( "SimplePKIXCertPathBuilderResult: [\n" );
             stringBuilder.Append( "  Certification Path: " ).Append( CertPath ).Append( '\n' );
             stringBuilder.Append( "  Trust Anchor: " ).Append( this.TrustAnchor.TrustedCert.IssuerDN.ToString() ).Append( '\n' );

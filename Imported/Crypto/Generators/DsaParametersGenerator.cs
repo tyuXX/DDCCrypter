@@ -10,7 +10,6 @@ using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Encoders;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Generators
 {
@@ -107,7 +106,7 @@ namespace Org.BouncyCastle.Crypto.Generators
                 Array.Copy( numArray2, numArray2.Length - (numArray4.Length - (num * numArray2.Length)), numArray4, 0, numArray4.Length - (num * numArray2.Length) );
                 byte[] numArray8;
                 (numArray8 = numArray4)[0] = (byte)(numArray8[0] | 128U);
-                BigInteger bigInteger1 = new BigInteger( 1, numArray4 );
+                BigInteger bigInteger1 = new( 1, numArray4 );
                 BigInteger bigInteger2 = bigInteger1.Mod( q.ShiftLeft( 1 ) );
                 BigInteger p = bigInteger1.Subtract( bigInteger2.Subtract( BigInteger.One ) );
                 if (p.BitLength == this.L && p.IsProbablePrime( this.certainty ))
@@ -163,7 +162,7 @@ namespace Org.BouncyCastle.Crypto.Generators
                 {
                     Inc( numArray3 );
                     Hash( digest, numArray3, numArray2 );
-                    BigInteger bigInteger2 = new BigInteger( 1, numArray2 );
+                    BigInteger bigInteger2 = new( 1, numArray2 );
                     if (num4 == num2)
                         bigInteger2 = bigInteger2.Mod( BigInteger.One.ShiftLeft( n1 ) );
                     bigInteger1 = bigInteger1.Add( bigInteger2.ShiftLeft( n2 ) );

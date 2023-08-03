@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -13,7 +12,7 @@ namespace Org.BouncyCastle.Asn1.X509
 {
     public class V2TbsCertListGenerator
     {
-        private DerInteger version = new DerInteger( 1 );
+        private DerInteger version = new( 1 );
         private AlgorithmIdentifier signature;
         private X509Name issuer;
         private Time thisUpdate;
@@ -54,7 +53,7 @@ namespace Org.BouncyCastle.Asn1.X509
             IList arrayList2 = Platform.CreateArrayList();
             if (reason != 0)
             {
-                CrlReason crlReason = new CrlReason( reason );
+                CrlReason crlReason = new( reason );
                 try
                 {
                     arrayList1.Add( X509Extensions.ReasonCode );
@@ -88,7 +87,7 @@ namespace Org.BouncyCastle.Asn1.X509
           Time revocationDate,
           X509Extensions extensions )
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[2]
+            Asn1EncodableVector v = new( new Asn1Encodable[2]
             {
          userCertificate,
          revocationDate
@@ -104,7 +103,7 @@ namespace Org.BouncyCastle.Asn1.X509
         {
             if (this.signature == null || this.issuer == null || this.thisUpdate == null)
                 throw new InvalidOperationException( "Not all mandatory fields set in V2 TbsCertList generator." );
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[4]
+            Asn1EncodableVector v = new( new Asn1Encodable[4]
             {
          version,
          signature,

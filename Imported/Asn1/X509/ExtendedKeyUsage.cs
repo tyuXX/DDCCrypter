@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.X509
@@ -54,7 +53,7 @@ namespace Org.BouncyCastle.Asn1.X509
 
         public ExtendedKeyUsage( IEnumerable usages )
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             foreach (object usage in usages)
             {
                 Asn1Encodable instance = DerObjectIdentifier.GetInstance( usage );
@@ -67,7 +66,7 @@ namespace Org.BouncyCastle.Asn1.X509
         public bool HasKeyPurposeId( KeyPurposeID keyPurposeId ) => this.usageTable.Contains( keyPurposeId );
 
         [Obsolete( "Use 'GetAllUsages'" )]
-        public ArrayList GetUsages() => new ArrayList( this.usageTable.Values );
+        public ArrayList GetUsages() => new( this.usageTable.Values );
 
         public IList GetAllUsages() => Platform.CreateArrayList( this.usageTable.Values );
 

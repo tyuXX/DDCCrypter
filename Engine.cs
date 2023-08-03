@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Org.BouncyCastle.Crypto.Digests;
+using Org.BouncyCastle.Crypto;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -9,20 +11,26 @@ namespace DDCCrypter
     public static class Engine
     {
         public static readonly Version Version = Version.Parse("1.0.0.0");
-        public static readonly HashSet<Crypter> crypters = new HashSet<Crypter>{
+        public static readonly HashSet<Crypter> crypters = new()
+        {
             new Crypter(EMD5,new Descriptor("Message Digest 5","MD5",""),CrypterType.TwoWay),
+            new Crypter(EMD5,new Descriptor("Message Digest 4","MD4",""),CrypterType.OneWay),
             new Crypter(ESHA1,new Descriptor("Secure Hash Algorithm 1", "SHA1", ""),CrypterType.OneWay),
-            new Crypter(ESHA256,new Descriptor("Secure Hash Algorithm 256", "SHA256", ""),CrypterType.OneWay),
-            new Crypter(ESHA384,new Descriptor("Secure Hash Algorithm 384", "SHA384", ""),CrypterType.OneWay),
-            new Crypter(ESHA512,new Descriptor("Secure Hash Algorithm 512", "SHA512", ""),CrypterType.OneWay),
+            new Crypter(ESHA256,new Descriptor("Secure Hash Algorithm 256bit", "SHA256", ""),CrypterType.OneWay),
+            new Crypter(ESHA384,new Descriptor("Secure Hash Algorithm 384bit", "SHA384", ""),CrypterType.OneWay),
+            new Crypter(ESHA512,new Descriptor("Secure Hash Algorithm 512bit", "SHA512", ""),CrypterType.OneWay),
+            new Crypter(ESHA3224,new Descriptor("Secure Hash Algorithm 3 224bit", "SHA3224", ""),CrypterType.OneWay),
+            new Crypter(ESHA3256,new Descriptor("Secure Hash Algorithm 3 256bit", "SHA3256", ""),CrypterType.OneWay),
+            new Crypter(ESHA3384,new Descriptor("Secure Hash Algorithm 3 384bit", "SHA3384", ""),CrypterType.OneWay),
+            new Crypter(ESHA3512,new Descriptor("Secure Hash Algorithm 3 512bit", "SHA3512", ""),CrypterType.OneWay),
             new Crypter(EAES,new Descriptor("Advanced Encryption Standard", "AES", ""),CrypterType.TwoWay),
             new Crypter(EBINARY,new Descriptor("Binary (Base2)", "Binary", ""),CrypterType.TwoWay),
             new Crypter(EBASE64,new Descriptor("Base64", "Base64", ""),CrypterType.TwoWay),
             new Crypter(EMORSECODE,new Descriptor("Morse Code", "Morse Code", ""),CrypterType.TwoWay),
-            new Crypter(EOCTAL,new Descriptor("Octal (Base8)", "Octal", "NYI"),CrypterType.TwoWay),
+            new Crypter(EOCTAL,new Descriptor("Octal (Base8)", "Octal", "NYI"),CrypterType.OneWay),
             new Crypter(EENCODINGCONVERT,new Descriptor("Converter For Encodings", "Encoding Converter", "Encodings:\n" + ArrayToString(ArrayGetValue(Encoding.GetEncodings(),GetEncodingName),"\n\n")),CrypterType.Encoding),
         };
-        public static List<Operation> Ops = new List<Operation>() { };
+        public static List<Operation> Ops = new() { };
         private static string GetEncodingName( EncodingInfo encodingInfo ) => encodingInfo.Name + '\n' + encodingInfo.DisplayName;
         public static T2[] ArrayGetValue<T, T2>( T[] array, Func<T, T2> func )
         {
@@ -35,7 +43,7 @@ namespace DDCCrypter
         }
         public static string ArrayToString<T>( T[] array, string divider = default )
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             foreach (T t in array)
             {
                 sb.Append( t.ToString() + divider );
@@ -64,7 +72,7 @@ namespace DDCCrypter
         }
         public static HashSet<T> FilterSet<T>( HashSet<T> values, Predicate<T> filter )
         {
-            HashSet<T> result = new HashSet<T>();
+            HashSet<T> result = new();
             foreach (T value in values)
             {
                 if (filter( value ))
@@ -87,7 +95,7 @@ namespace DDCCrypter
         }
         public static void OpenForm<T>() where T : Form, new()
         {
-            T form = new T();
+            T form = new();
             form.Show();
         }
         public static string EncodingConvert( string str, Encoding currentEncoding, Encoding destinationEncoding ) => currentEncoding.GetString( Encoding.Convert( currentEncoding, destinationEncoding, currentEncoding.GetBytes( str ) ) );
@@ -118,7 +126,7 @@ namespace DDCCrypter
         private static string[] DivideString( string str, int chunkSize ) => Enumerable.Range( 0, (int)Math.Ceiling( (double)str.Length / chunkSize ) ).Select( i => str.Substring( i * chunkSize, System.Math.Min( chunkSize, str.Length - (i * chunkSize) ) ) ).ToArray();
         public static string ReadFromFile( string file, string passcode )
         {
-            List<string> _ = new List<string>() { };
+            List<string> _ = new() { };
             _.Add( "estring=" + File.ReadAllText( file ) );
             _.Add( "hash=" + passcode );
             _.Add( "do=true" );
@@ -126,9 +134,9 @@ namespace DDCCrypter
         }
         public static (string, TimeSpan, bool, ArgStore) Process( List<string> sargs )
         {
-            Stopwatch stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new();
             stopwatch.Start();
-            (string, ArgStore) rtstr = new ValueTuple<string, ArgStore>();
+            (string, ArgStore) rtstr = new();
             try
             {
                 rtstr = ArgProcess( sargs );
@@ -143,7 +151,7 @@ namespace DDCCrypter
         }
         private static (string, ArgStore) ArgProcess( List<string> sargs )
         {
-            ArgStore args = new ArgStore( true );
+            ArgStore args = new( true );
             foreach (string str in sargs)
             {
                 string[] strs = str.Split( new char[] { '=' }, 2 );
@@ -160,7 +168,7 @@ namespace DDCCrypter
             {
                 if (bool.Parse( args.GetArgValue( "do" ) ))
                 {
-                    ArgStore _args = new ArgStore( true );
+                    ArgStore _args = new( true );
                     string[] strs = args.GetArgValue( "estring" ).Split( new char[] { '\n' }, 3 );
                     if (strs.Length < 3)
                     {
@@ -186,7 +194,7 @@ namespace DDCCrypter
                 }
                 else
                 {
-                    ArgStore _args = new ArgStore( true );
+                    ArgStore _args = new( true );
                     _args.Add( args.GetArg( "type" ) );
                     //TODO - Continue
                 }
@@ -203,9 +211,66 @@ namespace DDCCrypter
             }
             return Encoding.UTF8.GetString( Convert.FromBase64String( args.GetArgValue( "estring" ) ) );
         }
+        private static string EMD2( ArgStore args )
+        {
+            byte[] data = Encoding.ASCII.GetBytes( args.GetArgValue( "estring" ) );
+
+            MD2Digest md2 = new MD2Digest();
+            md2.BlockUpdate( data, 0, data.Length );
+
+            byte[] hash = new byte[md2.GetDigestSize()];
+            md2.DoFinal( hash, 0 );
+
+            return BitConverter.ToString( hash ).Replace( "-", "" ).ToLower();
+        }
+        public static string EMD4( ArgStore args )
+        {
+            byte[] data = Encoding.UTF8.GetBytes( args.GetArgValue( "estring" ) );
+            MD4Digest md4 = new();
+            md4.BlockUpdate( data, 0, data.Length );
+            byte[] hash = new byte[md4.GetDigestSize()];
+            md4.DoFinal( hash, 0 );
+            return BitConverter.ToString( hash ).Replace( "-", "" ).ToLower();
+        }
+        private static string ESHA3256( ArgStore args )
+        {
+            byte[] data = Encoding.UTF8.GetBytes( args.GetArgValue( "estring" ) );
+            IDigest digest = new Sha3Digest( 256 );
+            byte[] hash = new byte[digest.GetDigestSize()];
+            digest.BlockUpdate( data, 0, data.Length );
+            digest.DoFinal( hash, 0 );
+            return BitConverter.ToString( hash ).Replace( "-", "" ).ToLower();
+        }
+        private static string ESHA3224( ArgStore args )
+        {
+            byte[] data = Encoding.UTF8.GetBytes( args.GetArgValue( "estring" ) );
+            IDigest digest = new Sha3Digest( 224 );
+            byte[] hash = new byte[digest.GetDigestSize()];
+            digest.BlockUpdate( data, 0, data.Length );
+            digest.DoFinal( hash, 0 );
+            return BitConverter.ToString( hash ).Replace( "-", "" ).ToLower();
+        }
+        private static string ESHA3384( ArgStore args )
+        {
+            byte[] data = Encoding.UTF8.GetBytes( args.GetArgValue( "estring" ) );
+            IDigest digest = new Sha3Digest( 384 );
+            byte[] hash = new byte[digest.GetDigestSize()];
+            digest.BlockUpdate( data, 0, data.Length );
+            digest.DoFinal( hash, 0 );
+            return BitConverter.ToString( hash ).Replace( "-", "" ).ToLower();
+        }
+        private static string ESHA3512( ArgStore args )
+        {
+            byte[] data = Encoding.UTF8.GetBytes( args.GetArgValue( "estring" ) );
+            IDigest digest = new Sha3Digest( 512 );
+            byte[] hash = new byte[digest.GetDigestSize()];
+            digest.BlockUpdate( data, 0, data.Length );
+            digest.DoFinal( hash, 0 );
+            return BitConverter.ToString( hash ).Replace( "-", "" ).ToLower();
+        }
         private static string EMORSECODE( ArgStore args )
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             if (bool.Parse( args.GetArgValue( "do" ) ))
             {
                 foreach (char chr in args.GetArgValue( "estring" ).ToUpper())
@@ -228,7 +293,7 @@ namespace DDCCrypter
         }
         private static string EBINARY( ArgStore args )
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             if (bool.Parse( args.GetArgValue( "do" ) ))
             {
                 foreach (char chr in args.GetArgValue( "estring" ))
@@ -246,7 +311,7 @@ namespace DDCCrypter
         }
         private static string EOCTAL( ArgStore args )
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             if (bool.Parse( args.GetArgValue( "do" ) ))
             {
                 foreach (char chr in args.GetArgValue( "estring" ))
@@ -273,9 +338,9 @@ namespace DDCCrypter
                 {
                     aes.Key = keyBytes;
                     aes.GenerateIV();
-                    using (MemoryStream ms = new MemoryStream())
+                    using (MemoryStream ms = new())
                     {
-                        using (CryptoStream cs = new CryptoStream( ms, aes.CreateEncryptor(), CryptoStreamMode.Write ))
+                        using (CryptoStream cs = new( ms, aes.CreateEncryptor(), CryptoStreamMode.Write ))
                         {
                             cs.Write( textBytes, 0, textBytes.Length );
                         }
@@ -297,9 +362,9 @@ namespace DDCCrypter
                 Array.Copy( encryptedBytes, iv.Length, dataToDecrypt, 0, dataToDecrypt.Length );
                 aes.Key = keyBytes;
                 aes.IV = iv;
-                using (MemoryStream ms = new MemoryStream())
+                using (MemoryStream ms = new())
                 {
-                    using (CryptoStream cs = new CryptoStream( ms, aes.CreateDecryptor(), CryptoStreamMode.Write ))
+                    using (CryptoStream cs = new( ms, aes.CreateDecryptor(), CryptoStreamMode.Write ))
                     {
                         cs.Write( dataToDecrypt, 0, dataToDecrypt.Length );
                     }
@@ -313,10 +378,10 @@ namespace DDCCrypter
             if (bool.Parse( args.GetArgValue( "do" ) ))
             {
                 byte[] data = Encoding.UTF8.GetBytes( args.GetArgValue( "estring" ) );
-                using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+                using (MD5CryptoServiceProvider md5 = new())
                 {
                     byte[] keys = md5.ComputeHash( Encoding.UTF8.GetBytes( args.GetArgValue( "hash" ) ) );
-                    using (TripleDESCryptoServiceProvider tripDes = new TripleDESCryptoServiceProvider() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+                    using (TripleDESCryptoServiceProvider tripDes = new() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
                     {
                         ICryptoTransform transform = tripDes.CreateEncryptor();
                         byte[] results = transform.TransformFinalBlock( data, 0, data.Length );
@@ -327,10 +392,10 @@ namespace DDCCrypter
             else
             {
                 byte[] data = Convert.FromBase64String( args.GetArgValue( "estring" ) );
-                using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+                using (MD5CryptoServiceProvider md5 = new())
                 {
                     byte[] keys = md5.ComputeHash( Encoding.UTF8.GetBytes( args.GetArgValue( "hash" ) ) );
-                    using (TripleDESCryptoServiceProvider tripDes = new TripleDESCryptoServiceProvider() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+                    using (TripleDESCryptoServiceProvider tripDes = new() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
                     {
                         ICryptoTransform transform = tripDes.CreateDecryptor();
                         byte[] results = transform.TransformFinalBlock( data, 0, data.Length );
@@ -364,7 +429,7 @@ namespace DDCCrypter
     {
         private static Dictionary<string, char> ReverseDict( Dictionary<char, string> dict )
         {
-            Dictionary<string, char> _ = new Dictionary<string, char> { };
+            Dictionary<string, char> _ = new() { };
             foreach (KeyValuePair<char, string> kvp in dict)
             {
                 _.Add( kvp.Value, kvp.Key );
@@ -372,7 +437,7 @@ namespace DDCCrypter
             return _;
         }
         public static Dictionary<string, char> ReverseMorse { get => ReverseDict( Morse ); }
-        public static Dictionary<char, string> Morse = new Dictionary<char, string> { { 'A', ".-" }, { 'B', "-..." }, { 'C', "-.-." }, { 'D', "-.." }, { 'E', "." }, { 'F', "..-." }, { 'G', "--." }, { 'H', "...." }, { 'I', ".." }, { 'J', ".---" }, { 'K', "-.-" }, { 'L', ".-.." }, { 'M', "--" }, { 'N', "-." }, { 'O', "---" }, { 'P', ".--." }, { 'Q', "--.-" }, { 'R', ".-." }, { 'S', "..." }, { 'T', "-" }, { 'U', "..-" }, { 'V', "...-" }, { 'W', ".--" }, { 'X', "-..-" }, { 'Y', "-.--" }, { 'Z', "--.." }, { '0', "-----" }, { '1', ".----" }, { '2', "..---" }, { '3', "...--" }, { '4', "....-" }, { '5', "....." }, { '6', "-...." }, { '7', "--..." }, { '8', "---.." }, { '9', "----." }, { ' ', " " } };
+        public static Dictionary<char, string> Morse = new() { { 'A', ".-" }, { 'B', "-..." }, { 'C', "-.-." }, { 'D', "-.." }, { 'E', "." }, { 'F', "..-." }, { 'G', "--." }, { 'H', "...." }, { 'I', ".." }, { 'J', ".---" }, { 'K', "-.-" }, { 'L', ".-.." }, { 'M', "--" }, { 'N', "-." }, { 'O', "---" }, { 'P', ".--." }, { 'Q', "--.-" }, { 'R', ".-." }, { 'S', "..." }, { 'T', "-" }, { 'U', "..-" }, { 'V', "...-" }, { 'W', ".--" }, { 'X', "-..-" }, { 'Y', "-.--" }, { 'Z', "--.." }, { '0', "-----" }, { '1', ".----" }, { '2', "..---" }, { '3', "...--" }, { '4', "....-" }, { '5', "....." }, { '6', "-...." }, { '7', "--..." }, { '8', "---.." }, { '9', "----." }, { ' ', " " } };
     }
     public struct Arg
     {
@@ -436,7 +501,7 @@ namespace DDCCrypter
         }
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendLine( "UUID:" + UUID.ToString() );
             sb.AppendLine( "Output String:" + Output.Item1 );
             sb.AppendLine( "Time:" + Output.Item2.Milliseconds + "ms" );

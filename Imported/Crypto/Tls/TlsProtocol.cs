@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Prng;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -33,9 +32,9 @@ namespace Org.BouncyCastle.Crypto.Tls
         protected const short CS_SERVER_FINISHED = 15;
         protected const short CS_END = 16;
         private static readonly string TLS_ERROR_MESSAGE = "Internal TLS error, this could be an attack";
-        private ByteQueue mApplicationDataQueue = new ByteQueue();
-        private ByteQueue mAlertQueue = new ByteQueue( 2 );
-        private ByteQueue mHandshakeQueue = new ByteQueue();
+        private ByteQueue mApplicationDataQueue = new();
+        private ByteQueue mAlertQueue = new( 2 );
+        private ByteQueue mHandshakeQueue = new();
         internal RecordStream mRecordStream;
         protected SecureRandom mSecureRandom;
         private TlsStream mTlsStream = null;
@@ -506,7 +505,7 @@ namespace Org.BouncyCastle.Crypto.Tls
                     return;
                 }
             }
-            TlsProtocol.HandshakeMessage output = new TlsProtocol.HandshakeMessage( 11 );
+            TlsProtocol.HandshakeMessage output = new( 11 );
             certificate.Encode( output );
             output.WriteToRecordStream( this );
         }
@@ -521,14 +520,14 @@ namespace Org.BouncyCastle.Crypto.Tls
         protected virtual void SendFinishedMessage()
         {
             byte[] verifyData = this.CreateVerifyData( this.Context.IsServer );
-            TlsProtocol.HandshakeMessage handshakeMessage = new TlsProtocol.HandshakeMessage( 20, verifyData.Length );
+            TlsProtocol.HandshakeMessage handshakeMessage = new( 20, verifyData.Length );
             handshakeMessage.Write( verifyData, 0, verifyData.Length );
             handshakeMessage.WriteToRecordStream( this );
         }
 
         protected virtual void SendSupplementalDataMessage( IList supplementalData )
         {
-            TlsProtocol.HandshakeMessage output = new TlsProtocol.HandshakeMessage( 23 );
+            TlsProtocol.HandshakeMessage output = new( 23 );
             WriteSupplementalData( output, supplementalData );
             output.WriteToRecordStream( this );
         }
@@ -627,7 +626,7 @@ namespace Org.BouncyCastle.Crypto.Tls
                 return null;
             byte[] buffer = TlsUtilities.ReadOpaque16( input );
             AssertEmpty( input );
-            MemoryStream input1 = new MemoryStream( buffer, false );
+            MemoryStream input1 = new( buffer, false );
             IDictionary hashtable = Platform.CreateHashtable();
             while (input1.Position < input1.Length)
             {
@@ -644,7 +643,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         {
             byte[] buffer = TlsUtilities.ReadOpaque24( input );
             AssertEmpty( input );
-            MemoryStream input1 = new MemoryStream( buffer, false );
+            MemoryStream input1 = new( buffer, false );
             IList arrayList = Platform.CreateArrayList();
             while (input1.Position < input1.Length)
             {
@@ -657,7 +656,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         protected internal static void WriteExtensions( Stream output, IDictionary extensions )
         {
-            MemoryStream output1 = new MemoryStream();
+            MemoryStream output1 = new();
             foreach (int key in (IEnumerable)extensions.Keys)
             {
                 byte[] extension = (byte[])extensions[key];
@@ -670,7 +669,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         protected internal static void WriteSupplementalData( Stream output, IList supplementalData )
         {
-            MemoryStream output1 = new MemoryStream();
+            MemoryStream output1 = new();
             foreach (SupplementalDataEntry supplementalDataEntry in (IEnumerable)supplementalData)
             {
                 int dataType = supplementalDataEntry.DataType;

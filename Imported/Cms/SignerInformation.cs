@@ -14,7 +14,6 @@ using Org.BouncyCastle.Crypto.Signers;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -387,7 +386,7 @@ namespace Org.BouncyCastle.Cms
             Org.BouncyCastle.Asn1.Cms.SignerInfo info = signerInformation.info;
             Org.BouncyCastle.Asn1.Cms.AttributeTable unsignedAttributes = signerInformation.UnsignedAttributes;
             Asn1EncodableVector v1 = unsignedAttributes == null ? new Asn1EncodableVector( new Asn1Encodable[0] ) : unsignedAttributes.ToAsn1EncodableVector();
-            Asn1EncodableVector v2 = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v2 = new( new Asn1Encodable[0] );
             foreach (SignerInformation signer in (IEnumerable)counterSigners.GetSigners())
                 v2.Add( signer.ToSignerInfo() );
             v1.Add( new Org.BouncyCastle.Asn1.Cms.Attribute( CmsAttributes.CounterSignature, new DerSet( v2 ) ) );

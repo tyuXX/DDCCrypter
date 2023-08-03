@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Prng;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Threading;
 
 namespace Org.BouncyCastle.Security
@@ -15,7 +14,7 @@ namespace Org.BouncyCastle.Security
     public class SecureRandom : Random
     {
         private static long counter = Times.NanoTime();
-        private static readonly SecureRandom master = new SecureRandom( new CryptoApiRandomGenerator() );
+        private static readonly SecureRandom master = new( new CryptoApiRandomGenerator() );
         protected readonly IRandomGenerator generator;
         private static readonly double DoubleScale = System.Math.Pow( 2.0, 64.0 );
 
@@ -28,7 +27,7 @@ namespace Org.BouncyCastle.Security
             IDigest digest = DigestUtilities.GetDigest( digestName );
             if (digest == null)
                 return null;
-            DigestRandomGenerator prng = new DigestRandomGenerator( digest );
+            DigestRandomGenerator prng = new( digest );
             if (autoSeed)
             {
                 prng.AddSeedMaterial( NextCounterValue() );

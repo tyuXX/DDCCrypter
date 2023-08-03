@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Pkcs

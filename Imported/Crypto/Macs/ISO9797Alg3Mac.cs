@@ -8,7 +8,6 @@ using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Modes;
 using Org.BouncyCastle.Crypto.Paddings;
 using Org.BouncyCastle.Crypto.Parameters;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Macs
 {
@@ -140,7 +139,7 @@ namespace Org.BouncyCastle.Crypto.Macs
                 this.padding.AddPadding( this.buf, this.bufOff );
             }
             this.cipher.ProcessBlock( this.buf, 0, this.mac, 0 );
-            DesEngine desEngine = new DesEngine();
+            DesEngine desEngine = new();
             desEngine.Init( false, lastKey2 );
             desEngine.ProcessBlock( this.mac, 0, this.mac, 0 );
             desEngine.Init( true, lastKey3 );

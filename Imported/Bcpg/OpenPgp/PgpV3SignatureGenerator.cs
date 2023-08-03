@@ -8,7 +8,6 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities.Date;
-using System;
 
 namespace Org.BouncyCastle.Bcpg.OpenPgp
 {
@@ -123,7 +122,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
             }
         }
 
-        public PgpOnePassSignature GenerateOnePassVersion( bool isNested ) => new PgpOnePassSignature( new OnePassSignaturePacket( this.signatureType, this.hashAlgorithm, this.keyAlgorithm, this.privKey.KeyId, isNested ) );
+        public PgpOnePassSignature GenerateOnePassVersion( bool isNested ) => new( new OnePassSignaturePacket( this.signatureType, this.hashAlgorithm, this.keyAlgorithm, this.privKey.KeyId, isNested ) );
 
         public PgpSignature Generate()
         {

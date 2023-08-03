@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -71,7 +70,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         protected override void HandleHandshakeMessage( byte type, byte[] data )
         {
-            MemoryStream memoryStream = new MemoryStream( data );
+            MemoryStream memoryStream = new( data );
             switch (type)
             {
                 case 1:
@@ -346,14 +345,14 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         protected virtual void SendCertificateRequestMessage( CertificateRequest certificateRequest )
         {
-            TlsProtocol.HandshakeMessage output = new TlsProtocol.HandshakeMessage( 13 );
+            TlsProtocol.HandshakeMessage output = new( 13 );
             certificateRequest.Encode( output );
             output.WriteToRecordStream( this );
         }
 
         protected virtual void SendCertificateStatusMessage( CertificateStatus certificateStatus )
         {
-            TlsProtocol.HandshakeMessage output = new TlsProtocol.HandshakeMessage( 22 );
+            TlsProtocol.HandshakeMessage output = new( 22 );
             certificateStatus.Encode( output );
             output.WriteToRecordStream( this );
         }
@@ -362,14 +361,14 @@ namespace Org.BouncyCastle.Crypto.Tls
         {
             if (newSessionTicket == null)
                 throw new TlsFatalAlert( 80 );
-            TlsProtocol.HandshakeMessage output = new TlsProtocol.HandshakeMessage( 4 );
+            TlsProtocol.HandshakeMessage output = new( 4 );
             newSessionTicket.Encode( output );
             output.WriteToRecordStream( this );
         }
 
         protected virtual void SendServerHelloMessage()
         {
-            TlsProtocol.HandshakeMessage output = new TlsProtocol.HandshakeMessage( 2 );
+            TlsProtocol.HandshakeMessage output = new( 2 );
             ProtocolVersion serverVersion = this.mTlsServer.GetServerVersion();
             if (!serverVersion.IsEqualOrEarlierVersionOf( this.Context.ClientVersion ))
                 throw new TlsFatalAlert( 80 );
@@ -424,7 +423,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         protected virtual void SendServerKeyExchangeMessage( byte[] serverKeyExchange )
         {
-            TlsProtocol.HandshakeMessage handshakeMessage = new TlsProtocol.HandshakeMessage( 12, serverKeyExchange.Length );
+            TlsProtocol.HandshakeMessage handshakeMessage = new( 12, serverKeyExchange.Length );
             handshakeMessage.Write( serverKeyExchange );
             handshakeMessage.WriteToRecordStream( this );
         }

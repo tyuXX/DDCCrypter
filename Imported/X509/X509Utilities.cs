@@ -17,7 +17,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.X509
@@ -84,19 +83,19 @@ namespace Org.BouncyCastle.X509
             noParams.Add( NistObjectIdentifiers.DsaWithSha512 );
             noParams.Add( CryptoProObjectIdentifiers.GostR3411x94WithGostR3410x94 );
             noParams.Add( CryptoProObjectIdentifiers.GostR3411x94WithGostR3410x2001 );
-            AlgorithmIdentifier hashAlgId1 = new AlgorithmIdentifier( OiwObjectIdentifiers.IdSha1, DerNull.Instance );
+            AlgorithmIdentifier hashAlgId1 = new( OiwObjectIdentifiers.IdSha1, DerNull.Instance );
             exParams.Add( "SHA1WITHRSAANDMGF1", CreatePssParams( hashAlgId1, 20 ) );
-            AlgorithmIdentifier hashAlgId2 = new AlgorithmIdentifier( NistObjectIdentifiers.IdSha224, DerNull.Instance );
+            AlgorithmIdentifier hashAlgId2 = new( NistObjectIdentifiers.IdSha224, DerNull.Instance );
             exParams.Add( "SHA224WITHRSAANDMGF1", CreatePssParams( hashAlgId2, 28 ) );
-            AlgorithmIdentifier hashAlgId3 = new AlgorithmIdentifier( NistObjectIdentifiers.IdSha256, DerNull.Instance );
+            AlgorithmIdentifier hashAlgId3 = new( NistObjectIdentifiers.IdSha256, DerNull.Instance );
             exParams.Add( "SHA256WITHRSAANDMGF1", CreatePssParams( hashAlgId3, 32 ) );
-            AlgorithmIdentifier hashAlgId4 = new AlgorithmIdentifier( NistObjectIdentifiers.IdSha384, DerNull.Instance );
+            AlgorithmIdentifier hashAlgId4 = new( NistObjectIdentifiers.IdSha384, DerNull.Instance );
             exParams.Add( "SHA384WITHRSAANDMGF1", CreatePssParams( hashAlgId4, 48 ) );
-            AlgorithmIdentifier hashAlgId5 = new AlgorithmIdentifier( NistObjectIdentifiers.IdSha512, DerNull.Instance );
+            AlgorithmIdentifier hashAlgId5 = new( NistObjectIdentifiers.IdSha512, DerNull.Instance );
             exParams.Add( "SHA512WITHRSAANDMGF1", CreatePssParams( hashAlgId5, 64 ) );
         }
 
-        private static RsassaPssParameters CreatePssParams( AlgorithmIdentifier hashAlgId, int saltSize ) => new RsassaPssParameters( hashAlgId, new AlgorithmIdentifier( PkcsObjectIdentifiers.IdMgf1, hashAlgId ), new DerInteger( saltSize ), new DerInteger( 1 ) );
+        private static RsassaPssParameters CreatePssParams( AlgorithmIdentifier hashAlgId, int saltSize ) => new( hashAlgId, new AlgorithmIdentifier( PkcsObjectIdentifiers.IdMgf1, hashAlgId ), new DerInteger( saltSize ), new DerInteger( 1 ) );
 
         internal static DerObjectIdentifier GetAlgorithmOid( string algorithmName )
         {

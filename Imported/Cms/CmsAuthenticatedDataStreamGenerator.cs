@@ -12,7 +12,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -42,7 +41,7 @@ namespace Org.BouncyCastle.Cms
             KeyParameter keyParameter = ParameterUtilities.CreateKeyParameter( macOid, key );
             Asn1Encodable asn1Parameters = this.GenerateAsn1Parameters( macOid, key );
             AlgorithmIdentifier algorithmIdentifier = this.GetAlgorithmIdentifier( macOid, keyParameter, asn1Parameters, out ICipherParameters _ );
-            Asn1EncodableVector recipientInfos = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector recipientInfos = new( new Asn1Encodable[0] );
             foreach (RecipientInfoGenerator recipientInfoGenerator in (IEnumerable)this.recipientInfoGenerators)
             {
                 try
@@ -69,9 +68,9 @@ namespace Org.BouncyCastle.Cms
         {
             try
             {
-                BerSequenceGenerator cGen = new BerSequenceGenerator( outStr );
+                BerSequenceGenerator cGen = new( outStr );
                 cGen.AddObject( CmsObjectIdentifiers.AuthenticatedData );
-                BerSequenceGenerator authGen = new BerSequenceGenerator( cGen.GetRawOutputStream(), 0, true );
+                BerSequenceGenerator authGen = new( cGen.GetRawOutputStream(), 0, true );
                 authGen.AddObject( new DerInteger( AuthenticatedData.CalculateVersion( null ) ) );
                 Stream rawOutputStream = authGen.GetRawOutputStream();
                 Asn1Generator asn1Generator = this._berEncodeRecipientSet ? new BerSetGenerator( rawOutputStream ) : (Asn1Generator)new DerSetGenerator( rawOutputStream );
@@ -79,7 +78,7 @@ namespace Org.BouncyCastle.Cms
                     asn1Generator.AddObject( recipientInfo );
                 asn1Generator.Close();
                 authGen.AddObject( macAlgId );
-                BerSequenceGenerator eiGen = new BerSequenceGenerator( rawOutputStream );
+                BerSequenceGenerator eiGen = new( rawOutputStream );
                 eiGen.AddObject( CmsObjectIdentifiers.Data );
                 Stream octetOutputStream = CmsUtilities.CreateBerOctetOutputStream( eiGen.GetRawOutputStream(), 0, false, this._bufferSize );
                 IMac mac = MacUtilities.GetMac( macAlgId.Algorithm );

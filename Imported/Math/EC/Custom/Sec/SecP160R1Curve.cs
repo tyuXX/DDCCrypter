@@ -11,7 +11,7 @@ namespace Org.BouncyCastle.Math.EC.Custom.Sec
     internal class SecP160R1Curve : AbstractFpCurve
     {
         private const int SecP160R1_DEFAULT_COORDS = 2;
-        public static readonly BigInteger q = new BigInteger( 1, Hex.Decode( "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7FFFFFFF" ) );
+        public static readonly BigInteger q = new( 1, Hex.Decode( "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7FFFFFFF" ) );
         protected readonly SecP160R1Point m_infinity;
 
         public SecP160R1Curve()

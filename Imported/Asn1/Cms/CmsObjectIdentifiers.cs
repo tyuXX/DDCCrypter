@@ -20,7 +20,7 @@ namespace Org.BouncyCastle.Asn1.Cms
         public static readonly DerObjectIdentifier CompressedData = PkcsObjectIdentifiers.IdCTCompressedData;
         public static readonly DerObjectIdentifier AuthEnvelopedData = PkcsObjectIdentifiers.IdCTAuthEnvelopedData;
         public static readonly DerObjectIdentifier timestampedData = PkcsObjectIdentifiers.IdCTTimestampedData;
-        public static readonly DerObjectIdentifier id_ri = new DerObjectIdentifier( "1.3.6.1.5.5.7.16" );
+        public static readonly DerObjectIdentifier id_ri = new( "1.3.6.1.5.5.7.16" );
         public static readonly DerObjectIdentifier id_ri_ocsp_response = id_ri.Branch( "2" );
         public static readonly DerObjectIdentifier id_ri_scvp = id_ri.Branch( "4" );
     }

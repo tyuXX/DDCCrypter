@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Signers
 {
@@ -75,7 +74,7 @@ namespace Org.BouncyCastle.Crypto.Signers
         public virtual byte[] GenerateSignature()
         {
             this.CreateSignatureBlock();
-            BigInteger n = new BigInteger( 1, this.cipher.ProcessBlock( this.block, 0, this.block.Length ) );
+            BigInteger n = new( 1, this.cipher.ProcessBlock( this.block, 0, this.block.Length ) );
             this.ClearBlock( this.block );
             return BigIntegers.AsUnsignedByteArray( (this.kParam.Modulus.BitLength + 7) / 8, n.Min( this.kParam.Modulus.Subtract( n ) ) );
         }
@@ -113,7 +112,7 @@ namespace Org.BouncyCastle.Crypto.Signers
             {
                 return false;
             }
-            BigInteger n1 = new BigInteger( this.block );
+            BigInteger n1 = new( this.block );
             BigInteger n2;
             if ((n1.IntValue & 15) == 12)
             {

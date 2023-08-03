@@ -9,7 +9,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC.Multiplier;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Generators
 {
@@ -25,7 +24,7 @@ namespace Org.BouncyCastle.Crypto.Generators
             }
             else
             {
-                Gost3410KeyGenerationParameters generationParameters = new Gost3410KeyGenerationParameters( parameters.Random, CryptoProObjectIdentifiers.GostR3410x94CryptoProA );
+                Gost3410KeyGenerationParameters generationParameters = new( parameters.Random, CryptoProObjectIdentifiers.GostR3410x94CryptoProA );
                 int strength = parameters.Strength;
                 int num = generationParameters.Parameters.P.BitLength - 1;
                 this.param = generationParameters;

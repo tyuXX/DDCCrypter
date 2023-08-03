@@ -65,7 +65,7 @@ namespace Org.BouncyCastle.Cms
                 this.authAttrNotRead = false;
                 if (authAttrs != null)
                 {
-                    Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+                    Asn1EncodableVector v = new( new Asn1Encodable[0] );
                     IAsn1Convertible asn1Convertible;
                     while ((asn1Convertible = authAttrs.ReadObject()) != null)
                     {
@@ -86,7 +86,7 @@ namespace Org.BouncyCastle.Cms
                 this.unauthAttrNotRead = false;
                 if (unauthAttrs != null)
                 {
-                    Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+                    Asn1EncodableVector v = new( new Asn1Encodable[0] );
                     IAsn1Convertible asn1Convertible;
                     while ((asn1Convertible = unauthAttrs.ReadObject()) != null)
                     {

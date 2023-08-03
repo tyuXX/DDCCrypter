@@ -9,7 +9,6 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Pkcs;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities.IO.Pem;
-using System;
 
 namespace Org.BouncyCastle.OpenSsl
 {

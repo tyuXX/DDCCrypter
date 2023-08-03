@@ -8,7 +8,6 @@ using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Encoders;
 using System.IO;
-using System.Text;
 
 namespace Org.BouncyCastle.X509
 {
@@ -29,7 +28,7 @@ namespace Org.BouncyCastle.X509
 
         private string ReadLine( Stream inStream )
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             while (true)
             {
                 int num;
@@ -48,7 +47,7 @@ namespace Org.BouncyCastle.X509
 
         internal Asn1Sequence ReadPemObject( Stream inStream )
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             string source1;
             do
                 ;

@@ -657,9 +657,9 @@ namespace Org.BouncyCastle.Utilities.Zlib
        23,
        5
         };
-        internal static readonly StaticTree static_l_desc = new StaticTree( static_ltree, Tree.extra_lbits, 257, 286, 15 );
-        internal static readonly StaticTree static_d_desc = new StaticTree( static_dtree, Tree.extra_dbits, 0, 30, 15 );
-        internal static readonly StaticTree static_bl_desc = new StaticTree( null, Tree.extra_blbits, 0, 19, 7 );
+        internal static readonly StaticTree static_l_desc = new( static_ltree, Tree.extra_lbits, 257, 286, 15 );
+        internal static readonly StaticTree static_d_desc = new( static_dtree, Tree.extra_dbits, 0, 30, 15 );
+        internal static readonly StaticTree static_bl_desc = new( null, Tree.extra_blbits, 0, 19, 7 );
         internal short[] static_tree;
         internal int[] extra_bits;
         internal int extra_base;

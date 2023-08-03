@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1.Oiw;
 using Org.BouncyCastle.Asn1.X509;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Esf
 {

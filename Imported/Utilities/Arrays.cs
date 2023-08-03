@@ -5,8 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Math;
-using System;
-using System.Text;
 
 namespace Org.BouncyCastle.Utilities
 {
@@ -137,7 +135,7 @@ namespace Org.BouncyCastle.Utilities
 
         public static string ToString( object[] a )
         {
-            StringBuilder stringBuilder = new StringBuilder( 91 );
+            StringBuilder stringBuilder = new( 91 );
             if (a.Length > 0)
             {
                 stringBuilder.Append( a[0] );

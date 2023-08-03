@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Asn1
@@ -56,7 +55,7 @@ namespace Org.BouncyCastle.Asn1
         {
             this.tag = tagNo;
             this.isConstructed = true;
-            MemoryStream memoryStream = new MemoryStream();
+            MemoryStream memoryStream = new();
             for (int index = 0; index != vec.Count; ++index)
             {
                 try

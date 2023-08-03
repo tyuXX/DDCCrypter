@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Asn1.Utilities
@@ -18,7 +17,7 @@ namespace Org.BouncyCastle.Asn1.Utilities
 
         public static void Main( string[] args )
         {
-            Asn1InputStream s = new Asn1InputStream( File.OpenRead( args[0] ) );
+            Asn1InputStream s = new( File.OpenRead( args[0] ) );
             Asn1Object asn1Object;
             while ((asn1Object = s.ReadObject()) != null)
                 Console.WriteLine( Asn1Dump.DumpAsString( asn1Object ) );

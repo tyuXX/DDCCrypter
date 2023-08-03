@@ -9,7 +9,6 @@ using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Crypto.Signers;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Tls
 {

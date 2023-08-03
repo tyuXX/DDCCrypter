@@ -8,7 +8,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
 using System.Collections;
 using System.IO;
-using System.Text;
 
 namespace Org.BouncyCastle.Bcpg
 {
@@ -19,7 +18,7 @@ namespace Org.BouncyCastle.Bcpg
         private bool start = true;
         private int[] outBuf = new int[3];
         private int bufPtr = 3;
-        private Crc24 crc = new Crc24();
+        private Crc24 crc = new();
         private bool crcFound = false;
         private bool hasHeaders = true;
         private string header = null;
@@ -111,7 +110,7 @@ namespace Org.BouncyCastle.Bcpg
             }
             if (headers)
             {
-                StringBuilder stringBuilder = new StringBuilder( "-" );
+                StringBuilder stringBuilder = new( "-" );
                 bool flag1 = false;
                 bool flag2 = false;
                 if (this.restart)

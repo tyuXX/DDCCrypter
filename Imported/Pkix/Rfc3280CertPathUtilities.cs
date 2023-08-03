@@ -14,7 +14,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -22,7 +21,7 @@ namespace Org.BouncyCastle.Pkix
 {
     public class Rfc3280CertPathUtilities
     {
-        private static readonly PkixCrlUtilities CrlUtilities = new PkixCrlUtilities();
+        private static readonly PkixCrlUtilities CrlUtilities = new();
         internal static readonly string ANY_POLICY = "2.5.29.32.0";
         internal static readonly int KEY_CERT_SIGN = 5;
         internal static readonly int CRL_SIGN = 6;
@@ -57,7 +56,7 @@ namespace Org.BouncyCastle.Pkix
             int num = count - index;
             if (PkixCertPathValidatorUtilities.IsSelfIssued( x509Certificate ) && num < count)
                 return;
-            Asn1InputStream asn1InputStream = new Asn1InputStream( x509Certificate.SubjectDN.GetEncoded() );
+            Asn1InputStream asn1InputStream = new( x509Certificate.SubjectDN.GetEncoded() );
             Asn1Sequence instance1;
             try
             {
@@ -87,7 +86,7 @@ namespace Org.BouncyCastle.Pkix
             }
             foreach (string name1 in (IEnumerable)X509Name.GetInstance( instance1 ).GetValueList( X509Name.EmailAddress ))
             {
-                GeneralName name2 = new GeneralName( 1, name1 );
+                GeneralName name2 = new( 1, name1 );
                 try
                 {
                     nameConstraintValidator.checkPermitted( name2 );
@@ -250,7 +249,7 @@ namespace Org.BouncyCastle.Pkix
                                 {
                                     ISet expectedPolicies = new HashSet();
                                     expectedPolicies.Add( str );
-                                    PkixPolicyNode child = new PkixPolicyNode( Platform.CreateArrayList(), index1, expectedPolicies, parent, qualifierSet, str, false );
+                                    PkixPolicyNode child = new( Platform.CreateArrayList(), index1, expectedPolicies, parent, qualifierSet, str, false );
                                     parent.AddChild( child );
                                     policyNodes[index1].Add( child );
                                 }
@@ -349,7 +348,7 @@ namespace Org.BouncyCastle.Pkix
           PkixParameters paramsPKIX,
           IList certPathCerts )
         {
-            X509CertStoreSelector certSelect = new X509CertStoreSelector();
+            X509CertStoreSelector certSelect = new();
             try
             {
                 certSelect.Subject = crl.IssuerDN;
@@ -384,8 +383,8 @@ namespace Org.BouncyCastle.Pkix
                 {
                     try
                     {
-                        PkixCertPathBuilder pkixCertPathBuilder = new PkixCertPathBuilder();
-                        X509CertStoreSelector selector = new X509CertStoreSelector
+                        PkixCertPathBuilder pkixCertPathBuilder = new();
+                        X509CertStoreSelector selector = new()
                         {
                             Certificate = current
                         };
@@ -570,8 +569,8 @@ namespace Org.BouncyCastle.Pkix
             {
                 throw new Exception( "No additional CRL locations could be decoded from CRL distribution point extension.", ex );
             }
-            CertStatus certStatus = new CertStatus();
-            ReasonsMask reasonMask = new ReasonsMask();
+            CertStatus certStatus = new();
+            ReasonsMask reasonMask = new();
             bool flag = false;
             if (instance != null)
             {
@@ -736,7 +735,7 @@ namespace Org.BouncyCastle.Pkix
                                     PkixPolicyNode parent = pkixPolicyNode.Parent;
                                     if (ANY_POLICY.Equals( parent.ValidPolicy ))
                                     {
-                                        PkixPolicyNode child = new PkixPolicyNode( Platform.CreateArrayList(), depth, (ISet)hashtable[str], parent, policyQualifiers, str, critical );
+                                        PkixPolicyNode child = new( Platform.CreateArrayList(), depth, (ISet)hashtable[str], parent, policyQualifiers, str, critical );
                                         parent.AddChild( child );
                                         policyNodes[depth].Add( child );
                                         break;
@@ -780,7 +779,7 @@ namespace Org.BouncyCastle.Pkix
           X509Crl crl )
         {
             ISet set = new HashSet();
-            X509CrlStoreSelector crlselect = new X509CrlStoreSelector
+            X509CrlStoreSelector crlselect = new()
             {
                 CertificateChecking = cert
             };

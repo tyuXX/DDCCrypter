@@ -10,7 +10,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Pkix
@@ -44,9 +43,9 @@ namespace Org.BouncyCastle.Pkix
                 policyNodes[index] = Platform.CreateArrayList();
             ISet expectedPolicies = new HashSet();
             expectedPolicies.Add( Rfc3280CertPathUtilities.ANY_POLICY );
-            PkixPolicyNode validPolicyTree1 = new PkixPolicyNode( Platform.CreateArrayList(), 0, expectedPolicies, null, new HashSet(), Rfc3280CertPathUtilities.ANY_POLICY, false );
+            PkixPolicyNode validPolicyTree1 = new( Platform.CreateArrayList(), 0, expectedPolicies, null, new HashSet(), Rfc3280CertPathUtilities.ANY_POLICY, false );
             policyNodes[0].Add( validPolicyTree1 );
-            PkixNameConstraintValidator nameConstraintValidator = new PkixNameConstraintValidator();
+            PkixNameConstraintValidator nameConstraintValidator = new();
             ISet acceptablePolicies = new HashSet();
             int explicitPolicy1 = !paramsPkix.IsExplicitPolicyRequired ? count + 1 : 0;
             int inhibitAnyPolicy1 = !paramsPkix.IsAnyPolicyInhibited ? count + 1 : 0;

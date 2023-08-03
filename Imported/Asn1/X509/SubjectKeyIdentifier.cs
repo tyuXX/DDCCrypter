@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.X509
 {
@@ -44,7 +43,7 @@ namespace Org.BouncyCastle.Asn1.X509
 
         public override Asn1Object ToAsn1Object() => new DerOctetString( this.keyIdentifier );
 
-        public static SubjectKeyIdentifier CreateSha1KeyIdentifier( SubjectPublicKeyInfo keyInfo ) => new SubjectKeyIdentifier( keyInfo );
+        public static SubjectKeyIdentifier CreateSha1KeyIdentifier( SubjectPublicKeyInfo keyInfo ) => new( keyInfo );
 
         public static SubjectKeyIdentifier CreateTruncatedSha1KeyIdentifier( SubjectPublicKeyInfo keyInfo )
         {

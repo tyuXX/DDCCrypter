@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Math.Raw;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Math.EC.Custom.Sec
 {

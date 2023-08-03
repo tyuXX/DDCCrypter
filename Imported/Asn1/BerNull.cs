@@ -4,13 +4,11 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System;
-
 namespace Org.BouncyCastle.Asn1
 {
     public class BerNull : DerNull
     {
-        public static readonly BerNull Instance = new BerNull( 0 );
+        public static readonly BerNull Instance = new( 0 );
 
         [Obsolete( "Use static Instance object" )]
         public BerNull()

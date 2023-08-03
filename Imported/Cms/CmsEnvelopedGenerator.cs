@@ -17,7 +17,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Cms
@@ -343,7 +342,7 @@ namespace Org.BouncyCastle.Cms
 
         public void AddPasswordRecipient( CmsPbeKey pbeKey, string kekAlgorithmOid )
         {
-            Pbkdf2Params parameters = new Pbkdf2Params( pbeKey.Salt, pbeKey.IterationCount );
+            Pbkdf2Params parameters = new( pbeKey.Salt, pbeKey.IterationCount );
             this.recipientInfoGenerators.Add( new PasswordRecipientInfoGenerator()
             {
                 KeyDerivationAlgorithm = new AlgorithmIdentifier( PkcsObjectIdentifiers.IdPbkdf2, parameters ),

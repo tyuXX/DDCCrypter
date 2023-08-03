@@ -9,7 +9,6 @@ using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Security.Certificates;
-using System;
 
 namespace Org.BouncyCastle.X509.Extension
 {
@@ -24,7 +23,7 @@ namespace Org.BouncyCastle.X509.Extension
         {
             try
             {
-                GeneralName name = new GeneralName( PrincipalUtilities.GetIssuerX509Principal( certificate ) );
+                GeneralName name = new( PrincipalUtilities.GetIssuerX509Principal( certificate ) );
                 if (certificate.Version == 3)
                 {
                     Asn1OctetString extensionValue = certificate.GetExtensionValue( X509Extensions.SubjectKeyIdentifier );

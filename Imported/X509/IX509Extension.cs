@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Utilities.Collections;
-using System;
 
 namespace Org.BouncyCastle.X509
 {

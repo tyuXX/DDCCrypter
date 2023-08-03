@@ -182,6 +182,6 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         public override TlsCipher GetCipher() => this.mCipherFactory.CreateCipher( mContext, TlsUtilities.GetEncryptionAlgorithm( this.mSelectedCipherSuite ), TlsUtilities.GetMacAlgorithm( this.mSelectedCipherSuite ) );
 
-        public virtual NewSessionTicket GetNewSessionTicket() => new NewSessionTicket( 0L, TlsUtilities.EmptyBytes );
+        public virtual NewSessionTicket GetNewSessionTicket() => new( 0L, TlsUtilities.EmptyBytes );
     }
 }

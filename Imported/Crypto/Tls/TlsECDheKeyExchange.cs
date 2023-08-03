@@ -36,7 +36,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         public override byte[] GenerateServerKeyExchange()
         {
-            DigestInputBuffer output = new DigestInputBuffer();
+            DigestInputBuffer output = new();
             this.mECAgreePrivateKey = TlsEccUtilities.GenerateEphemeralServerKeyExchange( this.mContext.SecureRandom, this.mNamedCurves, this.mClientECPointFormats, output );
             SignatureAndHashAlgorithm andHashAlgorithm = TlsUtilities.GetSignatureAndHashAlgorithm( this.mContext, this.mServerCredentials );
             IDigest hash = TlsUtilities.CreateHash( andHashAlgorithm );
@@ -52,7 +52,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         public override void ProcessServerKeyExchange( Stream input )
         {
             SecurityParameters securityParameters = this.mContext.SecurityParameters;
-            SignerInputBuffer tee = new SignerInputBuffer();
+            SignerInputBuffer tee = new();
             Stream input1 = new TeeInputStream( input, tee );
             ECDomainParameters curve_params = TlsEccUtilities.ReadECParameters( this.mNamedCurves, this.mClientECPointFormats, input1 );
             byte[] encoding = TlsUtilities.ReadOpaque8( input1 );

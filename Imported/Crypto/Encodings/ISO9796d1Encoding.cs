@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Encodings
 {
@@ -138,7 +137,7 @@ namespace Org.BouncyCastle.Crypto.Encodings
             byte[] bytes = this.engine.ProcessBlock( input, inOff, inLen );
             int num1 = 1;
             int num2 = (this.bitSize + 13) / 16;
-            BigInteger n = new BigInteger( 1, bytes );
+            BigInteger n = new( 1, bytes );
             BigInteger bigInteger;
             if (n.Mod( Sixteen ).Equals( Six ))
             {

@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -26,7 +25,7 @@ namespace Org.BouncyCastle.Asn1
 
         private static byte[] ToBytes( IEnumerable octs )
         {
-            MemoryStream memoryStream = new MemoryStream();
+            MemoryStream memoryStream = new();
             foreach (Asn1OctetString oct in octs)
             {
                 byte[] octets = oct.GetOctets();

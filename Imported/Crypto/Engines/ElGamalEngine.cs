@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Engines
 {
@@ -60,14 +59,14 @@ namespace Org.BouncyCastle.Crypto.Engines
             if (this.key is ElGamalPrivateKeyParameters)
             {
                 int length1 = length / 2;
-                BigInteger bigInteger = new BigInteger( 1, input, inOff, length1 );
-                BigInteger val = new BigInteger( 1, input, inOff + length1, length1 );
+                BigInteger bigInteger = new( 1, input, inOff, length1 );
+                BigInteger val = new( 1, input, inOff + length1, length1 );
                 ElGamalPrivateKeyParameters key = (ElGamalPrivateKeyParameters)this.key;
                 numArray = bigInteger.ModPow( p.Subtract( BigInteger.One ).Subtract( key.X ), p ).Multiply( val ).Mod( p ).ToByteArrayUnsigned();
             }
             else
             {
-                BigInteger bigInteger1 = new BigInteger( 1, input, inOff, length );
+                BigInteger bigInteger1 = new( 1, input, inOff, length );
                 if (bigInteger1.BitLength >= p.BitLength)
                     throw new DataLengthException( "input too large for ElGamal cipher.\n" );
                 ElGamalPublicKeyParameters key = (ElGamalPublicKeyParameters)this.key;

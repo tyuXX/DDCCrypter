@@ -6,15 +6,14 @@
 
 using Org.BouncyCastle.Asn1.Crmf;
 using Org.BouncyCastle.Asn1.X509;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Cmp
 {
     public class RevRepContentBuilder
     {
-        private readonly Asn1EncodableVector status = new Asn1EncodableVector( new Asn1Encodable[0] );
-        private readonly Asn1EncodableVector revCerts = new Asn1EncodableVector( new Asn1Encodable[0] );
-        private readonly Asn1EncodableVector crls = new Asn1EncodableVector( new Asn1Encodable[0] );
+        private readonly Asn1EncodableVector status = new( new Asn1Encodable[0] );
+        private readonly Asn1EncodableVector revCerts = new( new Asn1Encodable[0] );
+        private readonly Asn1EncodableVector crls = new( new Asn1Encodable[0] );
 
         public virtual RevRepContentBuilder Add( PkiStatusInfo status )
         {
@@ -39,7 +38,7 @@ namespace Org.BouncyCastle.Asn1.Cmp
 
         public virtual RevRepContent Build()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] )
+            Asn1EncodableVector v = new( new Asn1Encodable[0] )
             {
                 new DerSequence( this.status )
             };

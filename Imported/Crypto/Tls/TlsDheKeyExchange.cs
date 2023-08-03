@@ -36,7 +36,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         {
             if (this.mDHParameters == null)
                 throw new TlsFatalAlert( 80 );
-            DigestInputBuffer output = new DigestInputBuffer();
+            DigestInputBuffer output = new();
             this.mDHAgreePrivateKey = TlsDHUtilities.GenerateEphemeralServerKeyExchange( this.mContext.SecureRandom, this.mDHParameters, output );
             SignatureAndHashAlgorithm andHashAlgorithm = TlsUtilities.GetSignatureAndHashAlgorithm( this.mContext, this.mServerCredentials );
             IDigest hash = TlsUtilities.CreateHash( andHashAlgorithm );
@@ -52,7 +52,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         public override void ProcessServerKeyExchange( Stream input )
         {
             SecurityParameters securityParameters = this.mContext.SecurityParameters;
-            SignerInputBuffer tee = new SignerInputBuffer();
+            SignerInputBuffer tee = new();
             ServerDHParams serverDhParams = ServerDHParams.Parse( new TeeInputStream( input, tee ) );
             DigitallySigned signature = this.ParseSignature( input );
             ISigner s = this.InitVerifyer( this.mTlsSigner, signature.Algorithm, securityParameters );

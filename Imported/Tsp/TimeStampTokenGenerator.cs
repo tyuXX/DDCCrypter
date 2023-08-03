@@ -17,7 +17,6 @@ using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -65,8 +64,8 @@ namespace Org.BouncyCastle.Tsp
             IDictionary attrs = signedAttr == null ? Platform.CreateHashtable() : signedAttr.ToDictionary();
             try
             {
-                EssCertID essCertID = new EssCertID( DigestUtilities.CalculateDigest( "SHA-1", cert.GetEncoded() ) );
-                Org.BouncyCastle.Asn1.Cms.Attribute attribute = new Org.BouncyCastle.Asn1.Cms.Attribute( PkcsObjectIdentifiers.IdAASigningCertificate, new DerSet( new SigningCertificate( essCertID ) ) );
+                EssCertID essCertID = new( DigestUtilities.CalculateDigest( "SHA-1", cert.GetEncoded() ) );
+                Org.BouncyCastle.Asn1.Cms.Attribute attribute = new( PkcsObjectIdentifiers.IdAASigningCertificate, new DerSet( new SigningCertificate( essCertID ) ) );
                 attrs[attribute.AttrType] = attribute;
             }
             catch (CertificateEncodingException ex)
@@ -99,7 +98,7 @@ namespace Org.BouncyCastle.Tsp
           BigInteger serialNumber,
           DateTime genTime )
         {
-            MessageImprint messageImprint = new MessageImprint( new AlgorithmIdentifier( new DerObjectIdentifier( request.MessageImprintAlgOid ), DerNull.Instance ), request.GetMessageImprintDigest() );
+            MessageImprint messageImprint = new( new AlgorithmIdentifier( new DerObjectIdentifier( request.MessageImprintAlgOid ), DerNull.Instance ), request.GetMessageImprintDigest() );
             Accuracy accuracy = null;
             if (this.accuracySeconds > 0 || this.accuracyMillis > 0 || this.accuracyMicros > 0)
             {
@@ -120,13 +119,13 @@ namespace Org.BouncyCastle.Tsp
             DerInteger nonce = null;
             if (request.Nonce != null)
                 nonce = new DerInteger( request.Nonce );
-            DerObjectIdentifier tsaPolicyId = new DerObjectIdentifier( this.tsaPolicyOID );
+            DerObjectIdentifier tsaPolicyId = new( this.tsaPolicyOID );
             if (request.ReqPolicy != null)
                 tsaPolicyId = new DerObjectIdentifier( request.ReqPolicy );
-            TstInfo tstInfo = new TstInfo( tsaPolicyId, messageImprint, new DerInteger( serialNumber ), new DerGeneralizedTime( genTime ), accuracy, ordering, nonce, this.tsa, request.Extensions );
+            TstInfo tstInfo = new( tsaPolicyId, messageImprint, new DerInteger( serialNumber ), new DerGeneralizedTime( genTime ), accuracy, ordering, nonce, this.tsa, request.Extensions );
             try
             {
-                CmsSignedDataGenerator signedDataGenerator = new CmsSignedDataGenerator();
+                CmsSignedDataGenerator signedDataGenerator = new();
                 byte[] derEncoded = tstInfo.GetDerEncoded();
                 if (request.CertReq)
                     signedDataGenerator.AddCertificates( this.x509Certs );

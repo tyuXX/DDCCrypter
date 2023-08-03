@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Math;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.X509
@@ -17,7 +16,7 @@ namespace Org.BouncyCastle.Asn1.X509
 
         private static Asn1EncodableVector ConvertVector( IList numbers )
         {
-            Asn1EncodableVector asn1EncodableVector = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector asn1EncodableVector = new( new Asn1Encodable[0] );
             foreach (object number in (IEnumerable)numbers)
             {
                 DerInteger derInteger;

@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -20,7 +19,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         protected virtual void ProcessFinished( byte[] body, byte[] expected_verify_data )
         {
-            MemoryStream memoryStream = new MemoryStream( body, false );
+            MemoryStream memoryStream = new( body, false );
             byte[] b = TlsUtilities.ReadFully( expected_verify_data.Length, memoryStream );
             TlsProtocol.AssertEmpty( memoryStream );
             if (!Arrays.ConstantTimeAreEqual( expected_verify_data, b ))
@@ -53,14 +52,14 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         protected static byte[] GenerateCertificate( Certificate certificate )
         {
-            MemoryStream output = new MemoryStream();
+            MemoryStream output = new();
             certificate.Encode( output );
             return output.ToArray();
         }
 
         protected static byte[] GenerateSupplementalData( IList supplementalData )
         {
-            MemoryStream output = new MemoryStream();
+            MemoryStream output = new();
             TlsProtocol.WriteSupplementalData( output, supplementalData );
             return output.ToArray();
         }

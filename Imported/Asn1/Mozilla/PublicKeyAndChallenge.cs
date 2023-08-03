@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Mozilla
 {

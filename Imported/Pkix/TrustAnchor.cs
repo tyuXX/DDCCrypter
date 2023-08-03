@@ -9,8 +9,6 @@ using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
-using System;
-using System.Text;
 
 namespace Org.BouncyCastle.Pkix
 {
@@ -85,7 +83,7 @@ namespace Org.BouncyCastle.Pkix
         public override string ToString()
         {
             string newLine = Platform.NewLine;
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             stringBuilder.Append( "[" );
             stringBuilder.Append( newLine );
             if (this.pubKey != null)

@@ -4,7 +4,6 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System;
 using System.Collections;
 using System.Globalization;
 using System.IO;
@@ -43,7 +42,7 @@ namespace Org.BouncyCastle.Utilities
 
         internal static IList CreateArrayList( IEnumerable collection )
         {
-            ArrayList arrayList = new ArrayList();
+            ArrayList arrayList = new();
             foreach (object obj in collection)
                 arrayList.Add( obj );
             return arrayList;

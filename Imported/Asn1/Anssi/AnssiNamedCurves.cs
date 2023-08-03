@@ -22,7 +22,7 @@ namespace Org.BouncyCastle.Asn1.Anssi
 
         private static ECCurve ConfigureCurve( ECCurve curve ) => curve;
 
-        private static BigInteger FromHex( string hex ) => new BigInteger( 1, Hex.Decode( hex ) );
+        private static BigInteger FromHex( string hex ) => new( 1, Hex.Decode( hex ) );
 
         private static void DefineCurve(
           string name,
@@ -67,7 +67,7 @@ namespace Org.BouncyCastle.Asn1.Anssi
                 BigInteger bigInteger = FromHex( "F1FD178C0B3AD58F10126DE8CE42435B53DC67E140D2BF941FFDD459C6D655E1" );
                 BigInteger one = BigInteger.One;
                 ECCurve ecCurve = ConfigureCurve( new FpCurve( q, a, b, bigInteger, one ) );
-                X9ECPoint g = new X9ECPoint( ecCurve, Hex.Decode( "04B6B3D4C356C139EB31183D4749D423958C27D2DCAF98B70164C97A2DD98F5CFF6142E0F7C8B204911F9271F0F3ECEF8C2701C307E8E4C9E183115A1554062CFB" ) );
+                X9ECPoint g = new( ecCurve, Hex.Decode( "04B6B3D4C356C139EB31183D4749D423958C27D2DCAF98B70164C97A2DD98F5CFF6142E0F7C8B204911F9271F0F3ECEF8C2701C307E8E4C9E183115A1554062CFB" ) );
                 return new X9ECParameters( ecCurve, g, bigInteger, one, seed );
             }
         }

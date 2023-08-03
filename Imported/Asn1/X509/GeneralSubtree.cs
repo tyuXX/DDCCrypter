@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Math;
-using System;
 
 namespace Org.BouncyCastle.Asn1.X509
 {
@@ -61,7 +60,7 @@ namespace Org.BouncyCastle.Asn1.X509
         {
         }
 
-        public static GeneralSubtree GetInstance( Asn1TaggedObject o, bool isExplicit ) => new GeneralSubtree( Asn1Sequence.GetInstance( o, isExplicit ) );
+        public static GeneralSubtree GetInstance( Asn1TaggedObject o, bool isExplicit ) => new( Asn1Sequence.GetInstance( o, isExplicit ) );
 
         public static GeneralSubtree GetInstance( object obj )
         {
@@ -78,7 +77,7 @@ namespace Org.BouncyCastle.Asn1.X509
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[1]
+            Asn1EncodableVector v = new( new Asn1Encodable[1]
             {
          baseName
             } );

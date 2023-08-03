@@ -6,13 +6,12 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Ocsp
 {
     public class ResponseData : Asn1Encodable
     {
-        private static readonly DerInteger V1 = new DerInteger( 0 );
+        private static readonly DerInteger V1 = new( 0 );
         private readonly bool versionPresent;
         private readonly DerInteger version;
         private readonly ResponderID responderID;
@@ -106,7 +105,7 @@ namespace Org.BouncyCastle.Asn1.Ocsp
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (this.versionPresent || !this.version.Equals( V1 ))
                 v.Add( new DerTaggedObject( true, 0, version ) );
             v.Add( responderID, producedAt, responses );

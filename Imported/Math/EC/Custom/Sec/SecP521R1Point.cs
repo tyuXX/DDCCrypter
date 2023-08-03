@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Math.Raw;
-using System;
 
 namespace Org.BouncyCastle.Math.EC.Custom.Sec
 {
@@ -101,16 +100,16 @@ namespace Org.BouncyCastle.Math.EC.Custom.Sec
             uint[] numArray12 = numArray3;
             SecP521R1Field.Multiply( numArray10, numArray6, numArray12 );
             SecP521R1Field.Multiply( numArray7, numArray11, numArray1 );
-            SecP521R1FieldElement x2 = new SecP521R1FieldElement( x1 );
+            SecP521R1FieldElement x2 = new( x1 );
             SecP521R1Field.Square( numArray9, x2.x );
             SecP521R1Field.Add( x2.x, numArray11, x2.x );
             SecP521R1Field.Subtract( x2.x, numArray12, x2.x );
             SecP521R1Field.Subtract( x2.x, numArray12, x2.x );
-            SecP521R1FieldElement y = new SecP521R1FieldElement( numArray11 );
+            SecP521R1FieldElement y = new( numArray11 );
             SecP521R1Field.Subtract( numArray12, x2.x, y.x );
             SecP521R1Field.Multiply( y.x, numArray9, numArray2 );
             SecP521R1Field.Subtract( numArray2, numArray1, y.x );
-            SecP521R1FieldElement p521R1FieldElement = new SecP521R1FieldElement( numArray8 );
+            SecP521R1FieldElement p521R1FieldElement = new( numArray8 );
             if (!isOne1)
                 SecP521R1Field.Multiply( p521R1FieldElement.x, rawZcoord1.x, p521R1FieldElement.x );
             if (!isOne2)
@@ -157,15 +156,15 @@ namespace Org.BouncyCastle.Math.EC.Custom.Sec
             SecP521R1Field.Reduce23( numArray7 );
             int num3 = (int)Nat.ShiftUpBits( 17, numArray4, 3, 0U, numArray1 );
             SecP521R1Field.Reduce23( numArray1 );
-            SecP521R1FieldElement x = new SecP521R1FieldElement( numArray4 );
+            SecP521R1FieldElement x = new( numArray4 );
             SecP521R1Field.Square( numArray6, x.x );
             SecP521R1Field.Subtract( x.x, numArray7, x.x );
             SecP521R1Field.Subtract( x.x, numArray7, x.x );
-            SecP521R1FieldElement y = new SecP521R1FieldElement( numArray7 );
+            SecP521R1FieldElement y = new( numArray7 );
             SecP521R1Field.Subtract( numArray7, x.x, y.x );
             SecP521R1Field.Multiply( y.x, numArray6, y.x );
             SecP521R1Field.Subtract( y.x, numArray1, y.x );
-            SecP521R1FieldElement p521R1FieldElement = new SecP521R1FieldElement( numArray6 );
+            SecP521R1FieldElement p521R1FieldElement = new( numArray6 );
             SecP521R1Field.Twice( rawYcoord.x, p521R1FieldElement.x );
             if (!isOne)
                 SecP521R1Field.Multiply( p521R1FieldElement.x, rawZcoord.x, p521R1FieldElement.x );

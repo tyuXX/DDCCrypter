@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.IsisMtt.X509
@@ -88,7 +87,7 @@ namespace Org.BouncyCastle.Asn1.IsisMtt.X509
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (this.admissionAuthority != null)
                 v.Add( new DerTaggedObject( true, 0, admissionAuthority ) );
             if (this.namingAuthority != null)

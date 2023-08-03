@@ -8,7 +8,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.Utilities.Date;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Pkix
@@ -159,7 +158,7 @@ namespace Org.BouncyCastle.Pkix
 
         public virtual object Clone()
         {
-            PkixParameters pkixParameters = new PkixParameters( this.GetTrustAnchors() );
+            PkixParameters pkixParameters = new( this.GetTrustAnchors() );
             pkixParameters.SetParams( this );
             return pkixParameters;
         }

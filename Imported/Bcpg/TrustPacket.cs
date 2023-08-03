@@ -14,7 +14,7 @@ namespace Org.BouncyCastle.Bcpg
 
         public TrustPacket( BcpgInputStream bcpgIn )
         {
-            MemoryStream memoryStream = new MemoryStream();
+            MemoryStream memoryStream = new();
             int num;
             while ((num = bcpgIn.ReadByte()) >= 0)
                 memoryStream.WriteByte( (byte)num );

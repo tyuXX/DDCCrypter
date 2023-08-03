@@ -5,8 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
-using System.Text;
 
 namespace Org.BouncyCastle.Asn1.X509
 {
@@ -50,7 +48,7 @@ namespace Org.BouncyCastle.Asn1.X509
             this._onlyContainsCACerts = onlyContainsCACerts;
             this._onlyContainsUserCerts = onlyContainsUserCerts;
             this._onlySomeReasons = onlySomeReasons;
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (distributionPoint != null)
                 v.Add( new DerTaggedObject( true, 0, distributionPoint ) );
             if (onlyContainsUserCerts)
@@ -115,7 +113,7 @@ namespace Org.BouncyCastle.Asn1.X509
         public override string ToString()
         {
             string newLine = Platform.NewLine;
-            StringBuilder buf1 = new StringBuilder();
+            StringBuilder buf1 = new();
             buf1.Append( "IssuingDistributionPoint: [" );
             buf1.Append( newLine );
             if (this._distributionPoint != null)

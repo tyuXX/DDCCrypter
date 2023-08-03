@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Crypto.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Agreement.Kdf
 {
@@ -45,7 +44,7 @@ namespace Org.BouncyCastle.Crypto.Agreement.Kdf
             for (int index = 0; index < num; ++index)
             {
                 this.digest.BlockUpdate( this.z, 0, this.z.Length );
-                Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[1]
+                Asn1EncodableVector v = new( new Asn1Encodable[1]
                 {
            new DerSequence(new Asn1Encodable[2]
           {

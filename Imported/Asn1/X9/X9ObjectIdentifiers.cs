@@ -4,8 +4,6 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System;
-
 namespace Org.BouncyCastle.Asn1.X9
 {
     public abstract class X9ObjectIdentifiers
@@ -15,7 +13,7 @@ namespace Org.BouncyCastle.Asn1.X9
         public const string IdECSigType = "1.2.840.10045.4";
         [Obsolete( "Use 'id_publicKeyType' instead" )]
         public const string IdPublicKeyType = "1.2.840.10045.2";
-        public static readonly DerObjectIdentifier ansi_X9_62 = new DerObjectIdentifier( "1.2.840.10045" );
+        public static readonly DerObjectIdentifier ansi_X9_62 = new( "1.2.840.10045" );
         public static readonly DerObjectIdentifier IdFieldType = ansi_X9_62.Branch( "1" );
         public static readonly DerObjectIdentifier PrimeField = IdFieldType.Branch( "1" );
         public static readonly DerObjectIdentifier CharacteristicTwoField = IdFieldType.Branch( "2" );
@@ -61,13 +59,13 @@ namespace Org.BouncyCastle.Asn1.X9
         public static readonly DerObjectIdentifier Prime239v2 = PrimeCurve.Branch( "5" );
         public static readonly DerObjectIdentifier Prime239v3 = PrimeCurve.Branch( "6" );
         public static readonly DerObjectIdentifier Prime256v1 = PrimeCurve.Branch( "7" );
-        public static readonly DerObjectIdentifier IdDsa = new DerObjectIdentifier( "1.2.840.10040.4.1" );
-        public static readonly DerObjectIdentifier IdDsaWithSha1 = new DerObjectIdentifier( "1.2.840.10040.4.3" );
-        public static readonly DerObjectIdentifier X9x63Scheme = new DerObjectIdentifier( "1.3.133.16.840.63.0" );
+        public static readonly DerObjectIdentifier IdDsa = new( "1.2.840.10040.4.1" );
+        public static readonly DerObjectIdentifier IdDsaWithSha1 = new( "1.2.840.10040.4.3" );
+        public static readonly DerObjectIdentifier X9x63Scheme = new( "1.3.133.16.840.63.0" );
         public static readonly DerObjectIdentifier DHSinglePassStdDHSha1KdfScheme = X9x63Scheme.Branch( "2" );
         public static readonly DerObjectIdentifier DHSinglePassCofactorDHSha1KdfScheme = X9x63Scheme.Branch( "3" );
         public static readonly DerObjectIdentifier MqvSinglePassSha1KdfScheme = X9x63Scheme.Branch( "16" );
-        public static readonly DerObjectIdentifier ansi_x9_42 = new DerObjectIdentifier( "1.2.840.10046" );
+        public static readonly DerObjectIdentifier ansi_x9_42 = new( "1.2.840.10046" );
         public static readonly DerObjectIdentifier DHPublicNumber = ansi_x9_42.Branch( "2.1" );
         public static readonly DerObjectIdentifier X9x42Schemes = ansi_x9_42.Branch( "2.3" );
         public static readonly DerObjectIdentifier DHStatic = X9x42Schemes.Branch( "1" );

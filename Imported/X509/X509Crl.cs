@@ -17,9 +17,7 @@ using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.Utilities.Date;
 using Org.BouncyCastle.Utilities.Encoders;
 using Org.BouncyCastle.X509.Extension;
-using System;
 using System.Collections;
-using System.Text;
 
 namespace Org.BouncyCastle.X509
 {
@@ -91,7 +89,7 @@ namespace Org.BouncyCastle.X509
             X509Name previousCertificateIssuer = this.IssuerDN;
             foreach (CrlEntry c in certificateEnumeration)
             {
-                X509CrlEntry o = new X509CrlEntry( c, this.isIndirect, previousCertificateIssuer );
+                X509CrlEntry o = new( c, this.isIndirect, previousCertificateIssuer );
                 set.Add( o );
                 previousCertificateIssuer = o.GetCertificateIssuer();
             }
@@ -104,7 +102,7 @@ namespace Org.BouncyCastle.X509
             X509Name previousCertificateIssuer = this.IssuerDN;
             foreach (CrlEntry c in certificateEnumeration)
             {
-                X509CrlEntry revokedCertificate = new X509CrlEntry( c, this.isIndirect, previousCertificateIssuer );
+                X509CrlEntry revokedCertificate = new( c, this.isIndirect, previousCertificateIssuer );
                 if (serialNumber.Equals( c.UserCertificate.Value ))
                     return revokedCertificate;
                 previousCertificateIssuer = revokedCertificate.GetCertificateIssuer();
@@ -149,7 +147,7 @@ namespace Org.BouncyCastle.X509
 
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             string newLine = Platform.NewLine;
             stringBuilder.Append( "              Version: " ).Append( this.Version ).Append( newLine );
             stringBuilder.Append( "             IssuerDN: " ).Append( IssuerDN ).Append( newLine );

@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Prng;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Threading;
 
 namespace Org.BouncyCastle.Crypto.Tls

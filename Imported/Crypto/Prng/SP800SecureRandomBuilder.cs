@@ -52,7 +52,7 @@ namespace Org.BouncyCastle.Crypto.Prng
             return this;
         }
 
-        public SP800SecureRandom BuildHash( IDigest digest, byte[] nonce, bool predictionResistant ) => new SP800SecureRandom( this.mRandom, this.mEntropySourceProvider.Get( this.mEntropyBitsRequired ), new SP800SecureRandomBuilder.HashDrbgProvider( digest, nonce, this.mPersonalizationString, this.mSecurityStrength ), predictionResistant );
+        public SP800SecureRandom BuildHash( IDigest digest, byte[] nonce, bool predictionResistant ) => new( this.mRandom, this.mEntropySourceProvider.Get( this.mEntropyBitsRequired ), new SP800SecureRandomBuilder.HashDrbgProvider( digest, nonce, this.mPersonalizationString, this.mSecurityStrength ), predictionResistant );
 
         public SP800SecureRandom BuildCtr(
           IBlockCipher cipher,
@@ -63,7 +63,7 @@ namespace Org.BouncyCastle.Crypto.Prng
             return new SP800SecureRandom( this.mRandom, this.mEntropySourceProvider.Get( this.mEntropyBitsRequired ), new SP800SecureRandomBuilder.CtrDrbgProvider( cipher, keySizeInBits, nonce, this.mPersonalizationString, this.mSecurityStrength ), predictionResistant );
         }
 
-        public SP800SecureRandom BuildHMac( IMac hMac, byte[] nonce, bool predictionResistant ) => new SP800SecureRandom( this.mRandom, this.mEntropySourceProvider.Get( this.mEntropyBitsRequired ), new SP800SecureRandomBuilder.HMacDrbgProvider( hMac, nonce, this.mPersonalizationString, this.mSecurityStrength ), predictionResistant );
+        public SP800SecureRandom BuildHMac( IMac hMac, byte[] nonce, bool predictionResistant ) => new( this.mRandom, this.mEntropySourceProvider.Get( this.mEntropyBitsRequired ), new SP800SecureRandomBuilder.HMacDrbgProvider( hMac, nonce, this.mPersonalizationString, this.mSecurityStrength ), predictionResistant );
 
         private class HashDrbgProvider : IDrbgProvider
         {

@@ -52,7 +52,7 @@ namespace Org.BouncyCastle.Cms
                 this._attrNotRead = false;
                 if (unprotectedAttrs != null)
                 {
-                    Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+                    Asn1EncodableVector v = new( new Asn1Encodable[0] );
                     IAsn1Convertible asn1Convertible;
                     while ((asn1Convertible = unprotectedAttrs.ReadObject()) != null)
                     {

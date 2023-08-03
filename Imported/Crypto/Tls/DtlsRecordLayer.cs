@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities.Date;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Crypto.Tls
@@ -19,7 +18,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         private readonly DatagramTransport mTransport;
         private readonly TlsContext mContext;
         private readonly TlsPeer mPeer;
-        private readonly ByteQueue mRecordQueue = new ByteQueue();
+        private readonly ByteQueue mRecordQueue = new();
         private volatile bool mClosed = false;
         private volatile bool mFailed = false;
         private volatile ProtocolVersion mReadVersion = null;

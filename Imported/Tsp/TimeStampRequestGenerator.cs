@@ -9,7 +9,6 @@ using Org.BouncyCastle.Asn1.Tsp;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Tsp
@@ -31,7 +30,7 @@ namespace Org.BouncyCastle.Tsp
         [Obsolete( "Use method taking DerObjectIdentifier" )]
         public void AddExtension( string oid, bool critical, byte[] value )
         {
-            DerObjectIdentifier key = new DerObjectIdentifier( oid );
+            DerObjectIdentifier key = new( oid );
             this.extensions[key] = new X509Extension( critical, new DerOctetString( value ) );
             this.extOrdering.Add( key );
         }
@@ -56,7 +55,7 @@ namespace Org.BouncyCastle.Tsp
         {
             if (digestAlgorithmOid == null)
                 throw new ArgumentException( "No digest algorithm specified" );
-            MessageImprint messageImprint = new MessageImprint( new AlgorithmIdentifier( new DerObjectIdentifier( digestAlgorithmOid ), DerNull.Instance ), digest );
+            MessageImprint messageImprint = new( new AlgorithmIdentifier( new DerObjectIdentifier( digestAlgorithmOid ), DerNull.Instance ), digest );
             X509Extensions extensions = null;
             if (this.extOrdering.Count != 0)
                 extensions = new X509Extensions( this.extOrdering, this.extensions );

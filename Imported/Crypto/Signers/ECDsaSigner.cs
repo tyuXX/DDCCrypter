@@ -110,7 +110,7 @@ namespace Org.BouncyCastle.Crypto.Signers
         protected virtual BigInteger CalculateE( BigInteger n, byte[] message )
         {
             int num = message.Length * 8;
-            BigInteger e = new BigInteger( 1, message );
+            BigInteger e = new( 1, message );
             if (n.BitLength < num)
                 e = e.ShiftRight( num - n.BitLength );
             return e;

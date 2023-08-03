@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Crypto.Macs;
 using Org.BouncyCastle.Crypto.Parameters;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Modes
 {

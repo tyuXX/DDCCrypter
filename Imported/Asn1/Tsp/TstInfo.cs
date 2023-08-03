@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -134,7 +133,7 @@ namespace Org.BouncyCastle.Asn1.Tsp
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[5]
+            Asn1EncodableVector v = new( new Asn1Encodable[5]
             {
          version,
          tsaPolicyId,

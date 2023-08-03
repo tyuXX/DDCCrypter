@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Signers
 {
@@ -29,7 +28,7 @@ namespace Org.BouncyCastle.Crypto.Signers
         private byte[] block;
         private byte trailer;
 
-        public static PssSigner CreateRawSigner( IAsymmetricBlockCipher cipher, IDigest digest ) => new PssSigner( cipher, new NullDigest(), digest, digest, digest.GetDigestSize(), null, 188 );
+        public static PssSigner CreateRawSigner( IAsymmetricBlockCipher cipher, IDigest digest ) => new( cipher, new NullDigest(), digest, digest, digest.GetDigestSize(), null, 188 );
 
         public static PssSigner CreateRawSigner(
           IAsymmetricBlockCipher cipher,

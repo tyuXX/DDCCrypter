@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Bcpg.OpenPgp

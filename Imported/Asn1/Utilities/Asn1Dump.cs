@@ -6,10 +6,8 @@
 
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Encoders;
-using System;
 using System.Collections;
 using System.IO;
-using System.Text;
 
 namespace Org.BouncyCastle.Asn1.Utilities
 {
@@ -235,7 +233,7 @@ namespace Org.BouncyCastle.Asn1.Utilities
           bool verbose,
           DerApplicationSpecific app )
         {
-            StringBuilder buf = new StringBuilder();
+            StringBuilder buf = new();
             if (app.IsConstructed())
             {
                 try
@@ -259,7 +257,7 @@ namespace Org.BouncyCastle.Asn1.Utilities
         {
             if (!(obj is Asn1Encodable))
                 return "unknown object type " + obj.ToString();
-            StringBuilder buf = new StringBuilder();
+            StringBuilder buf = new();
             AsString( "", false, ((Asn1Encodable)obj).ToAsn1Object(), buf );
             return buf.ToString();
         }
@@ -268,7 +266,7 @@ namespace Org.BouncyCastle.Asn1.Utilities
 
         public static string DumpAsString( Asn1Encodable obj, bool verbose )
         {
-            StringBuilder buf = new StringBuilder();
+            StringBuilder buf = new();
             AsString( "", verbose, obj.ToAsn1Object(), buf );
             return buf.ToString();
         }
@@ -276,7 +274,7 @@ namespace Org.BouncyCastle.Asn1.Utilities
         private static string dumpBinaryDataAsString( string indent, byte[] bytes )
         {
             indent += "    ";
-            StringBuilder stringBuilder = new StringBuilder( NewLine );
+            StringBuilder stringBuilder = new( NewLine );
             for (int off = 0; off < bytes.Length; off += 32)
             {
                 if (bytes.Length - off > 32)
@@ -303,7 +301,7 @@ namespace Org.BouncyCastle.Asn1.Utilities
 
         private static string calculateAscString( byte[] bytes, int off, int len )
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             for (int index = off; index != off + len; ++index)
             {
                 char ch = (char)bytes[index];

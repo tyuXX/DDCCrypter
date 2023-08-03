@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Macs;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Crypto.Modes
@@ -22,8 +21,8 @@ namespace Org.BouncyCastle.Crypto.Modes
         private byte[] initialAssociatedText;
         private int macSize;
         private ICipherParameters keyParam;
-        private readonly MemoryStream associatedText = new MemoryStream();
-        private readonly MemoryStream data = new MemoryStream();
+        private readonly MemoryStream associatedText = new();
+        private readonly MemoryStream data = new();
 
         public CcmBlockCipher( IBlockCipher cipher )
         {

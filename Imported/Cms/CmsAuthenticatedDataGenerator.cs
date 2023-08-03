@@ -12,7 +12,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -46,7 +45,7 @@ namespace Org.BouncyCastle.Cms
                 algorithmIdentifier = this.GetAlgorithmIdentifier( macOid, keyParameter, asn1Parameters, out ICipherParameters _ );
                 IMac mac2 = MacUtilities.GetMac( macOid );
                 mac2.Init( keyParameter );
-                MemoryStream output = new MemoryStream();
+                MemoryStream output = new();
                 Stream stream = new TeeOutputStream( output, new MacOutputStream( mac2 ) );
                 content.Write( stream );
                 Platform.Dispose( stream );
@@ -65,7 +64,7 @@ namespace Org.BouncyCastle.Cms
             {
                 throw new CmsException( "exception decoding algorithm parameters.", ex );
             }
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             foreach (RecipientInfoGenerator recipientInfoGenerator in (IEnumerable)this.recipientInfoGenerators)
             {
                 try
@@ -81,7 +80,7 @@ namespace Org.BouncyCastle.Cms
                     throw new CmsException( "error making encrypted content.", ex );
                 }
             }
-            ContentInfo encapsulatedContent = new ContentInfo( CmsObjectIdentifiers.Data, content1 );
+            ContentInfo encapsulatedContent = new( CmsObjectIdentifiers.Data, content1 );
             return new CmsAuthenticatedData( new ContentInfo( CmsObjectIdentifiers.AuthenticatedData, new AuthenticatedData( null, new DerSet( v ), algorithmIdentifier, null, encapsulatedContent, null, mac1, null ) ) );
         }
 

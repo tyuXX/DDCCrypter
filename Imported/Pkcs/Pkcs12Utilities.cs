@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Asn1.X509;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Pkcs
@@ -18,10 +17,10 @@ namespace Org.BouncyCastle.Pkcs
 
         public static byte[] ConvertToDefiniteLength( byte[] berPkcs12File, char[] passwd )
         {
-            Pfx pfx = new Pfx( Asn1Sequence.GetInstance( Asn1Object.FromByteArray( berPkcs12File ) ) );
+            Pfx pfx = new( Asn1Sequence.GetInstance( Asn1Object.FromByteArray( berPkcs12File ) ) );
             ContentInfo authSafe = pfx.AuthSafe;
             Asn1Object asn1Object = Asn1Object.FromByteArray( Asn1OctetString.GetInstance( authSafe.Content ).GetOctets() );
-            ContentInfo contentInfo = new ContentInfo( authSafe.ContentType, new DerOctetString( asn1Object.GetEncoded( "DER" ) ) );
+            ContentInfo contentInfo = new( authSafe.ContentType, new DerOctetString( asn1Object.GetEncoded( "DER" ) ) );
             MacData macData1 = pfx.MacData;
             MacData macData2;
             try

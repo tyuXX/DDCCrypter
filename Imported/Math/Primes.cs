@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Math
 {
@@ -369,11 +368,11 @@ namespace Org.BouncyCastle.Math
             private readonly bool mProvablyComposite;
             private readonly BigInteger mFactor;
 
-            internal static Primes.MROutput ProbablyPrime() => new Primes.MROutput( false, null );
+            internal static Primes.MROutput ProbablyPrime() => new( false, null );
 
-            internal static Primes.MROutput ProvablyCompositeWithFactor( BigInteger factor ) => new Primes.MROutput( true, factor );
+            internal static Primes.MROutput ProvablyCompositeWithFactor( BigInteger factor ) => new( true, factor );
 
-            internal static Primes.MROutput ProvablyCompositeNotPrimePower() => new Primes.MROutput( true, null );
+            internal static Primes.MROutput ProvablyCompositeNotPrimePower() => new( true, null );
 
             private MROutput( bool provablyComposite, BigInteger factor )
             {

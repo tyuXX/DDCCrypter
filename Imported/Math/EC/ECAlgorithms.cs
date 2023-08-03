@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Math.EC.Endo;
 using Org.BouncyCastle.Math.EC.Multiplier;
 using Org.BouncyCastle.Math.Field;
-using System;
 
 namespace Org.BouncyCastle.Math.EC
 {

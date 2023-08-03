@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Apache.Bzip2
@@ -27,7 +26,7 @@ namespace Org.BouncyCastle.Apache.Bzip2
         private int bytesOut;
         private int bsBuff;
         private int bsLive;
-        private CRC mCrc = new CRC();
+        private CRC mCrc = new();
         private bool[] inUse = new bool[256];
         private int nInUse;
         private char[] seqToUnseq = new char[256];

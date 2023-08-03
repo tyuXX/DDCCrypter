@@ -16,7 +16,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Pkcs
 {
@@ -42,10 +41,10 @@ namespace Org.BouncyCastle.Pkcs
                     return new PrivateKeyInfo( new AlgorithmIdentifier( X9ObjectIdentifiers.IdDsa, new DsaParameter( privateKeyParameters2.Parameters.P, privateKeyParameters2.Parameters.Q, privateKeyParameters2.Parameters.G ).ToAsn1Object() ), new DerInteger( privateKeyParameters2.X ) );
                 case DHPrivateKeyParameters _:
                     DHPrivateKeyParameters privateKeyParameters3 = (DHPrivateKeyParameters)key;
-                    DHParameter dhParameter = new DHParameter( privateKeyParameters3.Parameters.P, privateKeyParameters3.Parameters.G, privateKeyParameters3.Parameters.L );
+                    DHParameter dhParameter = new( privateKeyParameters3.Parameters.P, privateKeyParameters3.Parameters.G, privateKeyParameters3.Parameters.L );
                     return new PrivateKeyInfo( new AlgorithmIdentifier( privateKeyParameters3.AlgorithmOid, dhParameter.ToAsn1Object() ), new DerInteger( privateKeyParameters3.X ) );
                 case RsaKeyParameters _:
-                    AlgorithmIdentifier algID1 = new AlgorithmIdentifier( PkcsObjectIdentifiers.RsaEncryption, DerNull.Instance );
+                    AlgorithmIdentifier algID1 = new( PkcsObjectIdentifiers.RsaEncryption, DerNull.Instance );
                     RsaPrivateKeyStructure privateKeyStructure;
                     if (key is RsaPrivateCrtKeyParameters)
                     {
@@ -68,7 +67,7 @@ namespace Org.BouncyCastle.Pkcs
                     {
                         if (privateKeyParameters4.PublicKeyParamSet == null)
                             throw Platform.CreateNotImplementedException( "Not a CryptoPro parameter set" );
-                        Gost3410PublicKeyAlgParameters parameters2 = new Gost3410PublicKeyAlgParameters( privateKeyParameters4.PublicKeyParamSet, CryptoProObjectIdentifiers.GostR3411x94CryptoProParamSet );
+                        Gost3410PublicKeyAlgParameters parameters2 = new( privateKeyParameters4.PublicKeyParamSet, CryptoProObjectIdentifiers.GostR3411x94CryptoProParamSet );
                         algID2 = new AlgorithmIdentifier( CryptoProObjectIdentifiers.GostR3410x2001, parameters2 );
                         privateKey = new ECPrivateKeyStructure( bitLength, privateKeyParameters4.D );
                     }
@@ -85,7 +84,7 @@ namespace Org.BouncyCastle.Pkcs
                     byte[] str = new byte[numArray.Length];
                     for (int index = 0; index != str.Length; ++index)
                         str[index] = numArray[numArray.Length - 1 - index];
-                    Gost3410PublicKeyAlgParameters keyAlgParameters = new Gost3410PublicKeyAlgParameters( privateKeyParameters5.PublicKeyParamSet, CryptoProObjectIdentifiers.GostR3411x94CryptoProParamSet, null );
+                    Gost3410PublicKeyAlgParameters keyAlgParameters = new( privateKeyParameters5.PublicKeyParamSet, CryptoProObjectIdentifiers.GostR3411x94CryptoProParamSet, null );
                     return new PrivateKeyInfo( new AlgorithmIdentifier( CryptoProObjectIdentifiers.GostR3410x94, keyAlgParameters.ToAsn1Object() ), new DerOctetString( str ) );
                 default:
                     throw new ArgumentException( "Class provided is not convertible: " + Platform.GetTypeName( key ) );

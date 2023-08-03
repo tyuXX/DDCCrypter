@@ -8,7 +8,7 @@ namespace Org.BouncyCastle.Asn1.Icao
 {
     public abstract class IcaoObjectIdentifiers
     {
-        public static readonly DerObjectIdentifier IdIcao = new DerObjectIdentifier( "2.23.136" );
+        public static readonly DerObjectIdentifier IdIcao = new( "2.23.136" );
         public static readonly DerObjectIdentifier IdIcaoMrtd = IdIcao.Branch( "1" );
         public static readonly DerObjectIdentifier IdIcaoMrtdSecurity = IdIcaoMrtd.Branch( "1" );
         public static readonly DerObjectIdentifier IdIcaoLdsSecurityObject = IdIcaoMrtdSecurity.Branch( "1" );

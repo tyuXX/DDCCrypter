@@ -83,7 +83,7 @@ namespace Org.BouncyCastle.Asn1.Crmf
 
         public virtual CertTemplate Build()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             this.AddOptional( v, 0, false, version );
             this.AddOptional( v, 1, false, serialNumber );
             this.AddOptional( v, 2, false, signingAlg );

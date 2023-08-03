@@ -8,7 +8,6 @@ using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Crypto.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Generators
 {

@@ -8,7 +8,6 @@ using Org.BouncyCastle.Math.EC.Endo;
 using Org.BouncyCastle.Math.EC.Multiplier;
 using Org.BouncyCastle.Math.Field;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Math.EC
@@ -52,7 +51,7 @@ namespace Org.BouncyCastle.Math.EC
 
         public abstract bool IsValidFieldElement( BigInteger x );
 
-        public virtual ECCurve.Config Configure() => new ECCurve.Config( this, this.m_coord, this.m_endomorphism, this.m_multiplier );
+        public virtual ECCurve.Config Configure() => new( this, this.m_coord, this.m_endomorphism, this.m_multiplier );
 
         public virtual ECPoint ValidatePoint( BigInteger x, BigInteger y )
         {
@@ -248,8 +247,8 @@ namespace Org.BouncyCastle.Math.EC
                 case 7:
                     if (encoded.Length != (2 * length) + 1)
                         throw new ArgumentException( "Incorrect length for hybrid encoding", nameof( encoded ) );
-                    BigInteger x = new BigInteger( 1, encoded, 1, length );
-                    BigInteger y = new BigInteger( 1, encoded, 1 + length, length );
+                    BigInteger x = new( 1, encoded, 1, length );
+                    BigInteger y = new( 1, encoded, 1 + length, length );
                     ecPoint = y.TestBit( 0 ) == (num == 7) ? this.ValidatePoint( x, y ) : throw new ArgumentException( "Inconsistent Y coordinate in hybrid encoding", nameof( encoded ) );
                     break;
                 default:

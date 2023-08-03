@@ -4,7 +4,6 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Asn1
@@ -108,12 +107,12 @@ namespace Org.BouncyCastle.Asn1
             {
                 if (!flag)
                     throw new IOException( "indefinite length primitive encoding encountered" );
-                Asn1StreamParser parser = new Asn1StreamParser( new IndefiniteLengthInputStream( this._in, this._limit ), this._limit );
+                Asn1StreamParser parser = new( new IndefiniteLengthInputStream( this._in, this._limit ), this._limit );
                 if ((tag & 64) != 0)
                     return new BerApplicationSpecificParser( num, parser );
                 return (tag & 128) != 0 ? new BerTaggedObjectParser( true, num, parser ) : parser.ReadIndef( num );
             }
-            DefiniteLengthInputStream lengthInputStream = new DefiniteLengthInputStream( this._in, length );
+            DefiniteLengthInputStream lengthInputStream = new( this._in, length );
             if ((tag & 64) != 0)
                 return new DerApplicationSpecific( flag, num, lengthInputStream.ToArray() );
             if ((tag & 128) != 0)
@@ -158,7 +157,7 @@ namespace Org.BouncyCastle.Asn1
 
         internal Asn1EncodableVector ReadVector()
         {
-            Asn1EncodableVector asn1EncodableVector = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector asn1EncodableVector = new( new Asn1Encodable[0] );
             IAsn1Convertible asn1Convertible;
             while ((asn1Convertible = this.ReadObject()) != null)
                 asn1EncodableVector.Add( asn1Convertible.ToAsn1Object() );

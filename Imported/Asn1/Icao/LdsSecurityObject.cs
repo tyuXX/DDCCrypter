@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Math;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.Icao
@@ -14,7 +13,7 @@ namespace Org.BouncyCastle.Asn1.Icao
     public class LdsSecurityObject : Asn1Encodable
     {
         public const int UBDataGroups = 16;
-        private DerInteger version = new DerInteger( 0 );
+        private DerInteger version = new( 0 );
         private AlgorithmIdentifier digestAlgorithmIdentifier;
         private DataGroupHash[] datagroupHash;
         private LdsVersionInfo versionInfo;
@@ -84,7 +83,7 @@ namespace Org.BouncyCastle.Asn1.Icao
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[3]
+            Asn1EncodableVector v = new( new Asn1Encodable[3]
             {
          version,
          digestAlgorithmIdentifier,

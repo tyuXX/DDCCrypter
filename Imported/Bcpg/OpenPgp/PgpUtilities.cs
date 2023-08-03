@@ -11,9 +11,7 @@ using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Encoders;
-using System;
 using System.IO;
-using System.Text;
 
 namespace Org.BouncyCastle.Bcpg.OpenPgp
 {

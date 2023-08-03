@@ -6,10 +6,8 @@
 
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.Globalization;
-using System.Text;
 
 namespace Org.BouncyCastle.Math
 {
@@ -368,7 +366,7 @@ namespace Org.BouncyCastle.Math
         private static readonly BigInteger radix10E;
         private static readonly BigInteger radix16;
         private static readonly BigInteger radix16E;
-        private static readonly SecureRandom RandomSource = new SecureRandom();
+        private static readonly SecureRandom RandomSource = new();
         private static readonly int[] ExpWindowThresholds = new int[8]
         {
       7,
@@ -421,7 +419,7 @@ namespace Org.BouncyCastle.Math
 
         private static int GetByteLength( int nBits ) => (nBits + 8 - 1) / 8;
 
-        internal static BigInteger Arbitrary( int sizeInBits ) => new BigInteger( sizeInBits, RandomSource );
+        internal static BigInteger Arbitrary( int sizeInBits ) => new( sizeInBits, RandomSource );
 
         private BigInteger( int signum, int[] mag, bool checkMag )
         {
@@ -825,7 +823,7 @@ namespace Org.BouncyCastle.Math
                 if (flag)
                     mag[index] = ~mag[index];
             }
-            BigInteger bigInteger = new BigInteger( 1, mag, true );
+            BigInteger bigInteger = new( 1, mag, true );
             if (flag)
                 bigInteger = bigInteger.Not();
             return bigInteger;
@@ -1845,7 +1843,7 @@ namespace Org.BouncyCastle.Math
             return bigInteger;
         }
 
-        public static BigInteger ProbablePrime( int bitLength, Random random ) => new BigInteger( bitLength, 100, random );
+        public static BigInteger ProbablePrime( int bitLength, Random random ) => new( bitLength, 100, random );
 
         private int Remainder( int m )
         {
@@ -2041,7 +2039,7 @@ namespace Org.BouncyCastle.Math
                 return this;
             if (n < 0)
                 return this.ShiftRight( -n );
-            BigInteger bigInteger = new BigInteger( this.sign, ShiftLeft( this.magnitude, n ), true );
+            BigInteger bigInteger = new( this.sign, ShiftLeft( this.magnitude, n ), true );
             if (this.nBits != -1)
                 bigInteger.nBits = this.sign > 0 ? this.nBits : this.nBits + n;
             if (this.nBitLength != -1)
@@ -2257,7 +2255,7 @@ namespace Org.BouncyCastle.Math
                         ++index1;
                     if (index1 == this.magnitude.Length)
                         return "0";
-                    StringBuilder sb = new StringBuilder();
+                    StringBuilder sb = new();
                     if (this.sign == -1)
                         sb.Append( '-' );
                     switch (radix)
@@ -2337,7 +2335,7 @@ namespace Org.BouncyCastle.Math
                 return new BigInteger( 1, new int[2] { num1, num2 }, false );
             if (num2 == 0)
                 return Zero;
-            BigInteger uvalueOf = new BigInteger( 1, new int[1]
+            BigInteger uvalueOf = new( 1, new int[1]
             {
         num2
             }, false );
@@ -2415,7 +2413,7 @@ namespace Org.BouncyCastle.Math
                 if (flag)
                     mag[index] = ~mag[index];
             }
-            BigInteger bigInteger = new BigInteger( 1, mag, true );
+            BigInteger bigInteger = new( 1, mag, true );
             if (flag)
                 bigInteger = bigInteger.Not();
             return bigInteger;
@@ -2445,7 +2443,7 @@ namespace Org.BouncyCastle.Math
                 if (flag)
                     mag[index] = ~mag[index];
             }
-            BigInteger bigInteger = new BigInteger( 1, mag, true );
+            BigInteger bigInteger = new( 1, mag, true );
             if (flag)
                 bigInteger = bigInteger.Not();
             return bigInteger;

@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -108,7 +107,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
         public byte[] GetEncoded()
         {
-            MemoryStream outStr = new MemoryStream();
+            MemoryStream outStr = new();
             this.Encode( outStr );
             return outStr.ToArray();
         }

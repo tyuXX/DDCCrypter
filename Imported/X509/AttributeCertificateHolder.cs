@@ -12,7 +12,6 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509.Store;
-using System;
 
 namespace Org.BouncyCastle.X509
 {
@@ -64,7 +63,7 @@ namespace Org.BouncyCastle.X509
 
         public string OtherObjectTypeID => this.holder.ObjectDigestInfo?.OtherObjectTypeID.Id;
 
-        private GeneralNames GenerateGeneralNames( X509Name principal ) => new GeneralNames( new GeneralName( principal ) );
+        private GeneralNames GenerateGeneralNames( X509Name principal ) => new( new GeneralName( principal ) );
 
         private bool MatchesDN( X509Name subject, GeneralNames targets )
         {

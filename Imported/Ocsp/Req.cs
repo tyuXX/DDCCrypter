@@ -16,7 +16,7 @@ namespace Org.BouncyCastle.Ocsp
 
         public Req( Request req ) => this.req = req;
 
-        public CertificateID GetCertID() => new CertificateID( this.req.ReqCert );
+        public CertificateID GetCertID() => new( this.req.ReqCert );
 
         public X509Extensions SingleRequestExtensions => this.req.SingleRequestExtensions;
 

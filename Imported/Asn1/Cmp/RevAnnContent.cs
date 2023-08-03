@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1.Crmf;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Cmp
 {
@@ -55,7 +54,7 @@ namespace Org.BouncyCastle.Asn1.Cmp
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[4]
+            Asn1EncodableVector v = new( new Asn1Encodable[4]
             {
          status,
          certId,

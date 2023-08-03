@@ -11,7 +11,6 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.X509;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Cms

@@ -15,7 +15,7 @@ namespace Org.BouncyCastle.Pkcs
         private DerObjectIdentifier certAlgorithm = PkcsObjectIdentifiers.PbewithShaAnd40BitRC2Cbc;
         private bool useDerEncoding = false;
 
-        public Pkcs12Store Build() => new Pkcs12Store( this.keyAlgorithm, this.certAlgorithm, this.useDerEncoding );
+        public Pkcs12Store Build() => new( this.keyAlgorithm, this.certAlgorithm, this.useDerEncoding );
 
         public Pkcs12StoreBuilder SetCertAlgorithm( DerObjectIdentifier certAlgorithm )
         {

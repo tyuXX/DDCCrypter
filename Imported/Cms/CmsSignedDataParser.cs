@@ -14,7 +14,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.Utilities.IO;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -83,7 +82,7 @@ namespace Org.BouncyCastle.Cms
                 Asn1OctetStringParser content = (Asn1OctetStringParser)encapContentInfo.GetContent( 4 );
                 if (content != null)
                 {
-                    CmsTypedStream cmsTypedStream = new CmsTypedStream( encapContentInfo.ContentType.Id, content.GetOctetStream() );
+                    CmsTypedStream cmsTypedStream = new( encapContentInfo.ContentType.Id, content.GetOctetStream() );
                     if (this._signedContent == null)
                         this._signedContent = cmsTypedStream;
                     else
@@ -194,8 +193,8 @@ namespace Org.BouncyCastle.Cms
           SignerInformationStore signerInformationStore,
           Stream outStr )
         {
-            CmsSignedDataStreamGenerator dataStreamGenerator = new CmsSignedDataStreamGenerator();
-            CmsSignedDataParser signedDataParser = new CmsSignedDataParser( original );
+            CmsSignedDataStreamGenerator dataStreamGenerator = new();
+            CmsSignedDataParser signedDataParser = new( original );
             dataStreamGenerator.AddSigners( signerInformationStore );
             CmsTypedStream signedContent = signedDataParser.GetSignedContent();
             bool encapsulate = signedContent != null;
@@ -216,8 +215,8 @@ namespace Org.BouncyCastle.Cms
           IX509Store x509AttrCerts,
           Stream outStr )
         {
-            CmsSignedDataStreamGenerator dataStreamGenerator = new CmsSignedDataStreamGenerator();
-            CmsSignedDataParser signedDataParser = new CmsSignedDataParser( original );
+            CmsSignedDataStreamGenerator dataStreamGenerator = new();
+            CmsSignedDataParser signedDataParser = new( original );
             dataStreamGenerator.AddDigests( signedDataParser.DigestOids );
             CmsTypedStream signedContent = signedDataParser.GetSignedContent();
             bool encapsulate = signedContent != null;

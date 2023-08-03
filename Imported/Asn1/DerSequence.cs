@@ -11,7 +11,7 @@ namespace Org.BouncyCastle.Asn1
 {
     public class DerSequence : Asn1Sequence
     {
-        public static readonly DerSequence Empty = new DerSequence();
+        public static readonly DerSequence Empty = new();
 
         public static DerSequence FromVector( Asn1EncodableVector v ) => v.Count >= 1 ? new DerSequence( v ) : Empty;
 
@@ -42,8 +42,8 @@ namespace Org.BouncyCastle.Asn1
 
         internal override void Encode( DerOutputStream derOut )
         {
-            MemoryStream os = new MemoryStream();
-            DerOutputStream s = new DerOutputStream( os );
+            MemoryStream os = new();
+            DerOutputStream s = new( os );
             foreach (Asn1Encodable asn1Encodable in (Asn1Sequence)this)
                 s.WriteObject( asn1Encodable );
             Platform.Dispose( s );

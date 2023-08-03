@@ -53,10 +53,10 @@ namespace Org.BouncyCastle.Crypto.Agreement
         public static readonly DHParameters rfc5996_768 = rfc4306_768;
         public static readonly DHParameters rfc5996_1024 = rfc4306_1024;
 
-        private static BigInteger FromHex( string hex ) => new BigInteger( 1, Hex.Decode( hex ) );
+        private static BigInteger FromHex( string hex ) => new( 1, Hex.Decode( hex ) );
 
-        private static DHParameters FromPG( string hexP, string hexG ) => new DHParameters( FromHex( hexP ), FromHex( hexG ) );
+        private static DHParameters FromPG( string hexP, string hexG ) => new( FromHex( hexP ), FromHex( hexG ) );
 
-        private static DHParameters FromPGQ( string hexP, string hexG, string hexQ ) => new DHParameters( FromHex( hexP ), FromHex( hexG ), FromHex( hexQ ) );
+        private static DHParameters FromPGQ( string hexP, string hexG, string hexQ ) => new( FromHex( hexP ), FromHex( hexG ), FromHex( hexQ ) );
     }
 }

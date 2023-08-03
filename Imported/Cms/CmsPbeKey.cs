@@ -9,7 +9,6 @@ using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Cms
 {
@@ -51,7 +50,7 @@ namespace Org.BouncyCastle.Cms
         ~CmsPbeKey() => Array.Clear( password, 0, this.password.Length );
 
         [Obsolete( "Will be removed" )]
-        public string Password => new string( this.password );
+        public string Password => new( this.password );
 
         public byte[] Salt => Arrays.Clone( this.salt );
 

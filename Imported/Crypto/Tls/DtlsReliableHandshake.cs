@@ -49,7 +49,7 @@ namespace Org.BouncyCastle.Crypto.Tls
                 this.mSending = true;
                 this.mOutboundFlight.Clear();
             }
-            DtlsReliableHandshake.Message message = new DtlsReliableHandshake.Message( this.mMessageSeq++, msg_type, body );
+            DtlsReliableHandshake.Message message = new( this.mMessageSeq++, msg_type, body );
             this.mOutboundFlight.Add( message );
             this.WriteMessage( message );
             this.UpdateHandshakeMessagesDigest( message );
@@ -94,7 +94,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             label_9:
                 try
                 {
-                    DtlsReassembler dtlsReassembler2 = new DtlsReassembler();
+                    DtlsReassembler dtlsReassembler2 = new();
                     byte[] bodyIfComplete;
                     do
                     {
@@ -275,7 +275,7 @@ namespace Org.BouncyCastle.Crypto.Tls
           int fragment_offset,
           int fragment_length )
         {
-            DtlsReliableHandshake.RecordLayerBuffer output = new DtlsReliableHandshake.RecordLayerBuffer( 12 + fragment_length );
+            DtlsReliableHandshake.RecordLayerBuffer output = new( 12 + fragment_length );
             TlsUtilities.WriteUint8( message.Type, output );
             TlsUtilities.WriteUint24( message.Body.Length, output );
             TlsUtilities.WriteUint16( message.Seq, output );

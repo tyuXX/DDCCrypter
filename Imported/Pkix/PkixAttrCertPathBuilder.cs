@@ -10,7 +10,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Pkix
@@ -38,7 +37,7 @@ namespace Org.BouncyCastle.Pkix
             PkixCertPathBuilderResult pathBuilderResult = null;
             foreach (IX509AttributeCertificate attrCert in (IEnumerable)certificates)
             {
-                X509CertStoreSelector certSelect = new X509CertStoreSelector();
+                X509CertStoreSelector certSelect = new();
                 X509Name[] principals = attrCert.Issuer.GetPrincipals();
                 ISet set = new HashSet();
                 for (int index = 0; index < principals.Length; ++index)
@@ -84,12 +83,12 @@ namespace Org.BouncyCastle.Pkix
                 return null;
             tbvPath.Add( tbvCert );
             PkixCertPathBuilderResult pathBuilderResult = null;
-            PkixAttrCertPathValidator certPathValidator = new PkixAttrCertPathValidator();
+            PkixAttrCertPathValidator certPathValidator = new();
             try
             {
                 if (PkixCertPathValidatorUtilities.FindTrustAnchor( tbvCert, pkixParams.GetTrustAnchors() ) != null)
                 {
-                    PkixCertPath certPath = new PkixCertPath( tbvPath );
+                    PkixCertPath certPath = new( tbvPath );
                     PkixCertPathValidatorResult pathValidatorResult;
                     try
                     {

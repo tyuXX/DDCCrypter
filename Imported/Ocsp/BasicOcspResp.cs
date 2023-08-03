@@ -13,7 +13,6 @@ using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -44,7 +43,7 @@ namespace Org.BouncyCastle.Ocsp
 
         public int Version => this.data.Version.Value.IntValue + 1;
 
-        public RespID ResponderId => new RespID( this.data.ResponderID );
+        public RespID ResponderId => new( this.data.ResponderID );
 
         public DateTime ProducedAt => this.data.ProducedAt.ToDateTime();
 
@@ -69,7 +68,7 @@ namespace Org.BouncyCastle.Ocsp
         public string SignatureAlgOid => this.resp.SignatureAlgorithm.Algorithm.Id;
 
         [Obsolete( "RespData class is no longer required as all functionality is available on this class" )]
-        public RespData GetResponseData() => new RespData( this.data );
+        public RespData GetResponseData() => new( this.data );
 
         public byte[] GetSignature() => this.resp.GetSignatureOctets();
 

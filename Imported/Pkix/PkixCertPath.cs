@@ -12,7 +12,6 @@ using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.X509;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -171,24 +170,24 @@ namespace Org.BouncyCastle.Pkix
         {
             if (Platform.EqualsIgnoreCase( encoding, "PkiPath" ))
             {
-                Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+                Asn1EncodableVector v = new( new Asn1Encodable[0] );
                 for (int index = this.certificates.Count - 1; index >= 0; --index)
                     v.Add( this.ToAsn1Object( (X509Certificate)this.certificates[index] ) );
                 return this.ToDerEncoded( new DerSequence( v ) );
             }
             if (Platform.EqualsIgnoreCase( encoding, "PKCS7" ))
             {
-                ContentInfo _contentInfo = new ContentInfo( PkcsObjectIdentifiers.Data, null );
-                Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+                ContentInfo _contentInfo = new( PkcsObjectIdentifiers.Data, null );
+                Asn1EncodableVector v = new( new Asn1Encodable[0] );
                 for (int index = 0; index != this.certificates.Count; ++index)
                     v.Add( this.ToAsn1Object( (X509Certificate)this.certificates[index] ) );
-                SignedData content = new SignedData( new DerInteger( 1 ), new DerSet(), _contentInfo, new DerSet( v ), null, new DerSet() );
+                SignedData content = new( new DerInteger( 1 ), new DerSet(), _contentInfo, new DerSet( v ), null, new DerSet() );
                 return this.ToDerEncoded( new ContentInfo( PkcsObjectIdentifiers.SignedData, content ) );
             }
             if (!Platform.EqualsIgnoreCase( encoding, "PEM" ))
                 throw new CertificateEncodingException( "unsupported encoding: " + encoding );
-            MemoryStream memoryStream = new MemoryStream();
-            PemWriter pemWriter = new PemWriter( new StreamWriter( memoryStream ) );
+            MemoryStream memoryStream = new();
+            PemWriter pemWriter = new( new StreamWriter( memoryStream ) );
             try
             {
                 for (int index = 0; index != this.certificates.Count; ++index)

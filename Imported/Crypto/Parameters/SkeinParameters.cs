@@ -5,11 +5,9 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.Globalization;
 using System.IO;
-using System.Text;
 
 namespace Org.BouncyCastle.Crypto.Parameters
 {
@@ -87,8 +85,8 @@ namespace Org.BouncyCastle.Crypto.Parameters
             {
                 try
                 {
-                    MemoryStream memoryStream = new MemoryStream();
-                    StreamWriter t = new StreamWriter( memoryStream, Encoding.UTF8 );
+                    MemoryStream memoryStream = new();
+                    StreamWriter t = new( memoryStream, Encoding.UTF8 );
                     t.Write( date.ToString( "YYYYMMDD", CultureInfo.InvariantCulture ) );
                     t.Write( " " );
                     t.Write( emailAddress );
@@ -109,7 +107,7 @@ namespace Org.BouncyCastle.Crypto.Parameters
 
             public SkeinParameters.Builder SetNonce( byte[] nonce ) => this.Set( 20, nonce );
 
-            public SkeinParameters Build() => new SkeinParameters( this.parameters );
+            public SkeinParameters Build() => new( this.parameters );
         }
     }
 }

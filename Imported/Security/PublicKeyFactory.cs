@@ -15,7 +15,6 @@ using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Security
@@ -66,7 +65,7 @@ namespace Org.BouncyCastle.Security
             }
             if (algorithm.Equals( OiwObjectIdentifiers.ElGamalAlgorithm ))
             {
-                ElGamalParameter elGamalParameter = new ElGamalParameter( Asn1Sequence.GetInstance( algorithmId.Parameters.ToAsn1Object() ) );
+                ElGamalParameter elGamalParameter = new( Asn1Sequence.GetInstance( algorithmId.Parameters.ToAsn1Object() ) );
                 return new ElGamalPublicKeyParameters( ((DerInteger)keyInfo.GetPublicKey()).Value, new ElGamalParameters( elGamalParameter.P, elGamalParameter.G ) );
             }
             if (algorithm.Equals( X9ObjectIdentifiers.IdDsa ) || algorithm.Equals( OiwObjectIdentifiers.DsaWithSha1 ))
@@ -83,18 +82,18 @@ namespace Org.BouncyCastle.Security
             }
             if (algorithm.Equals( X9ObjectIdentifiers.IdECPublicKey ))
             {
-                X962Parameters x962Parameters = new X962Parameters( algorithmId.Parameters.ToAsn1Object() );
+                X962Parameters x962Parameters = new( algorithmId.Parameters.ToAsn1Object() );
                 X9ECParameters x9EcParameters = !x962Parameters.IsNamedCurve ? new X9ECParameters( (Asn1Sequence)x962Parameters.Parameters ) : ECKeyPairGenerator.FindECCurveByOid( (DerObjectIdentifier)x962Parameters.Parameters );
                 Asn1OctetString s = new DerOctetString( keyInfo.PublicKeyData.GetBytes() );
                 ECPoint point = new X9ECPoint( x9EcParameters.Curve, s ).Point;
                 if (x962Parameters.IsNamedCurve)
                     return new ECPublicKeyParameters( "EC", point, (DerObjectIdentifier)x962Parameters.Parameters );
-                ECDomainParameters parameters = new ECDomainParameters( x9EcParameters.Curve, x9EcParameters.G, x9EcParameters.N, x9EcParameters.H, x9EcParameters.GetSeed() );
+                ECDomainParameters parameters = new( x9EcParameters.Curve, x9EcParameters.G, x9EcParameters.N, x9EcParameters.H, x9EcParameters.GetSeed() );
                 return new ECPublicKeyParameters( point, parameters );
             }
             if (algorithm.Equals( CryptoProObjectIdentifiers.GostR3410x2001 ))
             {
-                Gost3410PublicKeyAlgParameters keyAlgParameters = new Gost3410PublicKeyAlgParameters( (Asn1Sequence)algorithmId.Parameters );
+                Gost3410PublicKeyAlgParameters keyAlgParameters = new( (Asn1Sequence)algorithmId.Parameters );
                 Asn1OctetString publicKey;
                 try
                 {
@@ -116,7 +115,7 @@ namespace Org.BouncyCastle.Security
             }
             if (!algorithm.Equals( CryptoProObjectIdentifiers.GostR3410x94 ))
                 throw new SecurityUtilityException( "algorithm identifier in key not recognised: " + algorithm );
-            Gost3410PublicKeyAlgParameters keyAlgParameters1 = new Gost3410PublicKeyAlgParameters( (Asn1Sequence)algorithmId.Parameters );
+            Gost3410PublicKeyAlgParameters keyAlgParameters1 = new( (Asn1Sequence)algorithmId.Parameters );
             DerOctetString publicKey1;
             try
             {
@@ -145,10 +144,10 @@ namespace Org.BouncyCastle.Security
           BigInteger y,
           Asn1Sequence seq )
         {
-            DHParameter dhParameter = new DHParameter( seq );
+            DHParameter dhParameter = new( seq );
             BigInteger l = dhParameter.L;
             int intValue = l == null ? 0 : l.IntValue;
-            DHParameters parameters = new DHParameters( dhParameter.P, dhParameter.G, null, intValue );
+            DHParameters parameters = new( dhParameter.P, dhParameter.G, null, intValue );
             return new DHPublicKeyParameters( y, parameters, algOid );
         }
     }

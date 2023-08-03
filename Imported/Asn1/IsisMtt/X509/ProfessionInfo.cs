@@ -6,32 +6,31 @@
 
 using Org.BouncyCastle.Asn1.X500;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.IsisMtt.X509
 {
     public class ProfessionInfo : Asn1Encodable
     {
-        public static readonly DerObjectIdentifier Rechtsanwltin = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".1" );
-        public static readonly DerObjectIdentifier Rechtsanwalt = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".2" );
-        public static readonly DerObjectIdentifier Rechtsbeistand = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".3" );
-        public static readonly DerObjectIdentifier Steuerberaterin = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".4" );
-        public static readonly DerObjectIdentifier Steuerberater = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".5" );
-        public static readonly DerObjectIdentifier Steuerbevollmchtigte = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".6" );
-        public static readonly DerObjectIdentifier Steuerbevollmchtigter = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".7" );
-        public static readonly DerObjectIdentifier Notarin = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".8" );
-        public static readonly DerObjectIdentifier Notar = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".9" );
-        public static readonly DerObjectIdentifier Notarvertreterin = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".10" );
-        public static readonly DerObjectIdentifier Notarvertreter = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".11" );
-        public static readonly DerObjectIdentifier Notariatsverwalterin = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".12" );
-        public static readonly DerObjectIdentifier Notariatsverwalter = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".13" );
-        public static readonly DerObjectIdentifier Wirtschaftsprferin = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".14" );
-        public static readonly DerObjectIdentifier Wirtschaftsprfer = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".15" );
-        public static readonly DerObjectIdentifier VereidigteBuchprferin = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".16" );
-        public static readonly DerObjectIdentifier VereidigterBuchprfer = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".17" );
-        public static readonly DerObjectIdentifier Patentanwltin = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".18" );
-        public static readonly DerObjectIdentifier Patentanwalt = new DerObjectIdentifier( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".19" );
+        public static readonly DerObjectIdentifier Rechtsanwltin = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".1" );
+        public static readonly DerObjectIdentifier Rechtsanwalt = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".2" );
+        public static readonly DerObjectIdentifier Rechtsbeistand = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".3" );
+        public static readonly DerObjectIdentifier Steuerberaterin = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".4" );
+        public static readonly DerObjectIdentifier Steuerberater = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".5" );
+        public static readonly DerObjectIdentifier Steuerbevollmchtigte = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".6" );
+        public static readonly DerObjectIdentifier Steuerbevollmchtigter = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".7" );
+        public static readonly DerObjectIdentifier Notarin = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".8" );
+        public static readonly DerObjectIdentifier Notar = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".9" );
+        public static readonly DerObjectIdentifier Notarvertreterin = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".10" );
+        public static readonly DerObjectIdentifier Notarvertreter = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".11" );
+        public static readonly DerObjectIdentifier Notariatsverwalterin = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".12" );
+        public static readonly DerObjectIdentifier Notariatsverwalter = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".13" );
+        public static readonly DerObjectIdentifier Wirtschaftsprferin = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".14" );
+        public static readonly DerObjectIdentifier Wirtschaftsprfer = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".15" );
+        public static readonly DerObjectIdentifier VereidigteBuchprferin = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".16" );
+        public static readonly DerObjectIdentifier VereidigterBuchprfer = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".17" );
+        public static readonly DerObjectIdentifier Patentanwltin = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".18" );
+        public static readonly DerObjectIdentifier Patentanwalt = new( NamingAuthority.IdIsisMttATNamingAuthoritiesRechtWirtschaftSteuern.ToString() + ".19" );
         private readonly NamingAuthority namingAuthority;
         private readonly Asn1Sequence professionItems;
         private readonly Asn1Sequence professionOids;
@@ -121,7 +120,7 @@ namespace Org.BouncyCastle.Asn1.IsisMtt.X509
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (this.namingAuthority != null)
                 v.Add( new DerTaggedObject( true, 0, namingAuthority ) );
             v.Add( professionItems );

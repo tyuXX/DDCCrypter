@@ -5,18 +5,17 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Tls
 {
     public sealed class ProtocolVersion
     {
-        public static readonly ProtocolVersion SSLv3 = new ProtocolVersion( 768, "SSL 3.0" );
-        public static readonly ProtocolVersion TLSv10 = new ProtocolVersion( 769, "TLS 1.0" );
-        public static readonly ProtocolVersion TLSv11 = new ProtocolVersion( 770, "TLS 1.1" );
-        public static readonly ProtocolVersion TLSv12 = new ProtocolVersion( 771, "TLS 1.2" );
-        public static readonly ProtocolVersion DTLSv10 = new ProtocolVersion( 65279, "DTLS 1.0" );
-        public static readonly ProtocolVersion DTLSv12 = new ProtocolVersion( 65277, "DTLS 1.2" );
+        public static readonly ProtocolVersion SSLv3 = new( 768, "SSL 3.0" );
+        public static readonly ProtocolVersion TLSv10 = new( 769, "TLS 1.0" );
+        public static readonly ProtocolVersion TLSv11 = new( 770, "TLS 1.1" );
+        public static readonly ProtocolVersion TLSv12 = new( 771, "TLS 1.2" );
+        public static readonly ProtocolVersion DTLSv10 = new( 65279, "DTLS 1.0" );
+        public static readonly ProtocolVersion DTLSv12 = new( 65277, "DTLS 1.2" );
         private readonly int version;
         private readonly string name;
 

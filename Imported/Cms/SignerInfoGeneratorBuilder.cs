@@ -39,7 +39,7 @@ namespace Org.BouncyCastle.Cms
 
         public SignerInfoGenerator Build( ISignatureFactory contentSigner, X509Certificate certificate )
         {
-            SignerIdentifier sigId = new SignerIdentifier( new IssuerAndSerialNumber( certificate.IssuerDN, new DerInteger( certificate.SerialNumber ) ) );
+            SignerIdentifier sigId = new( new IssuerAndSerialNumber( certificate.IssuerDN, new DerInteger( certificate.SerialNumber ) ) );
             SignerInfoGenerator generator = this.CreateGenerator( contentSigner, sigId );
             generator.setAssociatedCertificate( certificate );
             return generator;
@@ -47,7 +47,7 @@ namespace Org.BouncyCastle.Cms
 
         public SignerInfoGenerator Build( ISignatureFactory signerFactory, byte[] subjectKeyIdentifier )
         {
-            SignerIdentifier sigId = new SignerIdentifier( new DerOctetString( subjectKeyIdentifier ) );
+            SignerIdentifier sigId = new( new DerOctetString( subjectKeyIdentifier ) );
             return this.CreateGenerator( signerFactory, sigId );
         }
 

@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Encoders;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Asn1

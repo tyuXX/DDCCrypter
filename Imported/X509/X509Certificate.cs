@@ -16,9 +16,7 @@ using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Encoders;
 using Org.BouncyCastle.X509.Extension;
-using System;
 using System.Collections;
-using System.Text;
 
 namespace Org.BouncyCastle.X509
 {
@@ -187,7 +185,7 @@ namespace Org.BouncyCastle.X509
 
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             string newLine = Platform.NewLine;
             stringBuilder.Append( "  [0]         Version: " ).Append( this.Version ).Append( newLine );
             stringBuilder.Append( "         SerialNumber: " ).Append( SerialNumber ).Append( newLine );

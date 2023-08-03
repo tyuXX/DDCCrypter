@@ -59,8 +59,8 @@ namespace Org.BouncyCastle.Bcpg
 
         public override void Encode( BcpgOutputStream bcpgOut )
         {
-            MemoryStream outStr = new MemoryStream();
-            BcpgOutputStream bcpgOutputStream = new BcpgOutputStream( outStr );
+            MemoryStream outStr = new();
+            BcpgOutputStream bcpgOutputStream = new( outStr );
             bcpgOutputStream.Write( (byte)this.version, (byte)this.sigType, (byte)this.hashAlgorithm, (byte)this.keyAlgorithm );
             bcpgOutputStream.WriteLong( this.keyId );
             bcpgOutputStream.WriteByte( (byte)this.nested );

@@ -14,7 +14,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -86,12 +85,12 @@ namespace Org.BouncyCastle.Cms
                     throw new InvalidKeyException( "cannot determine MQV ephemeral key pair parameters from public key: " + ex );
                 }
             }
-            AlgorithmIdentifier keyEncryptionAlgorithm = new AlgorithmIdentifier( this.keyAgreementOID, new DerSequence( new Asn1Encodable[2]
+            AlgorithmIdentifier keyEncryptionAlgorithm = new( this.keyAgreementOID, new DerSequence( new Asn1Encodable[2]
             {
          keyEncryptionOID,
          DerNull.Instance
             } ) );
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             foreach (X509Certificate recipientCert in (IEnumerable)this.recipientCerts)
             {
                 TbsCertificateStructure instance;
@@ -103,7 +102,7 @@ namespace Org.BouncyCastle.Cms
                 {
                     throw new ArgumentException( "can't extract TBS structure from certificate" );
                 }
-                KeyAgreeRecipientIdentifier id = new KeyAgreeRecipientIdentifier( new IssuerAndSerialNumber( instance.Issuer, instance.SerialNumber.Value ) );
+                KeyAgreeRecipientIdentifier id = new( new IssuerAndSerialNumber( instance.Issuer, instance.SerialNumber.Value ) );
                 ICipherParameters cipherParameters2 = recipientCert.GetPublicKey();
                 if (this.keyAgreementOID.Id.Equals( CmsEnvelopedGenerator.ECMqvSha1Kdf ))
                     cipherParameters2 = new MqvPublicParameters( (ECPublicKeyParameters)cipherParameters2, (ECPublicKeyParameters)cipherParameters2 );

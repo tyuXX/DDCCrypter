@@ -32,18 +32,18 @@ namespace Org.BouncyCastle.Cms
             if (!hashtable.Contains( CmsAttributes.ContentType ))
             {
                 DerObjectIdentifier parameter = (DerObjectIdentifier)parameters[CmsAttributeTableParameter.ContentType];
-                Attribute attribute = new Attribute( CmsAttributes.ContentType, new DerSet( parameter ) );
+                Attribute attribute = new( CmsAttributes.ContentType, new DerSet( parameter ) );
                 hashtable[attribute.AttrType] = attribute;
             }
             if (!hashtable.Contains( CmsAttributes.MessageDigest ))
             {
                 byte[] parameter = (byte[])parameters[CmsAttributeTableParameter.Digest];
-                Attribute attribute = new Attribute( CmsAttributes.MessageDigest, new DerSet( new DerOctetString( parameter ) ) );
+                Attribute attribute = new( CmsAttributes.MessageDigest, new DerSet( new DerOctetString( parameter ) ) );
                 hashtable[attribute.AttrType] = attribute;
             }
             return hashtable;
         }
 
-        public virtual AttributeTable GetAttributes( IDictionary parameters ) => new AttributeTable( this.CreateStandardAttributeTable( parameters ) );
+        public virtual AttributeTable GetAttributes( IDictionary parameters ) => new( this.CreateStandardAttributeTable( parameters ) );
     }
 }

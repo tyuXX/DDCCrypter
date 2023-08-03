@@ -10,7 +10,6 @@ using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -18,7 +17,7 @@ namespace Org.BouncyCastle.X509
 {
     public class X509AttrCertParser
     {
-        private static readonly PemParser PemAttrCertParser = new PemParser( "ATTRIBUTE CERTIFICATE" );
+        private static readonly PemParser PemAttrCertParser = new( "ATTRIBUTE CERTIFICATE" );
         private Asn1Set sData;
         private int sDataObjectCount;
         private Stream currentStream;
@@ -84,7 +83,7 @@ namespace Org.BouncyCastle.X509
                     this.sDataObjectCount = 0;
                     return null;
                 }
-                PushbackStream pushbackStream = new PushbackStream( inStream );
+                PushbackStream pushbackStream = new( inStream );
                 int b = pushbackStream.ReadByte();
                 if (b < 0)
                     return null;

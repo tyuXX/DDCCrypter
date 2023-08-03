@@ -10,7 +10,6 @@ using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.X509;
-using System;
 
 namespace Org.BouncyCastle.Ocsp
 {

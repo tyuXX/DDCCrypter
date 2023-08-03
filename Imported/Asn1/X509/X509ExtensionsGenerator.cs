@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.X509
@@ -45,6 +44,6 @@ namespace Org.BouncyCastle.Asn1.X509
 
         public bool IsEmpty => this.extOrdering.Count < 1;
 
-        public X509Extensions Generate() => new X509Extensions( this.extOrdering, this.extensions );
+        public X509Extensions Generate() => new( this.extOrdering, this.extensions );
     }
 }

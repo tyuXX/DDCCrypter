@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Crypto.Engines
@@ -67,7 +66,7 @@ namespace Org.BouncyCastle.Crypto.Engines
                 throw new DataLengthException( "input too large for Naccache-Stern cipher.\n" );
             if (!this.forEncryption && length < this.GetInputBlockSize())
                 throw new InvalidCipherTextException( "BlockLength does not match modulus for Naccache-Stern cipher.\n" );
-            BigInteger plain = new BigInteger( 1, inBytes, inOff, length );
+            BigInteger plain = new( 1, inBytes, inOff, length );
             byte[] numArray;
             if (this.forEncryption)
             {

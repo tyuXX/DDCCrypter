@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
-using System;
 using System.Collections;
 using System.IO;
 

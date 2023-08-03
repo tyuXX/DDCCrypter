@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1.Crmf;
 using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Cmp
 {

@@ -8,7 +8,6 @@ using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.X509;
-using System;
 
 namespace Org.BouncyCastle.Ocsp
 {
@@ -20,7 +19,7 @@ namespace Org.BouncyCastle.Ocsp
 
         public int Version => this.data.Version.Value.IntValue + 1;
 
-        public RespID GetResponderId() => new RespID( this.data.ResponderID );
+        public RespID GetResponderId() => new( this.data.ResponderID );
 
         public DateTime ProducedAt => this.data.ProducedAt.ToDateTime();
 

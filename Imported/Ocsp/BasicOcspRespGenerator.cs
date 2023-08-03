@@ -13,7 +13,6 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -66,7 +65,7 @@ namespace Org.BouncyCastle.Ocsp
           DateTime producedAt )
         {
             DerObjectIdentifier algorithm = ((AlgorithmIdentifier)signatureCalculator.AlgorithmDetails).Algorithm;
-            Asn1EncodableVector v1 = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v1 = new( new Asn1Encodable[0] );
             foreach (BasicOcspRespGenerator.ResponseObject responseObject in (IEnumerable)this.list)
             {
                 try
@@ -78,7 +77,7 @@ namespace Org.BouncyCastle.Ocsp
                     throw new OcspException( "exception creating Request", ex );
                 }
             }
-            ResponseData tbsResponseData = new ResponseData( this.responderID.ToAsn1Object(), new DerGeneralizedTime( producedAt ), new DerSequence( v1 ), this.responseExtensions );
+            ResponseData tbsResponseData = new( this.responderID.ToAsn1Object(), new DerGeneralizedTime( producedAt ), new DerSequence( v1 ), this.responseExtensions );
             DerBitString signature;
             try
             {
@@ -96,7 +95,7 @@ namespace Org.BouncyCastle.Ocsp
             DerSequence certs = null;
             if (chain != null && chain.Length > 0)
             {
-                Asn1EncodableVector v2 = new Asn1EncodableVector( new Asn1Encodable[0] );
+                Asn1EncodableVector v2 = new( new Asn1Encodable[0] );
                 try
                 {
                     for (int index = 0; index != chain.Length; ++index)
@@ -200,7 +199,7 @@ namespace Org.BouncyCastle.Ocsp
                 this.extensions = extensions;
             }
 
-            public SingleResponse ToResponse() => new SingleResponse( this.certId.ToAsn1Object(), this.certStatus, this.thisUpdate, this.nextUpdate, this.extensions );
+            public SingleResponse ToResponse() => new( this.certId.ToAsn1Object(), this.certStatus, this.thisUpdate, this.nextUpdate, this.extensions );
         }
     }
 }

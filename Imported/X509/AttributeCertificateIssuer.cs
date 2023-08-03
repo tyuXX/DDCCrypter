@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 
 namespace Org.BouncyCastle.X509
 {

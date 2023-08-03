@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Cms
 {
@@ -79,7 +78,7 @@ namespace Org.BouncyCastle.Asn1.Cms
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[1]
+            Asn1EncodableVector v = new( new Asn1Encodable[1]
             {
          version
             } );

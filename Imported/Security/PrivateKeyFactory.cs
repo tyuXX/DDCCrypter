@@ -17,7 +17,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Pkcs;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Security
@@ -43,16 +42,16 @@ namespace Org.BouncyCastle.Security
             }
             if (algorithm.Equals( PkcsObjectIdentifiers.DhKeyAgreement ))
             {
-                DHParameter dhParameter = new DHParameter( Asn1Sequence.GetInstance( privateKeyAlgorithm.Parameters.ToAsn1Object() ) );
+                DHParameter dhParameter = new( Asn1Sequence.GetInstance( privateKeyAlgorithm.Parameters.ToAsn1Object() ) );
                 DerInteger privateKey = (DerInteger)keyInfo.ParsePrivateKey();
                 BigInteger l = dhParameter.L;
                 int intValue = l == null ? 0 : l.IntValue;
-                DHParameters parameters = new DHParameters( dhParameter.P, dhParameter.G, null, intValue );
+                DHParameters parameters = new( dhParameter.P, dhParameter.G, null, intValue );
                 return new DHPrivateKeyParameters( privateKey.Value, parameters, algorithm );
             }
             if (algorithm.Equals( OiwObjectIdentifiers.ElGamalAlgorithm ))
             {
-                ElGamalParameter elGamalParameter = new ElGamalParameter( Asn1Sequence.GetInstance( privateKeyAlgorithm.Parameters.ToAsn1Object() ) );
+                ElGamalParameter elGamalParameter = new( Asn1Sequence.GetInstance( privateKeyAlgorithm.Parameters.ToAsn1Object() ) );
                 return new ElGamalPrivateKeyParameters( ((DerInteger)keyInfo.ParsePrivateKey()).Value, new ElGamalParameters( elGamalParameter.P, elGamalParameter.G ) );
             }
             if (algorithm.Equals( X9ObjectIdentifiers.IdDsa ))
@@ -69,17 +68,17 @@ namespace Org.BouncyCastle.Security
             }
             if (algorithm.Equals( X9ObjectIdentifiers.IdECPublicKey ))
             {
-                X962Parameters x962Parameters = new X962Parameters( privateKeyAlgorithm.Parameters.ToAsn1Object() );
+                X962Parameters x962Parameters = new( privateKeyAlgorithm.Parameters.ToAsn1Object() );
                 X9ECParameters x9EcParameters = !x962Parameters.IsNamedCurve ? new X9ECParameters( (Asn1Sequence)x962Parameters.Parameters ) : ECKeyPairGenerator.FindECCurveByOid( (DerObjectIdentifier)x962Parameters.Parameters );
                 BigInteger key = ECPrivateKeyStructure.GetInstance( keyInfo.ParsePrivateKey() ).GetKey();
                 if (x962Parameters.IsNamedCurve)
                     return new ECPrivateKeyParameters( "EC", key, (DerObjectIdentifier)x962Parameters.Parameters );
-                ECDomainParameters parameters = new ECDomainParameters( x9EcParameters.Curve, x9EcParameters.G, x9EcParameters.N, x9EcParameters.H, x9EcParameters.GetSeed() );
+                ECDomainParameters parameters = new( x9EcParameters.Curve, x9EcParameters.G, x9EcParameters.N, x9EcParameters.H, x9EcParameters.GetSeed() );
                 return new ECPrivateKeyParameters( key, parameters );
             }
             if (algorithm.Equals( CryptoProObjectIdentifiers.GostR3410x2001 ))
             {
-                Gost3410PublicKeyAlgParameters keyAlgParameters = new Gost3410PublicKeyAlgParameters( Asn1Sequence.GetInstance( privateKeyAlgorithm.Parameters.ToAsn1Object() ) );
+                Gost3410PublicKeyAlgParameters keyAlgParameters = new( Asn1Sequence.GetInstance( privateKeyAlgorithm.Parameters.ToAsn1Object() ) );
                 ECDomainParameters byOid = ECGost3410NamedCurves.GetByOid( keyAlgParameters.PublicKeyParamSet );
                 if (byOid == null)
                     throw new ArgumentException( "Unrecognized curve OID for GostR3410x2001 private key" );
@@ -88,7 +87,7 @@ namespace Org.BouncyCastle.Security
             }
             if (!algorithm.Equals( CryptoProObjectIdentifiers.GostR3410x94 ))
                 throw new SecurityUtilityException( "algorithm identifier in key not recognised" );
-            Gost3410PublicKeyAlgParameters keyAlgParameters1 = new Gost3410PublicKeyAlgParameters( Asn1Sequence.GetInstance( privateKeyAlgorithm.Parameters.ToAsn1Object() ) );
+            Gost3410PublicKeyAlgParameters keyAlgParameters1 = new( Asn1Sequence.GetInstance( privateKeyAlgorithm.Parameters.ToAsn1Object() ) );
             return new Gost3410PrivateKeyParameters( new BigInteger( 1, Arrays.Reverse( ((Asn1OctetString)keyInfo.ParsePrivateKey()).GetOctets() ) ), keyAlgParameters1.PublicKeyParamSet );
         }
 

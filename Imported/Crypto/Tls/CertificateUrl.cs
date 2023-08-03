@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -33,7 +32,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         public virtual void Encode( Stream output )
         {
             TlsUtilities.WriteUint8( this.mType, output );
-            CertificateUrl.ListBuffer16 output1 = new CertificateUrl.ListBuffer16();
+            CertificateUrl.ListBuffer16 output1 = new();
             foreach (UrlAndHash mUrlAndHash in (IEnumerable)this.mUrlAndHashList)
                 mUrlAndHash.Encode( output1 );
             output1.EncodeTo( output );

@@ -5,15 +5,14 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1
 {
     public class DerBoolean : Asn1Object
     {
         private readonly byte value;
-        public static readonly DerBoolean False = new DerBoolean( false );
-        public static readonly DerBoolean True = new DerBoolean( true );
+        public static readonly DerBoolean False = new( false );
+        public static readonly DerBoolean True = new( true );
 
         public static DerBoolean GetInstance( object obj )
         {

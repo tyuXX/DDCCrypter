@@ -13,7 +13,6 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -166,8 +165,8 @@ namespace Org.BouncyCastle.Cms
           CmsProcessable content,
           bool encapsulate )
         {
-            Asn1EncodableVector v1 = new Asn1EncodableVector( new Asn1Encodable[0] );
-            Asn1EncodableVector v2 = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v1 = new( new Asn1Encodable[0] );
+            Asn1EncodableVector v2 = new( new Asn1Encodable[0] );
             this._digests.Clear();
             foreach (SignerInformation signer in (IEnumerable)this._signers)
             {
@@ -208,7 +207,7 @@ namespace Org.BouncyCastle.Cms
             Asn1OctetString content1 = null;
             if (encapsulate)
             {
-                MemoryStream outStream = new MemoryStream();
+                MemoryStream outStream = new();
                 if (content != null)
                 {
                     try
@@ -222,9 +221,9 @@ namespace Org.BouncyCastle.Cms
                 }
                 content1 = new BerOctetString( outStream.ToArray() );
             }
-            ContentInfo contentInfo = new ContentInfo( contentType, content1 );
-            SignedData content2 = new SignedData( new DerSet( v1 ), contentInfo, certificates, crls, new DerSet( v2 ) );
-            ContentInfo sigData = new ContentInfo( CmsObjectIdentifiers.SignedData, content2 );
+            ContentInfo contentInfo = new( contentType, content1 );
+            SignedData content2 = new( new DerSet( v1 ), contentInfo, certificates, crls, new DerSet( v2 ) );
+            ContentInfo sigData = new( CmsObjectIdentifiers.SignedData, content2 );
             return new CmsSignedData( content, sigData );
         }
 
@@ -282,7 +281,7 @@ namespace Org.BouncyCastle.Cms
                 this.baseSignedTable = baseSignedTable;
             }
 
-            internal AlgorithmIdentifier DigestAlgorithmID => new AlgorithmIdentifier( new DerObjectIdentifier( this.digestOID ), DerNull.Instance );
+            internal AlgorithmIdentifier DigestAlgorithmID => new( new DerObjectIdentifier( this.digestOID ), DerNull.Instance );
 
             internal CmsAttributeTableGenerator SignedAttributes => this.sAttr;
 

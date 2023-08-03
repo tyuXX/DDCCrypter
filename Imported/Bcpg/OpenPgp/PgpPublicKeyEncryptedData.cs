@@ -12,7 +12,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math.EC;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Bcpg.OpenPgp
@@ -129,7 +128,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
                 byte[] numArray2 = new byte[(sourceArray[length + 2])];
                 Array.Copy( sourceArray, 2 + length + 1, numArray2, 0, numArray2.Length );
                 ECPoint s = ecCurveByOid.Curve.DecodePoint( numArray1 ).Multiply( ((ECPrivateKeyParameters)privKey.Key).D ).Normalize();
-                KeyParameter parameters = new KeyParameter( Rfc6637Utilities.CreateKey( privKey.PublicKeyPacket, s ) );
+                KeyParameter parameters = new( Rfc6637Utilities.CreateKey( privKey.PublicKeyPacket, s ) );
                 IWrapper wrapper = PgpUtilities.CreateWrapper( key.SymmetricKeyAlgorithm );
                 wrapper.Init( false, parameters );
                 return PgpPad.UnpadSessionData( wrapper.Unwrap( numArray2, 0, numArray2.Length ) );

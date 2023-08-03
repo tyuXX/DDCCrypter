@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1
@@ -16,7 +15,7 @@ namespace Org.BouncyCastle.Asn1
 
         public static Asn1EncodableVector FromEnumerable( IEnumerable e )
         {
-            Asn1EncodableVector asn1EncodableVector = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector asn1EncodableVector = new( new Asn1Encodable[0] );
             foreach (Asn1Encodable asn1Encodable in e)
                 asn1EncodableVector.Add( asn1Encodable );
             return asn1EncodableVector;

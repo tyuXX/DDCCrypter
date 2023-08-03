@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Math.EC.Abc;
 using Org.BouncyCastle.Math.Field;
-using System;
 
 namespace Org.BouncyCastle.Math.EC
 {

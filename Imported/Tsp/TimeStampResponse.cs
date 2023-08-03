@@ -9,9 +9,7 @@ using Org.BouncyCastle.Asn1.Cmp;
 using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Asn1.Tsp;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
-using System.Text;
 
 namespace Org.BouncyCastle.Tsp
 {
@@ -60,7 +58,7 @@ namespace Org.BouncyCastle.Tsp
         {
             if (this.resp.Status.StatusString == null)
                 return null;
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             PkiFreeText statusString = this.resp.Status.StatusString;
             for (int index = 0; index != statusString.Count; ++index)
                 stringBuilder.Append( statusString[index].GetString() );

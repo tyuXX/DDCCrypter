@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -33,18 +32,18 @@ namespace Org.BouncyCastle.Crypto.Tls
                 throw new ArgumentNullException( nameof( server ) );
             if (transport == null)
                 throw new ArgumentNullException( nameof( transport ) );
-            SecurityParameters securityParameters = new SecurityParameters
+            SecurityParameters securityParameters = new()
             {
                 entity = 0
             };
-            DtlsServerProtocol.ServerHandshakeState state = new DtlsServerProtocol.ServerHandshakeState
+            DtlsServerProtocol.ServerHandshakeState state = new()
             {
                 server = server,
                 serverContext = new TlsServerContextImpl( this.mSecureRandom, securityParameters )
             };
             securityParameters.serverRandom = TlsProtocol.CreateRandomBlock( server.ShouldUseGmtUnixTime(), state.serverContext.NonceRandomGenerator );
             server.Init( state.serverContext );
-            DtlsRecordLayer recordLayer = new DtlsRecordLayer( transport, state.serverContext, server, 22 );
+            DtlsRecordLayer recordLayer = new( transport, state.serverContext, server, 22 );
             try
             {
                 return this.ServerHandshake( state, recordLayer );
@@ -71,7 +70,7 @@ namespace Org.BouncyCastle.Crypto.Tls
           DtlsRecordLayer recordLayer )
         {
             SecurityParameters securityParameters = state.serverContext.SecurityParameters;
-            DtlsReliableHandshake reliableHandshake = new DtlsReliableHandshake( state.serverContext, recordLayer );
+            DtlsReliableHandshake reliableHandshake = new( state.serverContext, recordLayer );
             DtlsReliableHandshake.Message message1 = reliableHandshake.ReceiveMessage();
             if (message1.Type != 1)
                 throw new TlsFatalAlert( 10 );
@@ -185,7 +184,7 @@ namespace Org.BouncyCastle.Crypto.Tls
           DtlsServerProtocol.ServerHandshakeState state,
           CertificateRequest certificateRequest )
         {
-            MemoryStream output = new MemoryStream();
+            MemoryStream output = new();
             certificateRequest.Encode( output );
             return output.ToArray();
         }
@@ -194,7 +193,7 @@ namespace Org.BouncyCastle.Crypto.Tls
           DtlsServerProtocol.ServerHandshakeState state,
           CertificateStatus certificateStatus )
         {
-            MemoryStream output = new MemoryStream();
+            MemoryStream output = new();
             certificateStatus.Encode( output );
             return output.ToArray();
         }
@@ -203,7 +202,7 @@ namespace Org.BouncyCastle.Crypto.Tls
           DtlsServerProtocol.ServerHandshakeState state,
           NewSessionTicket newSessionTicket )
         {
-            MemoryStream output = new MemoryStream();
+            MemoryStream output = new();
             newSessionTicket.Encode( output );
             return output.ToArray();
         }
@@ -211,7 +210,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         protected virtual byte[] GenerateServerHello( DtlsServerProtocol.ServerHandshakeState state )
         {
             SecurityParameters securityParameters = state.serverContext.SecurityParameters;
-            MemoryStream output = new MemoryStream();
+            MemoryStream output = new();
             ProtocolVersion serverVersion = state.server.GetServerVersion();
             if (!serverVersion.IsEqualOrEarlierVersionOf( state.serverContext.ClientVersion ))
                 throw new TlsFatalAlert( 80 );
@@ -278,7 +277,7 @@ namespace Org.BouncyCastle.Crypto.Tls
           DtlsServerProtocol.ServerHandshakeState state,
           byte[] body )
         {
-            MemoryStream memoryStream = new MemoryStream( body, false );
+            MemoryStream memoryStream = new( body, false );
             Certificate clientCertificate = Certificate.Parse( memoryStream );
             TlsProtocol.AssertEmpty( memoryStream );
             this.NotifyClientCertificate( state, clientCertificate );
@@ -291,7 +290,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         {
             if (state.certificateRequest == null)
                 throw new InvalidOperationException();
-            MemoryStream memoryStream = new MemoryStream( body, false );
+            MemoryStream memoryStream = new( body, false );
             TlsServerContextImpl serverContext = state.serverContext;
             DigitallySigned digitallySigned = DigitallySigned.Parse( serverContext, memoryStream );
             TlsProtocol.AssertEmpty( memoryStream );
@@ -326,7 +325,7 @@ namespace Org.BouncyCastle.Crypto.Tls
           DtlsServerProtocol.ServerHandshakeState state,
           byte[] body )
         {
-            MemoryStream input = new MemoryStream( body, false );
+            MemoryStream input = new( body, false );
             ProtocolVersion clientVersion = TlsUtilities.ReadVersion( input );
             if (!clientVersion.IsDtls)
                 throw new TlsFatalAlert( 47 );
@@ -367,7 +366,7 @@ namespace Org.BouncyCastle.Crypto.Tls
           DtlsServerProtocol.ServerHandshakeState state,
           byte[] body )
         {
-            MemoryStream memoryStream = new MemoryStream( body, false );
+            MemoryStream memoryStream = new( body, false );
             state.keyExchange.ProcessClientKeyExchange( memoryStream );
             TlsProtocol.AssertEmpty( memoryStream );
         }

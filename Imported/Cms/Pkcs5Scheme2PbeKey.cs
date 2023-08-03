@@ -8,7 +8,6 @@ using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Parameters;
-using System;
 
 namespace Org.BouncyCastle.Cms
 {
@@ -38,7 +37,7 @@ namespace Org.BouncyCastle.Cms
 
         internal override KeyParameter GetEncoded( string algorithmOid )
         {
-            Pkcs5S2ParametersGenerator parametersGenerator = new Pkcs5S2ParametersGenerator();
+            Pkcs5S2ParametersGenerator parametersGenerator = new();
             parametersGenerator.Init( PbeParametersGenerator.Pkcs5PasswordToBytes( this.password ), this.salt, this.iterationCount );
             return (KeyParameter)parametersGenerator.GenerateDerivedParameters( algorithmOid, CmsEnvelopedHelper.Instance.GetKeySize( algorithmOid ) );
         }

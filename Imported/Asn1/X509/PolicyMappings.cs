@@ -21,7 +21,7 @@ namespace Org.BouncyCastle.Asn1.X509
 
         public PolicyMappings( IDictionary mappings )
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             foreach (string key in (IEnumerable)mappings.Keys)
             {
                 string mapping = (string)mappings[key];

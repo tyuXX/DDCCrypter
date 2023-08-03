@@ -9,7 +9,6 @@ using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.OpenSsl
 {
@@ -165,7 +164,7 @@ namespace Org.BouncyCastle.OpenSsl
                 default:
                     return null;
             }
-            OpenSslPbeParametersGenerator parametersGenerator = new OpenSslPbeParametersGenerator();
+            OpenSslPbeParametersGenerator parametersGenerator = new();
             parametersGenerator.Init( PbeParametersGenerator.Pkcs5PasswordToBytes( password ), salt );
             return parametersGenerator.GenerateDerivedParameters( algorithm, keySize );
         }

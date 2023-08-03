@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.Ocsp;
-using System;
 
 namespace Org.BouncyCastle.Ocsp
 {
@@ -33,7 +32,7 @@ namespace Org.BouncyCastle.Ocsp
             {
                 throw new OcspException( "can't encode object.", ex );
             }
-            ResponseBytes responseBytes = new ResponseBytes( OcspObjectIdentifiers.PkixOcspBasic, response1 );
+            ResponseBytes responseBytes = new( OcspObjectIdentifiers.PkixOcspBasic, response1 );
             return new OcspResp( new OcspResponse( new OcspResponseStatus( status ), responseBytes ) );
         }
     }

@@ -40,7 +40,7 @@ namespace Org.BouncyCastle.Asn1.Cms
 
         public Asn1SetParser GetDigestAlgorithms() => (Asn1SetParser)this._seq.ReadObject();
 
-        public ContentInfoParser GetEncapContentInfo() => new ContentInfoParser( (Asn1SequenceParser)this._seq.ReadObject() );
+        public ContentInfoParser GetEncapContentInfo() => new( (Asn1SequenceParser)this._seq.ReadObject() );
 
         public Asn1SetParser GetCertificates()
         {

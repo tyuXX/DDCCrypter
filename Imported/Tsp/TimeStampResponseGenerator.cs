@@ -10,7 +10,6 @@ using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Asn1.Tsp;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities.Date;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -60,7 +59,7 @@ namespace Org.BouncyCastle.Tsp
 
         private PkiStatusInfo GetPkiStatusInfo()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[1]
+            Asn1EncodableVector v = new( new Asn1Encodable[1]
             {
          new DerInteger((int) this.status)
             } );
@@ -130,7 +129,7 @@ namespace Org.BouncyCastle.Tsp
             this.SetFailInfoField( failInfoField );
             if (statusString != null)
                 this.AddStatusString( statusString );
-            TimeStampResp resp = new TimeStampResp( this.GetPkiStatusInfo(), null );
+            TimeStampResp resp = new( this.GetPkiStatusInfo(), null );
             try
             {
                 return new TimeStampResponse( resp );

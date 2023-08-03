@@ -5,8 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
-using System.Text;
 
 namespace Org.BouncyCastle.Asn1
 {
@@ -55,7 +53,7 @@ namespace Org.BouncyCastle.Asn1
 
         public override string GetString()
         {
-            StringBuilder stringBuilder = new StringBuilder( "#" );
+            StringBuilder stringBuilder = new( "#" );
             byte[] derEncoded = this.GetDerEncoded();
             for (int index = 0; index != derEncoded.Length; ++index)
             {

@@ -10,7 +10,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -63,7 +62,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
             }
             try
             {
-                MemoryStream outStr = new MemoryStream();
+                MemoryStream outStr = new();
                 new BcpgOutputStream( outStr ).WriteObject( bcpgObject );
                 byte[] array = outStr.ToArray();
                 byte[] b = Checksum( useSha1, array, array.Length );
@@ -471,7 +470,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
                     case PublicKeyAlgorithmTag.RsaEncrypt:
                     case PublicKeyAlgorithmTag.RsaSign:
                         RsaPublicBcpgKey key1 = (RsaPublicBcpgKey)publicKeyPacket.Key;
-                        RsaSecretBcpgKey rsaSecretBcpgKey = new RsaSecretBcpgKey( bcpgIn );
+                        RsaSecretBcpgKey rsaSecretBcpgKey = new( bcpgIn );
                         privateKey = new RsaPrivateCrtKeyParameters( rsaSecretBcpgKey.Modulus, key1.PublicExponent, rsaSecretBcpgKey.PrivateExponent, rsaSecretBcpgKey.PrimeP, rsaSecretBcpgKey.PrimeQ, rsaSecretBcpgKey.PrimeExponentP, rsaSecretBcpgKey.PrimeExponentQ, rsaSecretBcpgKey.CrtCoefficient );
                         break;
                     case PublicKeyAlgorithmTag.ElGamalEncrypt:
@@ -507,7 +506,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
         private ECPrivateKeyParameters GetECKey( string algorithm, BcpgInputStream bcpgIn )
         {
             ECPublicBcpgKey key = (ECPublicBcpgKey)this.secret.PublicKeyPacket.Key;
-            ECSecretBcpgKey ecSecretBcpgKey = new ECSecretBcpgKey( bcpgIn );
+            ECSecretBcpgKey ecSecretBcpgKey = new( bcpgIn );
             return new ECPrivateKeyParameters( algorithm, ecSecretBcpgKey.X, key.CurveOid );
         }
 
@@ -537,7 +536,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
         public byte[] GetEncoded()
         {
-            MemoryStream outStr = new MemoryStream();
+            MemoryStream outStr = new();
             this.Encode( outStr );
             return outStr.ToArray();
         }
@@ -816,7 +815,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
             SXprUtilities.SkipCloseParenthesis( inputStream );
             SXprUtilities.SkipOpenParenthesis( inputStream );
             byte[] bytes = SXprUtilities.ReadString( inputStream, inputStream.ReadByte() ).Equals( "q" ) ? SXprUtilities.ReadBytes( inputStream, inputStream.ReadByte() ) : throw new PgpException( "no q value found" );
-            PublicKeyPacket publicKeyPacket = new PublicKeyPacket( PublicKeyAlgorithmTag.ECDsa, DateTime.UtcNow, new ECDsaPublicBcpgKey( ECNamedCurveTable.GetOid( str ), new BigInteger( 1, bytes ) ) );
+            PublicKeyPacket publicKeyPacket = new( PublicKeyAlgorithmTag.ECDsa, DateTime.UtcNow, new ECDsaPublicBcpgKey( ECNamedCurveTable.GetOid( str ), new BigInteger( 1, bytes ) ) );
             SXprUtilities.SkipCloseParenthesis( inputStream );
             byte[] dvalue = GetDValue( inputStream, rawPassPhrase, clearPassPhrase, str );
             return new PgpSecretKey( new SecretKeyPacket( publicKeyPacket, SymmetricKeyAlgorithmTag.Null, null, null, new ECSecretBcpgKey( new BigInteger( 1, dvalue ) ).GetEncoded() ), new PgpPublicKey( publicKeyPacket ) );

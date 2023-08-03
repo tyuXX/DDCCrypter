@@ -4,8 +4,6 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System.Text;
-
 namespace Org.BouncyCastle.Asn1.X509
 {
     public class X509NameTokenizer
@@ -13,7 +11,7 @@ namespace Org.BouncyCastle.Asn1.X509
         private string value;
         private int index;
         private char separator;
-        private StringBuilder buffer = new StringBuilder();
+        private StringBuilder buffer = new();
 
         public X509NameTokenizer( string oid )
           : this( oid, ',' )

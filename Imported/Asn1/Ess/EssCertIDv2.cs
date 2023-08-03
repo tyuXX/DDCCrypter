@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1.Nist;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Ess
 {
@@ -16,7 +15,7 @@ namespace Org.BouncyCastle.Asn1.Ess
         private readonly AlgorithmIdentifier hashAlgorithm;
         private readonly byte[] certHash;
         private readonly IssuerSerial issuerSerial;
-        private static readonly AlgorithmIdentifier DefaultAlgID = new AlgorithmIdentifier( NistObjectIdentifiers.IdSha256 );
+        private static readonly AlgorithmIdentifier DefaultAlgID = new( NistObjectIdentifiers.IdSha256 );
 
         public static EssCertIDv2 GetInstance( object obj )
         {
@@ -70,7 +69,7 @@ namespace Org.BouncyCastle.Asn1.Ess
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (!this.hashAlgorithm.Equals( DefaultAlgID ))
                 v.Add( hashAlgorithm );
             v.Add( new DerOctetString( this.certHash ).ToAsn1Object() );

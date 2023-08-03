@@ -5,8 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
-using System.Text;
 
 namespace Org.BouncyCastle.Math.EC
 {
@@ -2599,11 +2597,11 @@ namespace Org.BouncyCastle.Math.EC
                 default:
                     LongArray longArray1 = this.Copy();
                     int intLen = (m + 63) >> 6;
-                    LongArray longArray2 = new LongArray( intLen );
+                    LongArray longArray2 = new( intLen );
                     ReduceBit( longArray2.m_ints, 0, m, m, ks );
-                    LongArray longArray3 = new LongArray( intLen );
+                    LongArray longArray3 = new( intLen );
                     longArray3.m_ints[0] = 1L;
-                    LongArray longArray4 = new LongArray( intLen );
+                    LongArray longArray4 = new( intLen );
                     int[] numArray1 = new int[2] { num1, m + 1 };
                     LongArray[] longArrayArray1 = new LongArray[2]
                     {
@@ -2683,7 +2681,7 @@ namespace Org.BouncyCastle.Math.EC
             return hashCode;
         }
 
-        public LongArray Copy() => new LongArray( Arrays.Clone( this.m_ints ) );
+        public LongArray Copy() => new( Arrays.Clone( this.m_ints ) );
 
         public override string ToString()
         {
@@ -2691,7 +2689,7 @@ namespace Org.BouncyCastle.Math.EC
             if (usedLength == 0)
                 return "0";
             int index;
-            StringBuilder stringBuilder = new StringBuilder( Convert.ToString( this.m_ints[index = usedLength - 1], 2 ) );
+            StringBuilder stringBuilder = new( Convert.ToString( this.m_ints[index = usedLength - 1], 2 ) );
             while (--index >= 0)
             {
                 string str = Convert.ToString( this.m_ints[index], 2 );

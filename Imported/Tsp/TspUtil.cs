@@ -17,7 +17,6 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.X509;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -71,7 +70,7 @@ namespace Org.BouncyCastle.Tsp
                     {
                         try
                         {
-                            TimeStampToken timeStampToken = new TimeStampToken( Asn1.Cms.ContentInfo.GetInstance( attrValue.ToAsn1Object() ) );
+                            TimeStampToken timeStampToken = new( Asn1.Cms.ContentInfo.GetInstance( attrValue.ToAsn1Object() ) );
                             TimeStampTokenInfo timeStampInfo = timeStampToken.TimeStampInfo;
                             if (!Arrays.ConstantTimeAreEqual( DigestUtilities.CalculateDigest( GetDigestAlgName( timeStampInfo.MessageImprintAlgOid ), signerInfo.GetSignature() ), timeStampInfo.GetMessageImprintDigest() ))
                                 throw new TspValidationException( "Incorrect digest in message imprint" );

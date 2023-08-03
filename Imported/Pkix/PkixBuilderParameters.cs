@@ -8,8 +8,6 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.X509.Store;
-using System.Collections;
-using System.Text;
 
 namespace Org.BouncyCastle.Pkix
 {
@@ -20,7 +18,7 @@ namespace Org.BouncyCastle.Pkix
 
         public static PkixBuilderParameters GetInstance( PkixParameters pkixParams )
         {
-            PkixBuilderParameters instance = new PkixBuilderParameters( pkixParams.GetTrustAnchors(), new X509CertStoreSelector( pkixParams.GetTargetCertConstraints() ) );
+            PkixBuilderParameters instance = new( pkixParams.GetTrustAnchors(), new X509CertStoreSelector( pkixParams.GetTargetCertConstraints() ) );
             instance.SetParams( pkixParams );
             return instance;
         }
@@ -59,7 +57,7 @@ namespace Org.BouncyCastle.Pkix
 
         public override object Clone()
         {
-            PkixBuilderParameters builderParameters = new PkixBuilderParameters( this.GetTrustAnchors(), this.GetTargetCertConstraints() );
+            PkixBuilderParameters builderParameters = new( this.GetTrustAnchors(), this.GetTargetCertConstraints() );
             builderParameters.SetParams( this );
             return builderParameters;
         }
@@ -67,7 +65,7 @@ namespace Org.BouncyCastle.Pkix
         public override string ToString()
         {
             string newLine = Platform.NewLine;
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             stringBuilder.Append( "PkixBuilderParameters [" + newLine );
             stringBuilder.Append( base.ToString() );
             stringBuilder.Append( "  Maximum Path Length: " );

@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Crypto.Digests
@@ -460,7 +459,7 @@ namespace Org.BouncyCastle.Crypto.Digests
 
         private class UBI
         {
-            private readonly SkeinEngine.UbiTweak tweak = new SkeinEngine.UbiTweak();
+            private readonly SkeinEngine.UbiTweak tweak = new();
             private readonly SkeinEngine engine;
             private byte[] currentBlock;
             private int currentOffset;

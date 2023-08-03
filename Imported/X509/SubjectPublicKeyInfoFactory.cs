@@ -15,7 +15,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.X509
 {
@@ -59,7 +58,7 @@ namespace Org.BouncyCastle.X509
                         byte[] numArray = new byte[64];
                         ExtractBytes( numArray, 0, bigInteger1 );
                         ExtractBytes( numArray, 32, bigInteger2 );
-                        Gost3410PublicKeyAlgParameters keyAlgParameters = new Gost3410PublicKeyAlgParameters( publicKeyParameters4.PublicKeyParamSet, CryptoProObjectIdentifiers.GostR3411x94CryptoProParamSet );
+                        Gost3410PublicKeyAlgParameters keyAlgParameters = new( publicKeyParameters4.PublicKeyParamSet, CryptoProObjectIdentifiers.GostR3411x94CryptoProParamSet );
                         return new SubjectPublicKeyInfo( new AlgorithmIdentifier( CryptoProObjectIdentifiers.GostR3410x2001, keyAlgParameters.ToAsn1Object() ), new DerOctetString( numArray ) );
                     }
                     X962Parameters x962Parameters;
@@ -78,7 +77,7 @@ namespace Org.BouncyCastle.X509
                     byte[] str = new byte[numArray1.Length];
                     for (int index = 0; index != str.Length; ++index)
                         str[index] = numArray1[numArray1.Length - 1 - index];
-                    Gost3410PublicKeyAlgParameters keyAlgParameters1 = new Gost3410PublicKeyAlgParameters( publicKeyParameters5.PublicKeyParamSet, CryptoProObjectIdentifiers.GostR3411x94CryptoProParamSet );
+                    Gost3410PublicKeyAlgParameters keyAlgParameters1 = new( publicKeyParameters5.PublicKeyParamSet, CryptoProObjectIdentifiers.GostR3411x94CryptoProParamSet );
                     return new SubjectPublicKeyInfo( new AlgorithmIdentifier( CryptoProObjectIdentifiers.GostR3410x94, keyAlgParameters1.ToAsn1Object() ), new DerOctetString( str ) );
                 default:
                     throw new ArgumentException( "Class provided no convertible: " + Platform.GetTypeName( key ) );

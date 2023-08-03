@@ -41,6 +41,6 @@ namespace Org.BouncyCastle.Crypto.Tls
             TlsSrpUtilities.WriteSrpParameter( this.m_B, output );
         }
 
-        public static ServerSrpParams Parse( Stream input ) => new ServerSrpParams( TlsSrpUtilities.ReadSrpParameter( input ), TlsSrpUtilities.ReadSrpParameter( input ), TlsUtilities.ReadOpaque8( input ), TlsSrpUtilities.ReadSrpParameter( input ) );
+        public static ServerSrpParams Parse( Stream input ) => new( TlsSrpUtilities.ReadSrpParameter( input ), TlsSrpUtilities.ReadSrpParameter( input ), TlsUtilities.ReadOpaque8( input ), TlsSrpUtilities.ReadSrpParameter( input ) );
     }
 }

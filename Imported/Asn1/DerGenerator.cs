@@ -59,7 +59,7 @@ namespace Org.BouncyCastle.Asn1
                 if (this._isExplicit)
                 {
                     int tag2 = this._tagNo | 32 | 128;
-                    MemoryStream outStream = new MemoryStream();
+                    MemoryStream outStream = new();
                     WriteDerEncoded( outStream, tag, bytes );
                     WriteDerEncoded( this.Out, tag2, outStream.ToArray() );
                 }

@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Esf
 {
@@ -48,7 +47,7 @@ namespace Org.BouncyCastle.Asn1.Esf
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (this.claimedAttributes != null)
                 v.Add( new DerTaggedObject( 0, claimedAttributes ) );
             else

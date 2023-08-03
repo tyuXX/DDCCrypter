@@ -4,8 +4,6 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System;
-
 namespace Org.BouncyCastle.Utilities.Zlib
 {
     public sealed class Deflate
@@ -117,9 +115,9 @@ namespace Org.BouncyCastle.Utilities.Zlib
         internal short[] dyn_ltree;
         internal short[] dyn_dtree;
         internal short[] bl_tree;
-        internal Tree l_desc = new Tree();
-        internal Tree d_desc = new Tree();
-        internal Tree bl_desc = new Tree();
+        internal Tree l_desc = new();
+        internal Tree d_desc = new();
+        internal Tree bl_desc = new();
         internal short[] bl_count = new short[16];
         internal int[] heap = new int[573];
         internal int heap_len;

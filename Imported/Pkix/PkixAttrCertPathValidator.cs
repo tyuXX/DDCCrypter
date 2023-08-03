@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 
 namespace Org.BouncyCastle.Pkix
 {

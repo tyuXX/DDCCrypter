@@ -12,7 +12,7 @@ namespace Org.BouncyCastle.Math.EC.Custom.Sec
     {
         private const int SecT571R1_DEFAULT_COORDS = 6;
         protected readonly SecT571R1Point m_infinity;
-        internal static readonly SecT571FieldElement SecT571R1_B = new SecT571FieldElement( new BigInteger( 1, Hex.Decode( "02F40E7E2221F295DE297117B7F3D62F5C6A97FFCB8CEFF1CD6BA8CE4A9A18AD84FFABBD8EFA59332BE7AD6756A66E294AFD185A78FF12AA520E4DE739BACA0C7FFEFF7F2955727A" ) ) );
+        internal static readonly SecT571FieldElement SecT571R1_B = new( new BigInteger( 1, Hex.Decode( "02F40E7E2221F295DE297117B7F3D62F5C6A97FFCB8CEFF1CD6BA8CE4A9A18AD84FFABBD8EFA59332BE7AD6756A66E294AFD185A78FF12AA520E4DE739BACA0C7FFEFF7F2955727A" ) ) );
         internal static readonly SecT571FieldElement SecT571R1_B_SQRT = (SecT571FieldElement)SecT571R1_B.Sqrt();
 
         public SecT571R1Curve()

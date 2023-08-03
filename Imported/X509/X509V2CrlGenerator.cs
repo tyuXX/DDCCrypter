@@ -13,7 +13,6 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -21,7 +20,7 @@ namespace Org.BouncyCastle.X509
 {
     public class X509V2CrlGenerator
     {
-        private readonly X509ExtensionsGenerator extGenerator = new X509ExtensionsGenerator();
+        private readonly X509ExtensionsGenerator extGenerator = new();
         private V2TbsCertListGenerator tbsGen;
         private DerObjectIdentifier sigOID;
         private AlgorithmIdentifier sigAlgId;

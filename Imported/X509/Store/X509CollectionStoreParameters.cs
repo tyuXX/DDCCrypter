@@ -5,9 +5,7 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
-using System.Text;
 
 namespace Org.BouncyCastle.X509.Store
 {
@@ -21,7 +19,7 @@ namespace Org.BouncyCastle.X509.Store
 
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             stringBuilder.Append( "X509CollectionStoreParameters: [\n" );
             stringBuilder.Append( "  collection: " + collection + "\n" );
             stringBuilder.Append( "]" );

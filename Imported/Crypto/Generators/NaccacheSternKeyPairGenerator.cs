@@ -8,7 +8,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Crypto.Generators
@@ -209,7 +208,7 @@ namespace Org.BouncyCastle.Crypto.Generators
             return new AsymmetricCipherKeyPair( new NaccacheSternKeyParameters( false, g, bigInteger3, bigInteger1.BitLength ), new NaccacheSternPrivateKeyParameters( g, bigInteger3, bigInteger1.BitLength, smallPrimes, phiN ) );
         }
 
-        private static BigInteger generatePrime( int bitLength, int certainty, SecureRandom rand ) => new BigInteger( bitLength, certainty, rand );
+        private static BigInteger generatePrime( int bitLength, int certainty, SecureRandom rand ) => new( bitLength, certainty, rand );
 
         private static IList permuteList( IList arr, SecureRandom rand )
         {

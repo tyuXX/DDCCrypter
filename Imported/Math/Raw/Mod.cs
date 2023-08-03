@@ -6,13 +6,12 @@
 
 using Org.BouncyCastle.Crypto.Utilities;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Math.Raw
 {
     internal abstract class Mod
     {
-        private static readonly SecureRandom RandomSource = new SecureRandom();
+        private static readonly SecureRandom RandomSource = new();
 
         public static void Invert( uint[] p, uint[] x, uint[] z )
         {

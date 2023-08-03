@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Crypto.Tls
@@ -28,7 +27,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         private TlsCipher mWriteCipher = null;
         private long mReadSeqNo = 0;
         private long mWriteSeqNo = 0;
-        private MemoryStream mBuffer = new MemoryStream();
+        private MemoryStream mBuffer = new();
         private TlsHandshakeHash mHandshakeHash = null;
         private ProtocolVersion mReadVersion = null;
         private ProtocolVersion mWriteVersion = null;

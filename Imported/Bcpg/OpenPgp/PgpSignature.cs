@@ -9,7 +9,6 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Date;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Bcpg.OpenPgp
@@ -152,7 +151,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
             this.UpdateWithPublicKey( key );
             try
             {
-                MemoryStream os = new MemoryStream();
+                MemoryStream os = new();
                 foreach (UserAttributeSubpacket subpacket in userAttributes.ToSubpacketArray())
                     subpacket.Encode( os );
                 this.UpdateWithIdData( 209, os.ToArray() );
@@ -242,7 +241,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
         public byte[] GetEncoded()
         {
-            MemoryStream outStream = new MemoryStream();
+            MemoryStream outStream = new();
             this.Encode( outStream );
             return outStream.ToArray();
         }

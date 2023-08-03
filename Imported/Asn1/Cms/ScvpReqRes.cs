@@ -49,7 +49,7 @@ namespace Org.BouncyCastle.Asn1.Cms
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (this.request != null)
                 v.Add( new DerTaggedObject( true, 0, request ) );
             v.Add( response );

@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -64,7 +63,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
         public virtual byte[] GetEncoded()
         {
-            MemoryStream outStr = new MemoryStream();
+            MemoryStream outStr = new();
             this.Encode( outStr );
             return outStr.ToArray();
         }
@@ -122,6 +121,6 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
             return !flag ? null : new PgpPublicKeyRing( arrayList );
         }
 
-        internal static PgpPublicKey ReadSubkey( BcpgInputStream bcpgInput ) => new PgpPublicKey( (PublicKeyPacket)bcpgInput.ReadPacket(), ReadOptionalTrustPacket( bcpgInput ), ReadSignaturesAndTrust( bcpgInput ) );
+        internal static PgpPublicKey ReadSubkey( BcpgInputStream bcpgInput ) => new( (PublicKeyPacket)bcpgInput.ReadPacket(), ReadOptionalTrustPacket( bcpgInput ), ReadSignaturesAndTrust( bcpgInput ) );
     }
 }

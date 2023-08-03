@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC;
 using Org.BouncyCastle.Math.Field;
-using System;
 
 namespace Org.BouncyCastle.Asn1.X9
 {
@@ -31,7 +30,7 @@ namespace Org.BouncyCastle.Asn1.X9
         {
             if (!(seq[0] is DerInteger) || !((DerInteger)seq[0]).Value.Equals( BigInteger.One ))
                 throw new ArgumentException( "bad version in X9ECParameters" );
-            X9Curve x9Curve = new X9Curve( X9FieldID.GetInstance( seq[1] ), Asn1Sequence.GetInstance( seq[2] ) );
+            X9Curve x9Curve = new( X9FieldID.GetInstance( seq[1] ), Asn1Sequence.GetInstance( seq[2] ) );
             this.curve = x9Curve.Curve;
             object s = seq[3];
             this.g = !(s is X9ECPoint) ? new X9ECPoint( this.curve, (Asn1OctetString)s ) : (X9ECPoint)s;
@@ -95,7 +94,7 @@ namespace Org.BouncyCastle.Asn1.X9
 
         public byte[] GetSeed() => this.seed;
 
-        public X9Curve CurveEntry => new X9Curve( this.curve, this.seed );
+        public X9Curve CurveEntry => new( this.curve, this.seed );
 
         public X9FieldID FieldIDEntry => this.fieldID;
 
@@ -103,7 +102,7 @@ namespace Org.BouncyCastle.Asn1.X9
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[5]
+            Asn1EncodableVector v = new( new Asn1Encodable[5]
             {
          new DerInteger(BigInteger.One),
          fieldID,

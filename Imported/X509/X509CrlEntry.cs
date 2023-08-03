@@ -11,9 +11,7 @@ using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509.Extension;
-using System;
 using System.Collections;
-using System.Text;
 
 namespace Org.BouncyCastle.X509
 {
@@ -84,7 +82,7 @@ namespace Org.BouncyCastle.X509
 
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             string newLine = Platform.NewLine;
             stringBuilder.Append( "        userCertificate: " ).Append( SerialNumber ).Append( newLine );
             stringBuilder.Append( "         revocationDate: " ).Append( RevocationDate ).Append( newLine );

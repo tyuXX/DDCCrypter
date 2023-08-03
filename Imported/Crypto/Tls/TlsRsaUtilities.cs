@@ -8,7 +8,6 @@ using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Crypto.Tls
@@ -23,7 +22,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             byte[] encryptedPreMasterSecret = new byte[48];
             context.SecureRandom.NextBytes( encryptedPreMasterSecret );
             TlsUtilities.WriteVersion( context.ClientVersion, encryptedPreMasterSecret, 0 );
-            Pkcs1Encoding pkcs1Encoding = new Pkcs1Encoding( new RsaBlindedEngine() );
+            Pkcs1Encoding pkcs1Encoding = new( new RsaBlindedEngine() );
             pkcs1Encoding.Init( true, new ParametersWithRandom( rsaServerPublicKey, context.SecureRandom ) );
             try
             {
@@ -52,7 +51,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             byte[] numArray2 = Arrays.Clone( numArray1 );
             try
             {
-                Pkcs1Encoding pkcs1Encoding = new Pkcs1Encoding( new RsaBlindedEngine(), numArray1 );
+                Pkcs1Encoding pkcs1Encoding = new( new RsaBlindedEngine(), numArray1 );
                 pkcs1Encoding.Init( false, new ParametersWithRandom( rsaServerPrivateKey, context.SecureRandom ) );
                 numArray2 = pkcs1Encoding.ProcessBlock( encryptedPreMasterSecret, 0, encryptedPreMasterSecret.Length );
             }

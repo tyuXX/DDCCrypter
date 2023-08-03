@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.X9
 {
@@ -48,8 +47,8 @@ namespace Org.BouncyCastle.Asn1.X9
             if (this.fieldIdentifier.Equals( X9ObjectIdentifiers.PrimeField ))
             {
                 BigInteger bigInteger = ((DerInteger)fieldID.Parameters).Value;
-                X9FieldElement x9FieldElement1 = new X9FieldElement( bigInteger, (Asn1OctetString)seq[0] );
-                X9FieldElement x9FieldElement2 = new X9FieldElement( bigInteger, (Asn1OctetString)seq[1] );
+                X9FieldElement x9FieldElement1 = new( bigInteger, (Asn1OctetString)seq[0] );
+                X9FieldElement x9FieldElement2 = new( bigInteger, (Asn1OctetString)seq[1] );
                 this.curve = new FpCurve( bigInteger, x9FieldElement1.Value.ToBigInteger(), x9FieldElement2.Value.ToBigInteger() );
             }
             else if (this.fieldIdentifier.Equals( X9ObjectIdentifiers.CharacteristicTwoField ))
@@ -71,8 +70,8 @@ namespace Org.BouncyCastle.Asn1.X9
                     k2 = ((DerInteger)derSequence[1]).Value.IntValue;
                     k3 = ((DerInteger)derSequence[2]).Value.IntValue;
                 }
-                X9FieldElement x9FieldElement3 = new X9FieldElement( intValue1, intValue2, k2, k3, (Asn1OctetString)seq[0] );
-                X9FieldElement x9FieldElement4 = new X9FieldElement( intValue1, intValue2, k2, k3, (Asn1OctetString)seq[1] );
+                X9FieldElement x9FieldElement3 = new( intValue1, intValue2, k2, k3, (Asn1OctetString)seq[0] );
+                X9FieldElement x9FieldElement4 = new( intValue1, intValue2, k2, k3, (Asn1OctetString)seq[1] );
                 this.curve = new F2mCurve( intValue1, intValue2, k2, k3, x9FieldElement3.Value.ToBigInteger(), x9FieldElement4.Value.ToBigInteger() );
             }
             if (seq.Count != 3)
@@ -86,7 +85,7 @@ namespace Org.BouncyCastle.Asn1.X9
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (this.fieldIdentifier.Equals( X9ObjectIdentifiers.PrimeField ) || this.fieldIdentifier.Equals( X9ObjectIdentifiers.CharacteristicTwoField ))
             {
                 v.Add( new X9FieldElement( this.curve.A ).ToAsn1Object() );

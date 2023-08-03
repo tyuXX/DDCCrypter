@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -21,7 +20,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         public virtual void Encode( Stream output )
         {
-            MemoryStream output1 = new MemoryStream();
+            MemoryStream output1 = new();
             foreach (ServerName serverName in (IEnumerable)this.ServerNames)
                 serverName.Encode( output1 );
             TlsUtilities.CheckUint16( output1.Length );

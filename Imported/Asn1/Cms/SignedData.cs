@@ -5,17 +5,16 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.Cms
 {
     public class SignedData : Asn1Encodable
     {
-        private static readonly DerInteger Version1 = new DerInteger( 1 );
-        private static readonly DerInteger Version3 = new DerInteger( 3 );
-        private static readonly DerInteger Version4 = new DerInteger( 4 );
-        private static readonly DerInteger Version5 = new DerInteger( 5 );
+        private static readonly DerInteger Version1 = new( 1 );
+        private static readonly DerInteger Version3 = new( 3 );
+        private static readonly DerInteger Version4 = new( 4 );
+        private static readonly DerInteger Version5 = new( 5 );
         private readonly DerInteger version;
         private readonly Asn1Set digestAlgorithms;
         private readonly ContentInfo contentInfo;
@@ -162,7 +161,7 @@ namespace Org.BouncyCastle.Asn1.Cms
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[3]
+            Asn1EncodableVector v = new( new Asn1Encodable[3]
             {
          version,
          digestAlgorithms,

@@ -5,14 +5,13 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.X509
 {
     public class AccessDescription : Asn1Encodable
     {
-        public static readonly DerObjectIdentifier IdADCAIssuers = new DerObjectIdentifier( "1.3.6.1.5.5.7.48.2" );
-        public static readonly DerObjectIdentifier IdADOcsp = new DerObjectIdentifier( "1.3.6.1.5.5.7.48.1" );
+        public static readonly DerObjectIdentifier IdADCAIssuers = new( "1.3.6.1.5.5.7.48.2" );
+        public static readonly DerObjectIdentifier IdADOcsp = new( "1.3.6.1.5.5.7.48.1" );
         private readonly DerObjectIdentifier accessMethod;
         private readonly GeneralName accessLocation;
 

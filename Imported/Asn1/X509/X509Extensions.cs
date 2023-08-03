@@ -6,44 +6,43 @@
 
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.X509
 {
     public class X509Extensions : Asn1Encodable
     {
-        public static readonly DerObjectIdentifier SubjectDirectoryAttributes = new DerObjectIdentifier( "2.5.29.9" );
-        public static readonly DerObjectIdentifier SubjectKeyIdentifier = new DerObjectIdentifier( "2.5.29.14" );
-        public static readonly DerObjectIdentifier KeyUsage = new DerObjectIdentifier( "2.5.29.15" );
-        public static readonly DerObjectIdentifier PrivateKeyUsagePeriod = new DerObjectIdentifier( "2.5.29.16" );
-        public static readonly DerObjectIdentifier SubjectAlternativeName = new DerObjectIdentifier( "2.5.29.17" );
-        public static readonly DerObjectIdentifier IssuerAlternativeName = new DerObjectIdentifier( "2.5.29.18" );
-        public static readonly DerObjectIdentifier BasicConstraints = new DerObjectIdentifier( "2.5.29.19" );
-        public static readonly DerObjectIdentifier CrlNumber = new DerObjectIdentifier( "2.5.29.20" );
-        public static readonly DerObjectIdentifier ReasonCode = new DerObjectIdentifier( "2.5.29.21" );
-        public static readonly DerObjectIdentifier InstructionCode = new DerObjectIdentifier( "2.5.29.23" );
-        public static readonly DerObjectIdentifier InvalidityDate = new DerObjectIdentifier( "2.5.29.24" );
-        public static readonly DerObjectIdentifier DeltaCrlIndicator = new DerObjectIdentifier( "2.5.29.27" );
-        public static readonly DerObjectIdentifier IssuingDistributionPoint = new DerObjectIdentifier( "2.5.29.28" );
-        public static readonly DerObjectIdentifier CertificateIssuer = new DerObjectIdentifier( "2.5.29.29" );
-        public static readonly DerObjectIdentifier NameConstraints = new DerObjectIdentifier( "2.5.29.30" );
-        public static readonly DerObjectIdentifier CrlDistributionPoints = new DerObjectIdentifier( "2.5.29.31" );
-        public static readonly DerObjectIdentifier CertificatePolicies = new DerObjectIdentifier( "2.5.29.32" );
-        public static readonly DerObjectIdentifier PolicyMappings = new DerObjectIdentifier( "2.5.29.33" );
-        public static readonly DerObjectIdentifier AuthorityKeyIdentifier = new DerObjectIdentifier( "2.5.29.35" );
-        public static readonly DerObjectIdentifier PolicyConstraints = new DerObjectIdentifier( "2.5.29.36" );
-        public static readonly DerObjectIdentifier ExtendedKeyUsage = new DerObjectIdentifier( "2.5.29.37" );
-        public static readonly DerObjectIdentifier FreshestCrl = new DerObjectIdentifier( "2.5.29.46" );
-        public static readonly DerObjectIdentifier InhibitAnyPolicy = new DerObjectIdentifier( "2.5.29.54" );
-        public static readonly DerObjectIdentifier AuthorityInfoAccess = new DerObjectIdentifier( "1.3.6.1.5.5.7.1.1" );
-        public static readonly DerObjectIdentifier SubjectInfoAccess = new DerObjectIdentifier( "1.3.6.1.5.5.7.1.11" );
-        public static readonly DerObjectIdentifier LogoType = new DerObjectIdentifier( "1.3.6.1.5.5.7.1.12" );
-        public static readonly DerObjectIdentifier BiometricInfo = new DerObjectIdentifier( "1.3.6.1.5.5.7.1.2" );
-        public static readonly DerObjectIdentifier QCStatements = new DerObjectIdentifier( "1.3.6.1.5.5.7.1.3" );
-        public static readonly DerObjectIdentifier AuditIdentity = new DerObjectIdentifier( "1.3.6.1.5.5.7.1.4" );
-        public static readonly DerObjectIdentifier NoRevAvail = new DerObjectIdentifier( "2.5.29.56" );
-        public static readonly DerObjectIdentifier TargetInformation = new DerObjectIdentifier( "2.5.29.55" );
+        public static readonly DerObjectIdentifier SubjectDirectoryAttributes = new( "2.5.29.9" );
+        public static readonly DerObjectIdentifier SubjectKeyIdentifier = new( "2.5.29.14" );
+        public static readonly DerObjectIdentifier KeyUsage = new( "2.5.29.15" );
+        public static readonly DerObjectIdentifier PrivateKeyUsagePeriod = new( "2.5.29.16" );
+        public static readonly DerObjectIdentifier SubjectAlternativeName = new( "2.5.29.17" );
+        public static readonly DerObjectIdentifier IssuerAlternativeName = new( "2.5.29.18" );
+        public static readonly DerObjectIdentifier BasicConstraints = new( "2.5.29.19" );
+        public static readonly DerObjectIdentifier CrlNumber = new( "2.5.29.20" );
+        public static readonly DerObjectIdentifier ReasonCode = new( "2.5.29.21" );
+        public static readonly DerObjectIdentifier InstructionCode = new( "2.5.29.23" );
+        public static readonly DerObjectIdentifier InvalidityDate = new( "2.5.29.24" );
+        public static readonly DerObjectIdentifier DeltaCrlIndicator = new( "2.5.29.27" );
+        public static readonly DerObjectIdentifier IssuingDistributionPoint = new( "2.5.29.28" );
+        public static readonly DerObjectIdentifier CertificateIssuer = new( "2.5.29.29" );
+        public static readonly DerObjectIdentifier NameConstraints = new( "2.5.29.30" );
+        public static readonly DerObjectIdentifier CrlDistributionPoints = new( "2.5.29.31" );
+        public static readonly DerObjectIdentifier CertificatePolicies = new( "2.5.29.32" );
+        public static readonly DerObjectIdentifier PolicyMappings = new( "2.5.29.33" );
+        public static readonly DerObjectIdentifier AuthorityKeyIdentifier = new( "2.5.29.35" );
+        public static readonly DerObjectIdentifier PolicyConstraints = new( "2.5.29.36" );
+        public static readonly DerObjectIdentifier ExtendedKeyUsage = new( "2.5.29.37" );
+        public static readonly DerObjectIdentifier FreshestCrl = new( "2.5.29.46" );
+        public static readonly DerObjectIdentifier InhibitAnyPolicy = new( "2.5.29.54" );
+        public static readonly DerObjectIdentifier AuthorityInfoAccess = new( "1.3.6.1.5.5.7.1.1" );
+        public static readonly DerObjectIdentifier SubjectInfoAccess = new( "1.3.6.1.5.5.7.1.11" );
+        public static readonly DerObjectIdentifier LogoType = new( "1.3.6.1.5.5.7.1.12" );
+        public static readonly DerObjectIdentifier BiometricInfo = new( "1.3.6.1.5.5.7.1.2" );
+        public static readonly DerObjectIdentifier QCStatements = new( "1.3.6.1.5.5.7.1.3" );
+        public static readonly DerObjectIdentifier AuditIdentity = new( "1.3.6.1.5.5.7.1.4" );
+        public static readonly DerObjectIdentifier NoRevAvail = new( "2.5.29.56" );
+        public static readonly DerObjectIdentifier TargetInformation = new( "2.5.29.55" );
         private readonly IDictionary extensions = Platform.CreateHashtable();
         private readonly IList ordering;
 
@@ -131,11 +130,11 @@ namespace Org.BouncyCastle.Asn1.X509
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v1 = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v1 = new( new Asn1Encodable[0] );
             foreach (DerObjectIdentifier key in (IEnumerable)this.ordering)
             {
                 X509Extension extension = (X509Extension)this.extensions[key];
-                Asn1EncodableVector v2 = new Asn1EncodableVector( new Asn1Encodable[1]
+                Asn1EncodableVector v2 = new( new Asn1Encodable[1]
                 {
            key
                 } );

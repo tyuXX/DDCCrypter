@@ -10,7 +10,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -266,7 +265,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
             public override void Encode( BcpgOutputStream pOut )
             {
-                SymmetricKeyEncSessionPacket p = new SymmetricKeyEncSessionPacket( this.encAlgorithm, this.s2k, this.sessionInfo );
+                SymmetricKeyEncSessionPacket p = new( this.encAlgorithm, this.s2k, this.sessionInfo );
                 pOut.WritePacket( p );
             }
         }
@@ -312,7 +311,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
                 AsymmetricCipherKeyPair keyPair = keyPairGenerator.GenerateKeyPair();
                 ECPrivateKeyParameters privateKeyParameters = (ECPrivateKeyParameters)keyPair.Private;
                 ECPublicKeyParameters publicKeyParameters = (ECPublicKeyParameters)keyPair.Public;
-                KeyParameter parameters = new KeyParameter( Rfc6637Utilities.CreateKey( this.pubKey.PublicKeyPacket, ((ECPublicKeyParameters)this.pubKey.GetKey()).Q.Multiply( privateKeyParameters.D ).Normalize() ) );
+                KeyParameter parameters = new( Rfc6637Utilities.CreateKey( this.pubKey.PublicKeyPacket, ((ECPublicKeyParameters)this.pubKey.GetKey()).Q.Multiply( privateKeyParameters.D ).Normalize() ) );
                 IWrapper wrapper = PgpUtilities.CreateWrapper( key1.SymmetricKeyAlgorithm );
                 wrapper.Init( true, new ParametersWithRandom( parameters, random ) );
                 byte[] input = PgpPad.PadSessionData( sessionInfo );
@@ -368,7 +367,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
             public override void Encode( BcpgOutputStream pOut )
             {
-                PublicKeyEncSessionPacket p = new PublicKeyEncSessionPacket( this.pubKey.KeyId, this.pubKey.Algorithm, this.data );
+                PublicKeyEncSessionPacket p = new( this.pubKey.KeyId, this.pubKey.Algorithm, this.data );
                 pOut.WritePacket( p );
             }
         }

@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Cms
@@ -28,7 +27,7 @@ namespace Org.BouncyCastle.Cms
 
         protected virtual Hashtable createStandardAttributeTable( IDictionary parameters )
         {
-            Hashtable std = new Hashtable( this.table );
+            Hashtable std = new( this.table );
             this.DoCreateStandardAttributeTable( parameters, std );
             return std;
         }
@@ -38,21 +37,21 @@ namespace Org.BouncyCastle.Cms
             if (parameters.Contains( CmsAttributeTableParameter.ContentType ) && !std.Contains( CmsAttributes.ContentType ))
             {
                 DerObjectIdentifier parameter = (DerObjectIdentifier)parameters[CmsAttributeTableParameter.ContentType];
-                Org.BouncyCastle.Asn1.Cms.Attribute attribute = new Org.BouncyCastle.Asn1.Cms.Attribute( CmsAttributes.ContentType, new DerSet( parameter ) );
+                Org.BouncyCastle.Asn1.Cms.Attribute attribute = new( CmsAttributes.ContentType, new DerSet( parameter ) );
                 std[attribute.AttrType] = attribute;
             }
             if (!std.Contains( CmsAttributes.SigningTime ))
             {
-                Org.BouncyCastle.Asn1.Cms.Attribute attribute = new Org.BouncyCastle.Asn1.Cms.Attribute( CmsAttributes.SigningTime, new DerSet( new Time( DateTime.UtcNow ) ) );
+                Org.BouncyCastle.Asn1.Cms.Attribute attribute = new( CmsAttributes.SigningTime, new DerSet( new Time( DateTime.UtcNow ) ) );
                 std[attribute.AttrType] = attribute;
             }
             if (std.Contains( CmsAttributes.MessageDigest ))
                 return;
             byte[] parameter1 = (byte[])parameters[CmsAttributeTableParameter.Digest];
-            Org.BouncyCastle.Asn1.Cms.Attribute attribute1 = new Org.BouncyCastle.Asn1.Cms.Attribute( CmsAttributes.MessageDigest, new DerSet( new DerOctetString( parameter1 ) ) );
+            Org.BouncyCastle.Asn1.Cms.Attribute attribute1 = new( CmsAttributes.MessageDigest, new DerSet( new DerOctetString( parameter1 ) ) );
             std[attribute1.AttrType] = attribute1;
         }
 
-        public virtual AttributeTable GetAttributes( IDictionary parameters ) => new AttributeTable( (IDictionary)this.createStandardAttributeTable( parameters ) );
+        public virtual AttributeTable GetAttributes( IDictionary parameters ) => new( (IDictionary)this.createStandardAttributeTable( parameters ) );
     }
 }

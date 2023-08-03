@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
 using System.Collections;
-using System.Text;
 
 namespace Org.BouncyCastle.Pkix
 {
@@ -79,7 +78,7 @@ namespace Org.BouncyCastle.Pkix
 
         public virtual string ToString( string indent )
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             stringBuilder.Append( indent );
             stringBuilder.Append( this.mValidPolicy );
             stringBuilder.Append( " {" );
@@ -96,7 +95,7 @@ namespace Org.BouncyCastle.Pkix
 
         public virtual PkixPolicyNode Copy()
         {
-            PkixPolicyNode pkixPolicyNode = new PkixPolicyNode( Platform.CreateArrayList(), this.mDepth, new HashSet( mExpectedPolicies ), null, new HashSet( mPolicyQualifiers ), this.mValidPolicy, this.mCritical );
+            PkixPolicyNode pkixPolicyNode = new( Platform.CreateArrayList(), this.mDepth, new HashSet( mExpectedPolicies ), null, new HashSet( mPolicyQualifiers ), this.mValidPolicy, this.mCritical );
             foreach (PkixPolicyNode mChild in (IEnumerable)this.mChildren)
             {
                 PkixPolicyNode child = mChild.Copy();

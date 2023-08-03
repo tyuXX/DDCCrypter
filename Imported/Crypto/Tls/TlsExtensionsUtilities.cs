@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -91,7 +90,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         {
             if (heartbeatExtension == null)
                 throw new TlsFatalAlert( 80 );
-            MemoryStream output = new MemoryStream();
+            MemoryStream output = new();
             heartbeatExtension.Encode( output );
             return output.ToArray();
         }
@@ -105,7 +104,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         {
             if (serverNameList == null)
                 throw new TlsFatalAlert( 80 );
-            MemoryStream output = new MemoryStream();
+            MemoryStream output = new();
             serverNameList.Encode( output );
             return output.ToArray();
         }
@@ -114,7 +113,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         {
             if (statusRequest == null)
                 throw new TlsFatalAlert( 80 );
-            MemoryStream output = new MemoryStream();
+            MemoryStream output = new();
             statusRequest.Encode( output );
             return output.ToArray();
         }

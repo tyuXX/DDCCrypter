@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Math.Raw;
-using System;
 
 namespace Org.BouncyCastle.Math.EC.Custom.Djb
 {
@@ -109,14 +108,14 @@ namespace Org.BouncyCastle.Math.EC.Custom.Djb
             Curve25519Field.Negate( numArray10, numArray10 );
             Nat256.Mul( numArray6, numArray10, ext );
             Curve25519Field.Reduce27( Nat256.AddBothTo( numArray11, numArray11, numArray10 ), numArray10 );
-            Curve25519FieldElement x2 = new Curve25519FieldElement( x1 );
+            Curve25519FieldElement x2 = new( x1 );
             Curve25519Field.Square( numArray8, x2.x );
             Curve25519Field.Subtract( x2.x, numArray10, x2.x );
-            Curve25519FieldElement y = new Curve25519FieldElement( numArray10 );
+            Curve25519FieldElement y = new( numArray10 );
             Curve25519Field.Subtract( numArray11, x2.x, y.x );
             Curve25519Field.MultiplyAddToExt( y.x, numArray8, ext );
             Curve25519Field.Reduce( ext, y.x );
-            Curve25519FieldElement Z = new Curve25519FieldElement( numArray7 );
+            Curve25519FieldElement Z = new( numArray7 );
             if (!isOne1)
                 Curve25519Field.Multiply( Z.x, rawZcoord1.x, Z.x );
             if (!isOne2)
@@ -161,7 +160,7 @@ namespace Org.BouncyCastle.Math.EC.Custom.Djb
             Curve25519FieldElement a = (Curve25519FieldElement)this.Curve.A;
             if (Z.IsOne)
                 return a;
-            Curve25519FieldElement jacobianModifiedW = new Curve25519FieldElement();
+            Curve25519FieldElement jacobianModifiedW = new();
             if (ZSquared == null)
             {
                 ZSquared = jacobianModifiedW.x;
@@ -200,15 +199,15 @@ namespace Org.BouncyCastle.Math.EC.Custom.Djb
             uint[] numArray5 = Nat256.Create();
             Curve25519Field.Square( numArray3, numArray5 );
             Curve25519Field.Twice( numArray5, numArray5 );
-            Curve25519FieldElement x = new Curve25519FieldElement( numArray3 );
+            Curve25519FieldElement x = new( numArray3 );
             Curve25519Field.Square( numArray1, x.x );
             Curve25519Field.Subtract( x.x, numArray4, x.x );
             Curve25519Field.Subtract( x.x, numArray4, x.x );
-            Curve25519FieldElement y = new Curve25519FieldElement( numArray4 );
+            Curve25519FieldElement y = new( numArray4 );
             Curve25519Field.Subtract( numArray4, x.x, y.x );
             Curve25519Field.Multiply( y.x, numArray1, y.x );
             Curve25519Field.Subtract( y.x, numArray5, y.x );
-            Curve25519FieldElement curve25519FieldElement1 = new Curve25519FieldElement( numArray2 );
+            Curve25519FieldElement curve25519FieldElement1 = new( numArray2 );
             if (!Nat256.IsOne( rawZcoord.x ))
                 Curve25519Field.Multiply( curve25519FieldElement1.x, rawZcoord.x, curve25519FieldElement1.x );
             Curve25519FieldElement curve25519FieldElement2 = null;

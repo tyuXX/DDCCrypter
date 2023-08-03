@@ -16,7 +16,7 @@ namespace Org.BouncyCastle.Bcpg
 
         public UserAttributePacket( BcpgInputStream bcpgIn )
         {
-            UserAttributeSubpacketsParser subpacketsParser = new UserAttributeSubpacketsParser( bcpgIn );
+            UserAttributeSubpacketsParser subpacketsParser = new( bcpgIn );
             IList arrayList = Platform.CreateArrayList();
             UserAttributeSubpacket attributeSubpacket;
             while ((attributeSubpacket = subpacketsParser.ReadPacket()) != null)
@@ -32,7 +32,7 @@ namespace Org.BouncyCastle.Bcpg
 
         public override void Encode( BcpgOutputStream bcpgOut )
         {
-            MemoryStream os = new MemoryStream();
+            MemoryStream os = new();
             for (int index = 0; index != this.subpackets.Length; ++index)
                 this.subpackets[index].Encode( os );
             bcpgOut.WritePacket( PacketTag.UserAttribute, os.ToArray(), false );

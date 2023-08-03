@@ -8,7 +8,6 @@ using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Zlib;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Cms
@@ -31,7 +30,7 @@ namespace Org.BouncyCastle.Cms
 
         public byte[] GetContent()
         {
-            ZInputStream zinputStream = new ZInputStream( ((Asn1OctetString)CompressedData.GetInstance( contentInfo.Content ).EncapContentInfo.Content).GetOctetStream() );
+            ZInputStream zinputStream = new( ((Asn1OctetString)CompressedData.GetInstance( contentInfo.Content ).EncapContentInfo.Content).GetOctetStream() );
             try
             {
                 return CmsUtilities.StreamToByteArray( zinputStream );
@@ -48,7 +47,7 @@ namespace Org.BouncyCastle.Cms
 
         public byte[] GetContent( int limit )
         {
-            ZInputStream inStream = new ZInputStream( new MemoryStream( ((Asn1OctetString)CompressedData.GetInstance( contentInfo.Content ).EncapContentInfo.Content).GetOctets(), false ) );
+            ZInputStream inStream = new( new MemoryStream( ((Asn1OctetString)CompressedData.GetInstance( contentInfo.Content ).EncapContentInfo.Content).GetOctets(), false ) );
             try
             {
                 return CmsUtilities.StreamToByteArray( inStream, limit );

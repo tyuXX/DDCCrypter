@@ -9,7 +9,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Signers
 {
@@ -96,7 +95,7 @@ namespace Org.BouncyCastle.Crypto.Signers
 
         private BigInteger BitsToInt( byte[] t )
         {
-            BigInteger bigInteger = new BigInteger( 1, t );
+            BigInteger bigInteger = new( 1, t );
             if (t.Length * 8 > this.n.BitLength)
                 bigInteger = bigInteger.ShiftRight( (t.Length * 8) - this.n.BitLength );
             return bigInteger;

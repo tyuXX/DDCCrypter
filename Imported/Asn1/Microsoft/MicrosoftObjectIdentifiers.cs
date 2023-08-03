@@ -8,7 +8,7 @@ namespace Org.BouncyCastle.Asn1.Microsoft
 {
     public abstract class MicrosoftObjectIdentifiers
     {
-        public static readonly DerObjectIdentifier Microsoft = new DerObjectIdentifier( "1.3.6.1.4.1.311" );
+        public static readonly DerObjectIdentifier Microsoft = new( "1.3.6.1.4.1.311" );
         public static readonly DerObjectIdentifier MicrosoftCertTemplateV1 = Microsoft.Branch( "20.2" );
         public static readonly DerObjectIdentifier MicrosoftCAVersion = Microsoft.Branch( "21.1" );
         public static readonly DerObjectIdentifier MicrosoftPrevCACertHash = Microsoft.Branch( "21.2" );

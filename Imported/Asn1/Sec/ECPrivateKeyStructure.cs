@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Sec
 {
@@ -80,7 +79,7 @@ namespace Org.BouncyCastle.Asn1.Sec
                 throw new ArgumentNullException( nameof( key ) );
             if (orderBitLength < key.BitLength)
                 throw new ArgumentException( "must be >= key bitlength", nameof( orderBitLength ) );
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[2]
+            Asn1EncodableVector v = new( new Asn1Encodable[2]
             {
          new DerInteger(1),
          new DerOctetString(BigIntegers.AsUnsignedByteArray((orderBitLength + 7) / 8, key))
@@ -92,7 +91,7 @@ namespace Org.BouncyCastle.Asn1.Sec
             this.seq = new DerSequence( v );
         }
 
-        public virtual BigInteger GetKey() => new BigInteger( 1, ((Asn1OctetString)this.seq[1]).GetOctets() );
+        public virtual BigInteger GetKey() => new( 1, ((Asn1OctetString)this.seq[1]).GetOctets() );
 
         public virtual DerBitString GetPublicKey() => (DerBitString)this.GetObjectInTag( 1 );
 

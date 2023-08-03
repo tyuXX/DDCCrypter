@@ -5,8 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities.IO;
-using System;
-using System.Collections;
 using System.IO;
 
 namespace Org.BouncyCastle.Asn1
@@ -50,7 +48,7 @@ namespace Org.BouncyCastle.Asn1
         private Asn1Object BuildObject( int tag, int tagNo, int length )
         {
             bool flag = (tag & 32) != 0;
-            DefiniteLengthInputStream lengthInputStream = new DefiniteLengthInputStream( this.s, length );
+            DefiniteLengthInputStream lengthInputStream = new( this.s, length );
             if ((tag & 64) != 0)
                 return new DerApplicationSpecific( flag, tagNo, lengthInputStream.ToArray() );
             if ((tag & 128) != 0)
@@ -74,7 +72,7 @@ namespace Org.BouncyCastle.Asn1
 
         internal Asn1EncodableVector BuildEncodableVector()
         {
-            Asn1EncodableVector asn1EncodableVector = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector asn1EncodableVector = new( new Asn1Encodable[0] );
             Asn1Object asn1Object;
             while ((asn1Object = this.ReadObject()) != null)
                 asn1EncodableVector.Add( asn1Object );
@@ -103,7 +101,7 @@ namespace Org.BouncyCastle.Asn1
             {
                 if (!flag)
                     throw new IOException( "indefinite length primitive encoding encountered" );
-                Asn1StreamParser parser = new Asn1StreamParser( new IndefiniteLengthInputStream( this.s, this.limit ), this.limit );
+                Asn1StreamParser parser = new( new IndefiniteLengthInputStream( this.s, this.limit ), this.limit );
                 if ((tag & 64) != 0)
                     return new BerApplicationSpecificParser( num, parser ).ToAsn1Object();
                 if ((tag & 128) != 0)

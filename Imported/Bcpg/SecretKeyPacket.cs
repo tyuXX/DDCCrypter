@@ -85,8 +85,8 @@ namespace Org.BouncyCastle.Bcpg
 
         public byte[] GetEncodedContents()
         {
-            MemoryStream outStr = new MemoryStream();
-            BcpgOutputStream bcpgOutputStream = new BcpgOutputStream( outStr );
+            MemoryStream outStr = new();
+            BcpgOutputStream bcpgOutputStream = new( outStr );
             bcpgOutputStream.Write( this.pubKeyPacket.GetEncodedContents() );
             bcpgOutputStream.WriteByte( (byte)this.s2kUsage );
             if (this.s2kUsage == byte.MaxValue || this.s2kUsage == 254)

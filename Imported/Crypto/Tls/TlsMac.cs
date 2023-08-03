@@ -24,7 +24,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         public TlsMac( TlsContext context, IDigest digest, byte[] key, int keyOff, int keyLen )
         {
             this.context = context;
-            KeyParameter parameters = new KeyParameter( key, keyOff, keyLen );
+            KeyParameter parameters = new( key, keyOff, keyLen );
             this.secret = Arrays.Clone( parameters.GetKey() );
             if (digest is LongDigest)
             {

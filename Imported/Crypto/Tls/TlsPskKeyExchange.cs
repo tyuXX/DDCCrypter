@@ -9,7 +9,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -82,7 +81,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             this.mPskIdentityHint = this.mPskIdentityManager.GetHint();
             if (this.mPskIdentityHint == null && !this.RequiresServerKeyExchange)
                 return null;
-            MemoryStream output = new MemoryStream();
+            MemoryStream output = new();
             if (this.mPskIdentityHint == null)
                 TlsUtilities.WriteOpaque16( TlsUtilities.EmptyBytes, output );
             else
@@ -204,7 +203,7 @@ namespace Org.BouncyCastle.Crypto.Tls
         public override byte[] GeneratePremasterSecret()
         {
             byte[] otherSecret = this.GenerateOtherSecret( this.mPsk.Length );
-            MemoryStream output = new MemoryStream( 4 + otherSecret.Length + this.mPsk.Length );
+            MemoryStream output = new( 4 + otherSecret.Length + this.mPsk.Length );
             TlsUtilities.WriteOpaque16( otherSecret, output );
             TlsUtilities.WriteOpaque16( this.mPsk, output );
             Arrays.Fill( this.mPsk, 0 );

@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Crypto.Tls
@@ -47,7 +46,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             if (!HeartbeatMessageType.IsValid( num ))
                 throw new TlsFatalAlert( 47 );
             int payloadLength = TlsUtilities.ReadUint16( input );
-            HeartbeatMessage.PayloadBuffer outStr = new HeartbeatMessage.PayloadBuffer();
+            HeartbeatMessage.PayloadBuffer outStr = new();
             Streams.PipeAll( input, outStr );
             byte[] truncatedByteArray = outStr.ToTruncatedByteArray( payloadLength );
             if (truncatedByteArray == null)

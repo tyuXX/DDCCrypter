@@ -52,7 +52,7 @@ namespace Org.BouncyCastle.Bcpg
         {
             byte[] encoded = this.oid.GetEncoded();
             bcpgOut.Write( encoded, 1, encoded.Length - 1 );
-            MPInteger mpInteger = new MPInteger( this.point );
+            MPInteger mpInteger = new( this.point );
             bcpgOut.WriteObject( mpInteger );
         }
 

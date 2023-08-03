@@ -9,7 +9,6 @@ using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -19,7 +18,7 @@ namespace Org.BouncyCastle.X509
     {
         private Stream currentStream;
 
-        private X509CertificatePair ReadDerCrossCertificatePair( Stream inStream ) => new X509CertificatePair( CertificatePair.GetInstance( (Asn1Sequence)new Asn1InputStream( inStream ).ReadObject() ) );
+        private X509CertificatePair ReadDerCrossCertificatePair( Stream inStream ) => new( CertificatePair.GetInstance( (Asn1Sequence)new Asn1InputStream( inStream ).ReadObject() ) );
 
         public X509CertificatePair ReadCertPair( byte[] input ) => this.ReadCertPair( new MemoryStream( input, false ) );
 
@@ -37,7 +36,7 @@ namespace Org.BouncyCastle.X509
                 this.currentStream = inStream;
             try
             {
-                PushbackStream inStream1 = new PushbackStream( inStream );
+                PushbackStream inStream1 = new( inStream );
                 int b = inStream1.ReadByte();
                 if (b < 0)
                     return null;

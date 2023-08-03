@@ -36,7 +36,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             }
             else
             {
-                MemoryStream output1 = new MemoryStream();
+                MemoryStream output1 = new();
                 for (int index = 0; index < this.mResponderIDList.Count; ++index)
                     TlsUtilities.WriteOpaque16( ((Asn1Encodable)this.mResponderIDList[index]).GetEncoded( "DER" ), output1 );
                 TlsUtilities.CheckUint16( output1.Length );
@@ -62,7 +62,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             int length1 = TlsUtilities.ReadUint16( input );
             if (length1 > 0)
             {
-                MemoryStream input1 = new MemoryStream( TlsUtilities.ReadFully( length1, input ), false );
+                MemoryStream input1 = new( TlsUtilities.ReadFully( length1, input ), false );
                 do
                 {
                     ResponderID instance = ResponderID.GetInstance( TlsUtilities.ReadDerObject( TlsUtilities.ReadOpaque16( input1 ) ) );

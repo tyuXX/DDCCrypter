@@ -25,12 +25,12 @@ namespace Org.BouncyCastle.Cms
 
         public Stream Open( Stream outStream, string contentOID, string compressionOID )
         {
-            BerSequenceGenerator sGen = new BerSequenceGenerator( outStream );
+            BerSequenceGenerator sGen = new( outStream );
             sGen.AddObject( CmsObjectIdentifiers.CompressedData );
-            BerSequenceGenerator cGen = new BerSequenceGenerator( sGen.GetRawOutputStream(), 0, true );
+            BerSequenceGenerator cGen = new( sGen.GetRawOutputStream(), 0, true );
             cGen.AddObject( new DerInteger( 0 ) );
             cGen.AddObject( new AlgorithmIdentifier( new DerObjectIdentifier( "1.2.840.113549.1.9.16.3.8" ) ) );
-            BerSequenceGenerator eiGen = new BerSequenceGenerator( cGen.GetRawOutputStream() );
+            BerSequenceGenerator eiGen = new( cGen.GetRawOutputStream() );
             eiGen.AddObject( new DerObjectIdentifier( contentOID ) );
             return new CmsCompressedDataStreamGenerator.CmsCompressedOutputStream( new ZOutputStream( CmsUtilities.CreateBerOctetOutputStream( eiGen.GetRawOutputStream(), 0, true, this._bufferSize ), -1 ), sGen, cGen, eiGen );
         }

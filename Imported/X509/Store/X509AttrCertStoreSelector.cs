@@ -10,7 +10,6 @@ using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.Utilities.Date;
 using Org.BouncyCastle.X509.Extension;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.X509.Store

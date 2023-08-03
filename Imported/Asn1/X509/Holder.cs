@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.X509
 {
@@ -112,7 +111,7 @@ namespace Org.BouncyCastle.Asn1.X509
         {
             if (this.version == 1)
             {
-                Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+                Asn1EncodableVector v = new( new Asn1Encodable[0] );
                 if (this.baseCertificateID != null)
                     v.Add( new DerTaggedObject( false, 0, baseCertificateID ) );
                 if (this.entityName != null)

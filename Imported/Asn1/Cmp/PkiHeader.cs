@@ -6,13 +6,12 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Cmp
 {
     public class PkiHeader : Asn1Encodable
     {
-        public static readonly GeneralName NULL_NAME = new GeneralName( X509Name.GetInstance( new DerSequence() ) );
+        public static readonly GeneralName NULL_NAME = new( X509Name.GetInstance( new DerSequence() ) );
         public static readonly int CMP_1999 = 1;
         public static readonly int CMP_2000 = 2;
         private readonly DerInteger pvno;
@@ -130,7 +129,7 @@ namespace Org.BouncyCastle.Asn1.Cmp
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[3]
+            Asn1EncodableVector v = new( new Asn1Encodable[3]
             {
          pvno,
          sender,

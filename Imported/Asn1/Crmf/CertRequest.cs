@@ -48,7 +48,7 @@ namespace Org.BouncyCastle.Asn1.Crmf
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[2]
+            Asn1EncodableVector v = new( new Asn1Encodable[2]
             {
          certReqId,
          certTemplate

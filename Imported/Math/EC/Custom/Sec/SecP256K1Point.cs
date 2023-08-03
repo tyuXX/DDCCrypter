@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Math.Raw;
-using System;
 
 namespace Org.BouncyCastle.Math.EC.Custom.Sec
 {
@@ -103,14 +102,14 @@ namespace Org.BouncyCastle.Math.EC.Custom.Sec
             SecP256K1Field.Negate( numArray10, numArray10 );
             Nat256.Mul( numArray6, numArray10, ext );
             SecP256K1Field.Reduce32( Nat256.AddBothTo( numArray11, numArray11, numArray10 ), numArray10 );
-            SecP256K1FieldElement x2 = new SecP256K1FieldElement( x1 );
+            SecP256K1FieldElement x2 = new( x1 );
             SecP256K1Field.Square( numArray8, x2.x );
             SecP256K1Field.Subtract( x2.x, numArray10, x2.x );
-            SecP256K1FieldElement y = new SecP256K1FieldElement( numArray10 );
+            SecP256K1FieldElement y = new( numArray10 );
             SecP256K1Field.Subtract( numArray11, x2.x, y.x );
             SecP256K1Field.MultiplyAddToExt( y.x, numArray8, ext );
             SecP256K1Field.Reduce( ext, y.x );
-            SecP256K1FieldElement p256K1FieldElement = new SecP256K1FieldElement( numArray7 );
+            SecP256K1FieldElement p256K1FieldElement = new( numArray7 );
             if (!isOne1)
                 SecP256K1Field.Multiply( p256K1FieldElement.x, rawZcoord1.x, p256K1FieldElement.x );
             if (!isOne2)
@@ -144,15 +143,15 @@ namespace Org.BouncyCastle.Math.EC.Custom.Sec
             SecP256K1Field.Reduce32( Nat.ShiftUpBits( 8, numArray4, 2, 0U ), numArray4 );
             uint[] numArray5 = Nat256.Create();
             SecP256K1Field.Reduce32( Nat.ShiftUpBits( 8, numArray2, 3, 0U, numArray5 ), numArray5 );
-            SecP256K1FieldElement x = new SecP256K1FieldElement( numArray2 );
+            SecP256K1FieldElement x = new( numArray2 );
             SecP256K1Field.Square( numArray3, x.x );
             SecP256K1Field.Subtract( x.x, numArray4, x.x );
             SecP256K1Field.Subtract( x.x, numArray4, x.x );
-            SecP256K1FieldElement y = new SecP256K1FieldElement( numArray4 );
+            SecP256K1FieldElement y = new( numArray4 );
             SecP256K1Field.Subtract( numArray4, x.x, y.x );
             SecP256K1Field.Multiply( y.x, numArray3, y.x );
             SecP256K1Field.Subtract( y.x, numArray5, y.x );
-            SecP256K1FieldElement p256K1FieldElement = new SecP256K1FieldElement( numArray3 );
+            SecP256K1FieldElement p256K1FieldElement = new( numArray3 );
             SecP256K1Field.Twice( rawYcoord.x, p256K1FieldElement.x );
             if (!rawZcoord.IsOne)
                 SecP256K1Field.Multiply( p256K1FieldElement.x, rawZcoord.x, p256K1FieldElement.x );

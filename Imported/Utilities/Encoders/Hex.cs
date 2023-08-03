@@ -24,7 +24,7 @@ namespace Org.BouncyCastle.Utilities.Encoders
 
         public static byte[] Encode( byte[] data, int off, int length )
         {
-            MemoryStream outStream = new MemoryStream( length * 2 );
+            MemoryStream outStream = new( length * 2 );
             encoder.Encode( data, off, length, outStream );
             return outStream.ToArray();
         }
@@ -35,14 +35,14 @@ namespace Org.BouncyCastle.Utilities.Encoders
 
         public static byte[] Decode( byte[] data )
         {
-            MemoryStream outStream = new MemoryStream( (data.Length + 1) / 2 );
+            MemoryStream outStream = new( (data.Length + 1) / 2 );
             encoder.Decode( data, 0, data.Length, outStream );
             return outStream.ToArray();
         }
 
         public static byte[] Decode( string data )
         {
-            MemoryStream outStream = new MemoryStream( (data.Length + 1) / 2 );
+            MemoryStream outStream = new( (data.Length + 1) / 2 );
             encoder.DecodeString( data, outStream );
             return outStream.ToArray();
         }

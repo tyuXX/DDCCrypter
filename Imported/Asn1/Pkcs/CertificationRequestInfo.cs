@@ -6,13 +6,12 @@
 
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Pkcs
 {
     public class CertificationRequestInfo : Asn1Encodable
     {
-        internal DerInteger version = new DerInteger( 0 );
+        internal DerInteger version = new( 0 );
         internal X509Name subject;
         internal SubjectPublicKeyInfo subjectPKInfo;
         internal Asn1Set attributes;
@@ -63,7 +62,7 @@ namespace Org.BouncyCastle.Asn1.Pkcs
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[3]
+            Asn1EncodableVector v = new( new Asn1Encodable[3]
             {
          version,
          subject,

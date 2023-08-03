@@ -15,7 +15,7 @@ namespace Org.BouncyCastle.Asn1
 
         public byte[] GetEncoded()
         {
-            MemoryStream os = new MemoryStream();
+            MemoryStream os = new();
             new Asn1OutputStream( os ).WriteObject( this );
             return os.ToArray();
         }
@@ -24,7 +24,7 @@ namespace Org.BouncyCastle.Asn1
         {
             if (!encoding.Equals( "DER" ))
                 return this.GetEncoded();
-            MemoryStream os = new MemoryStream();
+            MemoryStream os = new();
             new DerOutputStream( os ).WriteObject( this );
             return os.ToArray();
         }

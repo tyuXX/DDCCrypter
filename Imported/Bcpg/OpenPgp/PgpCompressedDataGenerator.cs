@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Apache.Bzip2;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Zlib;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Bcpg.OpenPgp

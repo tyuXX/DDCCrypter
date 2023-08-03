@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Tls
 {
@@ -44,13 +43,13 @@ namespace Org.BouncyCastle.Crypto.Tls
                 size += clientWriteCipher.GetBlockSize() + serverWriteCipher.GetBlockSize();
             byte[] keyBlock = TlsUtilities.CalculateKeyBlock( context, size );
             int keyOff1 = 0;
-            TlsMac tlsMac1 = new TlsMac( context, clientWriteDigest, keyBlock, keyOff1, clientWriteDigest.GetDigestSize() );
+            TlsMac tlsMac1 = new( context, clientWriteDigest, keyBlock, keyOff1, clientWriteDigest.GetDigestSize() );
             int keyOff2 = keyOff1 + clientWriteDigest.GetDigestSize();
-            TlsMac tlsMac2 = new TlsMac( context, serverWriteDigest, keyBlock, keyOff2, serverWriteDigest.GetDigestSize() );
+            TlsMac tlsMac2 = new( context, serverWriteDigest, keyBlock, keyOff2, serverWriteDigest.GetDigestSize() );
             int keyOff3 = keyOff2 + serverWriteDigest.GetDigestSize();
-            KeyParameter parameters1 = new KeyParameter( keyBlock, keyOff3, cipherKeySize );
+            KeyParameter parameters1 = new( keyBlock, keyOff3, cipherKeySize );
             int keyOff4 = keyOff3 + cipherKeySize;
-            KeyParameter parameters2 = new KeyParameter( keyBlock, keyOff4, cipherKeySize );
+            KeyParameter parameters2 = new( keyBlock, keyOff4, cipherKeySize );
             int from1 = keyOff4 + cipherKeySize;
             byte[] iv1;
             byte[] iv2;

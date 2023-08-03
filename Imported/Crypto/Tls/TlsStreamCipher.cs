@@ -35,13 +35,13 @@ namespace Org.BouncyCastle.Crypto.Tls
             int size = (2 * cipherKeySize) + clientWriteDigest.GetDigestSize() + serverWriteDigest.GetDigestSize();
             byte[] keyBlock = TlsUtilities.CalculateKeyBlock( context, size );
             int keyOff1 = 0;
-            TlsMac tlsMac1 = new TlsMac( context, clientWriteDigest, keyBlock, keyOff1, clientWriteDigest.GetDigestSize() );
+            TlsMac tlsMac1 = new( context, clientWriteDigest, keyBlock, keyOff1, clientWriteDigest.GetDigestSize() );
             int keyOff2 = keyOff1 + clientWriteDigest.GetDigestSize();
-            TlsMac tlsMac2 = new TlsMac( context, serverWriteDigest, keyBlock, keyOff2, serverWriteDigest.GetDigestSize() );
+            TlsMac tlsMac2 = new( context, serverWriteDigest, keyBlock, keyOff2, serverWriteDigest.GetDigestSize() );
             int keyOff3 = keyOff2 + serverWriteDigest.GetDigestSize();
-            KeyParameter keyParameter1 = new KeyParameter( keyBlock, keyOff3, cipherKeySize );
+            KeyParameter keyParameter1 = new( keyBlock, keyOff3, cipherKeySize );
             int keyOff4 = keyOff3 + cipherKeySize;
-            KeyParameter keyParameter2 = new KeyParameter( keyBlock, keyOff4, cipherKeySize );
+            KeyParameter keyParameter2 = new( keyBlock, keyOff4, cipherKeySize );
             if (keyOff4 + cipherKeySize != size)
                 throw new TlsFatalAlert( 80 );
             ICipherParameters parameters1;

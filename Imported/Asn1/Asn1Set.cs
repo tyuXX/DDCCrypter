@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -59,7 +58,7 @@ namespace Org.BouncyCastle.Asn1
                 case Asn1Set _:
                     return (Asn1Set)instance;
                 case Asn1Sequence _:
-                    Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+                    Asn1EncodableVector v = new( new Asn1Encodable[0] );
                     foreach (Asn1Encodable asn1Encodable in (Asn1Sequence)instance)
                         v.Add( asn1Encodable );
                     return new DerSet( v, false );

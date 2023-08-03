@@ -15,7 +15,6 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Date;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -440,7 +439,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         public static Asn1Object ReadAsn1Object( byte[] encoding )
         {
-            MemoryStream inputStream = new MemoryStream( encoding, false );
+            MemoryStream inputStream = new( encoding, false );
             Asn1Object asn1Object = new Asn1InputStream( inputStream, encoding.Length ).ReadObject();
             if (asn1Object == null)
                 throw new TlsFatalAlert( 50 );
@@ -555,7 +554,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         public static byte[] CreateSignatureAlgorithmsExtension( IList supportedSignatureAlgorithms )
         {
-            MemoryStream output = new MemoryStream();
+            MemoryStream output = new();
             EncodeSupportedSignatureAlgorithms( supportedSignatureAlgorithms, false, output );
             return output.ToArray();
         }
@@ -683,7 +682,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 
         internal static void HMacHash( IDigest digest, byte[] secret, byte[] seed, byte[] output )
         {
-            HMac hmac = new HMac( digest );
+            HMac hmac = new( digest );
             hmac.Init( new KeyParameter( secret ) );
             byte[] input = seed;
             int digestSize = digest.GetDigestSize();

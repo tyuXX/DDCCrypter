@@ -12,7 +12,6 @@ using Org.BouncyCastle.Math.EC;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Collections;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -428,7 +427,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
         public byte[] GetEncoded()
         {
-            MemoryStream outStr = new MemoryStream();
+            MemoryStream outStr = new();
             this.Encode( outStr );
             return outStr.ToArray();
         }
@@ -509,7 +508,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
         private static PgpPublicKey AddCert( PgpPublicKey key, object id, PgpSignature certification )
         {
-            PgpPublicKey pgpPublicKey = new PgpPublicKey( key );
+            PgpPublicKey pgpPublicKey = new( key );
             IList list = null;
             for (int index = 0; index != pgpPublicKey.ids.Count; ++index)
             {
@@ -542,7 +541,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
         private static PgpPublicKey RemoveCert( PgpPublicKey key, object id )
         {
-            PgpPublicKey pgpPublicKey = new PgpPublicKey( key );
+            PgpPublicKey pgpPublicKey = new( key );
             bool flag = false;
             for (int index = 0; index < pgpPublicKey.ids.Count; ++index)
             {
@@ -575,7 +574,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
         private static PgpPublicKey RemoveCert( PgpPublicKey key, object id, PgpSignature certification )
         {
-            PgpPublicKey pgpPublicKey = new PgpPublicKey( key );
+            PgpPublicKey pgpPublicKey = new( key );
             bool flag = false;
             for (int index = 0; index < pgpPublicKey.ids.Count; ++index)
             {
@@ -599,7 +598,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
             }
             else if (certification.SignatureType == 32)
                 throw new ArgumentException( "signature type incorrect for sub-key revocation." );
-            PgpPublicKey pgpPublicKey = new PgpPublicKey( key );
+            PgpPublicKey pgpPublicKey = new( key );
             if (pgpPublicKey.subSigs != null)
                 pgpPublicKey.subSigs.Add( certification );
             else
@@ -609,7 +608,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
         public static PgpPublicKey RemoveCertification( PgpPublicKey key, PgpSignature certification )
         {
-            PgpPublicKey key1 = new PgpPublicKey( key );
+            PgpPublicKey key1 = new( key );
             IList list = key1.subSigs != null ? key1.subSigs : key1.keySigs;
             int index = list.IndexOf( certification );
             bool flag = index >= 0;

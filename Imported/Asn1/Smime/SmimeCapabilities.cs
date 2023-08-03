@@ -8,7 +8,6 @@ using Org.BouncyCastle.Asn1.Nist;
 using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.Smime
@@ -21,9 +20,9 @@ namespace Org.BouncyCastle.Asn1.Smime
         public static readonly DerObjectIdentifier Aes256Cbc = NistObjectIdentifiers.IdAes256Cbc;
         public static readonly DerObjectIdentifier Aes192Cbc = NistObjectIdentifiers.IdAes192Cbc;
         public static readonly DerObjectIdentifier Aes128Cbc = NistObjectIdentifiers.IdAes128Cbc;
-        public static readonly DerObjectIdentifier IdeaCbc = new DerObjectIdentifier( "1.3.6.1.4.1.188.7.1.1.2" );
-        public static readonly DerObjectIdentifier Cast5Cbc = new DerObjectIdentifier( "1.2.840.113533.7.66.10" );
-        public static readonly DerObjectIdentifier DesCbc = new DerObjectIdentifier( "1.3.14.3.2.7" );
+        public static readonly DerObjectIdentifier IdeaCbc = new( "1.3.6.1.4.1.188.7.1.1.2" );
+        public static readonly DerObjectIdentifier Cast5Cbc = new( "1.2.840.113533.7.66.10" );
+        public static readonly DerObjectIdentifier DesCbc = new( "1.3.14.3.2.7" );
         public static readonly DerObjectIdentifier DesEde3Cbc = PkcsObjectIdentifiers.DesEde3Cbc;
         public static readonly DerObjectIdentifier RC2Cbc = PkcsObjectIdentifiers.RC2Cbc;
         private Asn1Sequence capabilities;
@@ -49,7 +48,7 @@ namespace Org.BouncyCastle.Asn1.Smime
         [Obsolete( "Use 'GetCapabilitiesForOid' instead" )]
         public ArrayList GetCapabilities( DerObjectIdentifier capability )
         {
-            ArrayList capabilities = new ArrayList();
+            ArrayList capabilities = new();
             this.DoGetCapabilitiesForOid( capability, capabilities );
             return capabilities;
         }

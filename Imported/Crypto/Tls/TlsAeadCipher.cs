@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Modes;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Tls
 {
@@ -35,9 +34,9 @@ namespace Org.BouncyCastle.Crypto.Tls
             int size = (2 * cipherKeySize) + (2 * num);
             byte[] keyBlock = TlsUtilities.CalculateKeyBlock( context, size );
             int keyOff1 = 0;
-            KeyParameter keyParameter1 = new KeyParameter( keyBlock, keyOff1, cipherKeySize );
+            KeyParameter keyParameter1 = new( keyBlock, keyOff1, cipherKeySize );
             int keyOff2 = keyOff1 + cipherKeySize;
-            KeyParameter keyParameter2 = new KeyParameter( keyBlock, keyOff2, cipherKeySize );
+            KeyParameter keyParameter2 = new( keyBlock, keyOff2, cipherKeySize );
             int from1 = keyOff2 + cipherKeySize;
             byte[] numArray1 = Arrays.CopyOfRange( keyBlock, from1, from1 + num );
             int from2 = from1 + num;
@@ -87,7 +86,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             Array.Copy( numArray1, this.encryptImplicitNonce.Length, numArray2, 0, this.nonce_explicit_length );
             int nonceExplicitLength = this.nonce_explicit_length;
             byte[] additionalData = this.GetAdditionalData( seqNo, type, len1 );
-            AeadParameters parameters = new AeadParameters( null, 8 * this.macSize, numArray1, additionalData );
+            AeadParameters parameters = new( null, 8 * this.macSize, numArray1, additionalData );
             int num;
             try
             {
@@ -122,7 +121,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             byte[] outBytes = new byte[outputSize];
             int outOff1 = 0;
             byte[] additionalData = this.GetAdditionalData( seqNo, type, outputSize );
-            AeadParameters parameters = new AeadParameters( null, 8 * this.macSize, numArray, additionalData );
+            AeadParameters parameters = new( null, 8 * this.macSize, numArray, additionalData );
             int num;
             try
             {

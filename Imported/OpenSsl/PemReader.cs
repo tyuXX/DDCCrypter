@@ -19,7 +19,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Encoders;
 using Org.BouncyCastle.Utilities.IO.Pem;
 using Org.BouncyCastle.X509;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -164,13 +163,13 @@ namespace Org.BouncyCastle.OpenSsl
                         DerInteger derInteger3 = (DerInteger)instance1[3];
                         DerInteger derInteger4 = (DerInteger)instance1[4];
                         DerInteger derInteger5 = (DerInteger)instance1[5];
-                        DsaParameters parameters = new DsaParameters( derInteger1.Value, derInteger2.Value, derInteger3.Value );
+                        DsaParameters parameters = new( derInteger1.Value, derInteger2.Value, derInteger3.Value );
                         asymmetricKeyParameter = new DsaPrivateKeyParameters( derInteger5.Value, parameters );
                         publicParameter = new DsaPublicKeyParameters( derInteger4.Value, parameters );
                         break;
                     case "EC":
                         ECPrivateKeyStructure instance2 = ECPrivateKeyStructure.GetInstance( instance1 );
-                        AlgorithmIdentifier algID = new AlgorithmIdentifier( X9ObjectIdentifiers.IdECPublicKey, instance2.GetParameters() );
+                        AlgorithmIdentifier algID = new( X9ObjectIdentifiers.IdECPublicKey, instance2.GetParameters() );
                         asymmetricKeyParameter = PrivateKeyFactory.CreateKey( new PrivateKeyInfo( algID, instance2.ToAsn1Object() ) );
                         DerBitString publicKey = instance2.GetPublicKey();
                         publicParameter = publicKey == null ? ECKeyPairGenerator.GetCorrespondingPublicKey( (ECPrivateKeyParameters)asymmetricKeyParameter ) : PublicKeyFactory.CreateKey( new SubjectPublicKeyInfo( algID, publicKey.GetBytes() ) );

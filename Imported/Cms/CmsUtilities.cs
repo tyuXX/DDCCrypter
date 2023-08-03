@@ -12,7 +12,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -103,7 +102,7 @@ namespace Org.BouncyCastle.Cms
 
         public static Asn1Set CreateBerSetFromList( IList berObjects )
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             foreach (Asn1Encodable berObject in (IEnumerable)berObjects)
                 v.Add( berObject );
             return new BerSet( v );
@@ -111,7 +110,7 @@ namespace Org.BouncyCastle.Cms
 
         public static Asn1Set CreateDerSetFromList( IList derObjects )
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             foreach (Asn1Encodable derObject in (IEnumerable)derObjects)
                 v.Add( derObject );
             return new DerSet( v );

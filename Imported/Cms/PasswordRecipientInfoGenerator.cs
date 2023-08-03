@@ -51,7 +51,7 @@ namespace Org.BouncyCastle.Cms
             ICipherParameters parameters1 = new ParametersWithIV( keyEncryptionKey, numArray );
             wrapper.Init( true, new ParametersWithRandom( parameters1, random ) );
             Asn1OctetString encryptedKey = new DerOctetString( wrapper.Wrap( key, 0, key.Length ) );
-            DerSequence parameters2 = new DerSequence( new Asn1Encodable[2]
+            DerSequence parameters2 = new( new Asn1Encodable[2]
             {
          new DerObjectIdentifier(this.keyEncryptionKeyOID),
          new DerOctetString(numArray)

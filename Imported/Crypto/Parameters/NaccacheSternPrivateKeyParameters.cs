@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Math;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Crypto.Parameters
@@ -43,7 +42,7 @@ namespace Org.BouncyCastle.Crypto.Parameters
         public BigInteger PhiN => this.phiN;
 
         [Obsolete( "Use 'SmallPrimesList' instead" )]
-        public ArrayList SmallPrimes => new ArrayList( smallPrimes );
+        public ArrayList SmallPrimes => new( smallPrimes );
 
         public IList SmallPrimesList => this.smallPrimes;
     }

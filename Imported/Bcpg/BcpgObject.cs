@@ -12,7 +12,7 @@ namespace Org.BouncyCastle.Bcpg
     {
         public virtual byte[] GetEncoded()
         {
-            MemoryStream outStr = new MemoryStream();
+            MemoryStream outStr = new();
             new BcpgOutputStream( outStr ).WriteObject( this );
             return outStr.ToArray();
         }

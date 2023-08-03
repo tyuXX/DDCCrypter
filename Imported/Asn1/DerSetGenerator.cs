@@ -10,7 +10,7 @@ namespace Org.BouncyCastle.Asn1
 {
     public class DerSetGenerator : DerGenerator
     {
-        private readonly MemoryStream _bOut = new MemoryStream();
+        private readonly MemoryStream _bOut = new();
 
         public DerSetGenerator( Stream outStream )
           : base( outStream )

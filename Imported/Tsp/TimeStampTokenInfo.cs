@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1.Tsp;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Math;
-using System;
 
 namespace Org.BouncyCastle.Tsp
 {

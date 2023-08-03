@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Math.Raw;
-using System;
 
 namespace Org.BouncyCastle.Math.EC.Custom.Sec
 {
@@ -103,15 +102,15 @@ namespace Org.BouncyCastle.Math.EC.Custom.Sec
             SecP384R1Field.Negate( numArray11, numArray11 );
             Nat384.Mul( numArray7, numArray11, numArray1 );
             SecP384R1Field.Reduce32( Nat.AddBothTo( 12, numArray12, numArray12, numArray11 ), numArray11 );
-            SecP384R1FieldElement x2 = new SecP384R1FieldElement( x1 );
+            SecP384R1FieldElement x2 = new( x1 );
             SecP384R1Field.Square( numArray9, x2.x );
             SecP384R1Field.Subtract( x2.x, numArray11, x2.x );
-            SecP384R1FieldElement y = new SecP384R1FieldElement( numArray11 );
+            SecP384R1FieldElement y = new( numArray11 );
             SecP384R1Field.Subtract( numArray12, x2.x, y.x );
             Nat384.Mul( y.x, numArray9, numArray2 );
             SecP384R1Field.AddExt( numArray1, numArray2, numArray1 );
             SecP384R1Field.Reduce( numArray1, y.x );
-            SecP384R1FieldElement p384R1FieldElement = new SecP384R1FieldElement( numArray8 );
+            SecP384R1FieldElement p384R1FieldElement = new( numArray8 );
             if (!isOne1)
                 SecP384R1Field.Multiply( p384R1FieldElement.x, rawZcoord1.x, p384R1FieldElement.x );
             if (!isOne2)
@@ -155,15 +154,15 @@ namespace Org.BouncyCastle.Math.EC.Custom.Sec
             SecP384R1Field.Multiply( numArray3, rawXcoord.x, numArray7 );
             SecP384R1Field.Reduce32( Nat.ShiftUpBits( 12, numArray7, 2, 0U ), numArray7 );
             SecP384R1Field.Reduce32( Nat.ShiftUpBits( 12, numArray4, 3, 0U, numArray1 ), numArray1 );
-            SecP384R1FieldElement x = new SecP384R1FieldElement( numArray4 );
+            SecP384R1FieldElement x = new( numArray4 );
             SecP384R1Field.Square( numArray6, x.x );
             SecP384R1Field.Subtract( x.x, numArray7, x.x );
             SecP384R1Field.Subtract( x.x, numArray7, x.x );
-            SecP384R1FieldElement y = new SecP384R1FieldElement( numArray7 );
+            SecP384R1FieldElement y = new( numArray7 );
             SecP384R1Field.Subtract( numArray7, x.x, y.x );
             SecP384R1Field.Multiply( y.x, numArray6, y.x );
             SecP384R1Field.Subtract( y.x, numArray1, y.x );
-            SecP384R1FieldElement p384R1FieldElement = new SecP384R1FieldElement( numArray6 );
+            SecP384R1FieldElement p384R1FieldElement = new( numArray6 );
             SecP384R1Field.Twice( rawYcoord.x, p384R1FieldElement.x );
             if (!isOne)
                 SecP384R1Field.Multiply( p384R1FieldElement.x, rawZcoord.x, p384R1FieldElement.x );

@@ -16,7 +16,6 @@ using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Signers;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Security
@@ -242,8 +241,8 @@ namespace Org.BouncyCastle.Security
 
         private static Asn1Encodable GetPssX509Parameters( string digestName )
         {
-            AlgorithmIdentifier algorithmIdentifier = new AlgorithmIdentifier( DigestUtilities.GetObjectIdentifier( digestName ), DerNull.Instance );
-            AlgorithmIdentifier maskGenAlgorithm = new AlgorithmIdentifier( PkcsObjectIdentifiers.IdMgf1, algorithmIdentifier );
+            AlgorithmIdentifier algorithmIdentifier = new( DigestUtilities.GetObjectIdentifier( digestName ), DerNull.Instance );
+            AlgorithmIdentifier maskGenAlgorithm = new( PkcsObjectIdentifiers.IdMgf1, algorithmIdentifier );
             int digestSize = DigestUtilities.GetDigest( digestName ).GetDigestSize();
             return new RsassaPssParameters( algorithmIdentifier, maskGenAlgorithm, new DerInteger( digestSize ), new DerInteger( 1 ) );
         }

@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Asn1.Cms;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Crmf
 {
@@ -44,7 +43,7 @@ namespace Org.BouncyCastle.Asn1.Crmf
             }
         }
 
-        public static PopoPrivKey GetInstance( Asn1TaggedObject tagged, bool isExplicit ) => new PopoPrivKey( Asn1TaggedObject.GetInstance( tagged.GetObject() ) );
+        public static PopoPrivKey GetInstance( Asn1TaggedObject tagged, bool isExplicit ) => new( Asn1TaggedObject.GetInstance( tagged.GetObject() ) );
 
         public PopoPrivKey( SubsequentMessage msg )
         {

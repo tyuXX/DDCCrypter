@@ -9,7 +9,6 @@ using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC;
 using Org.BouncyCastle.Math.EC.Multiplier;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Signers
 {
@@ -43,7 +42,7 @@ namespace Org.BouncyCastle.Crypto.Signers
             byte[] bytes = new byte[message.Length];
             for (int index = 0; index != bytes.Length; ++index)
                 bytes[index] = message[bytes.Length - 1 - index];
-            BigInteger val1 = new BigInteger( 1, bytes );
+            BigInteger val1 = new( 1, bytes );
             ECDomainParameters parameters = this.key.Parameters;
             BigInteger n = parameters.N;
             BigInteger d = ((ECPrivateKeyParameters)this.key).D;
@@ -74,7 +73,7 @@ namespace Org.BouncyCastle.Crypto.Signers
             byte[] bytes = new byte[message.Length];
             for (int index = 0; index != bytes.Length; ++index)
                 bytes[index] = message[bytes.Length - 1 - index];
-            BigInteger bigInteger = new BigInteger( 1, bytes );
+            BigInteger bigInteger = new( 1, bytes );
             BigInteger n = this.key.Parameters.N;
             if (r.CompareTo( BigInteger.One ) < 0 || r.CompareTo( n ) >= 0 || s.CompareTo( BigInteger.One ) < 0 || s.CompareTo( n ) >= 0)
                 return false;

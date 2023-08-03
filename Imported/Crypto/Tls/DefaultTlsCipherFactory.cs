@@ -103,9 +103,9 @@ namespace Org.BouncyCastle.Crypto.Tls
             return new TlsAeadCipher( context, this.CreateAeadBlockCipher_Camellia_Gcm(), this.CreateAeadBlockCipher_Camellia_Gcm(), cipherKeySize, macSize );
         }
 
-        protected virtual TlsBlockCipher CreateDesEdeCipher( TlsContext context, int macAlgorithm ) => new TlsBlockCipher( context, this.CreateDesEdeBlockCipher(), this.CreateDesEdeBlockCipher(), this.CreateHMacDigest( macAlgorithm ), this.CreateHMacDigest( macAlgorithm ), 24 );
+        protected virtual TlsBlockCipher CreateDesEdeCipher( TlsContext context, int macAlgorithm ) => new( context, this.CreateDesEdeBlockCipher(), this.CreateDesEdeBlockCipher(), this.CreateHMacDigest( macAlgorithm ), this.CreateHMacDigest( macAlgorithm ), 24 );
 
-        protected virtual TlsNullCipher CreateNullCipher( TlsContext context, int macAlgorithm ) => new TlsNullCipher( context, this.CreateHMacDigest( macAlgorithm ), this.CreateHMacDigest( macAlgorithm ) );
+        protected virtual TlsNullCipher CreateNullCipher( TlsContext context, int macAlgorithm ) => new( context, this.CreateHMacDigest( macAlgorithm ), this.CreateHMacDigest( macAlgorithm ) );
 
         protected virtual TlsStreamCipher CreateRC4Cipher(
           TlsContext context,
@@ -124,7 +124,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             return new TlsStreamCipher( context, this.CreateSalsa20StreamCipher( rounds ), this.CreateSalsa20StreamCipher( rounds ), this.CreateHMacDigest( macAlgorithm ), this.CreateHMacDigest( macAlgorithm ), cipherKeySize, true );
         }
 
-        protected virtual TlsBlockCipher CreateSeedCipher( TlsContext context, int macAlgorithm ) => new TlsBlockCipher( context, this.CreateSeedBlockCipher(), this.CreateSeedBlockCipher(), this.CreateHMacDigest( macAlgorithm ), this.CreateHMacDigest( macAlgorithm ), 16 );
+        protected virtual TlsBlockCipher CreateSeedCipher( TlsContext context, int macAlgorithm ) => new( context, this.CreateSeedBlockCipher(), this.CreateSeedBlockCipher(), this.CreateHMacDigest( macAlgorithm ), this.CreateHMacDigest( macAlgorithm ), 16 );
 
         protected virtual IBlockCipher CreateAesEngine() => new AesEngine();
 

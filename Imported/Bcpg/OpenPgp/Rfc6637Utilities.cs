@@ -11,7 +11,6 @@ using Org.BouncyCastle.Math.EC;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Encoders;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Bcpg.OpenPgp
@@ -79,7 +78,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp
 
         public static byte[] CreateUserKeyingMaterial( PublicKeyPacket pubKeyData )
         {
-            MemoryStream memoryStream = new MemoryStream();
+            MemoryStream memoryStream = new();
             ECDHPublicBcpgKey key = (ECDHPublicBcpgKey)pubKeyData.Key;
             byte[] encoded = key.CurveOid.GetEncoded();
             memoryStream.Write( encoded, 1, encoded.Length - 1 );

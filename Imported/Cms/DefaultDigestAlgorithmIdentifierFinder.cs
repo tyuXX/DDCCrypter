@@ -77,6 +77,6 @@ namespace Org.BouncyCastle.Cms
 
         public AlgorithmIdentifier find( AlgorithmIdentifier sigAlgId ) => !sigAlgId.Algorithm.Equals( PkcsObjectIdentifiers.IdRsassaPss ) ? new AlgorithmIdentifier( (DerObjectIdentifier)digestOids[sigAlgId.Algorithm], DerNull.Instance ) : RsassaPssParameters.GetInstance( sigAlgId.Parameters ).HashAlgorithm;
 
-        public AlgorithmIdentifier find( string digAlgName ) => new AlgorithmIdentifier( (DerObjectIdentifier)digestNameToOids[digAlgName], DerNull.Instance );
+        public AlgorithmIdentifier find( string digAlgName ) => new( (DerObjectIdentifier)digestNameToOids[digAlgName], DerNull.Instance );
     }
 }

@@ -9,7 +9,6 @@ using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Zlib;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Cms
@@ -24,8 +23,8 @@ namespace Org.BouncyCastle.Cms
             Asn1OctetString content1;
             try
             {
-                MemoryStream output = new MemoryStream();
-                ZOutputStream zoutputStream = new ZOutputStream( output, -1 );
+                MemoryStream output = new();
+                ZOutputStream zoutputStream = new( output, -1 );
                 content.Write( zoutputStream );
                 Platform.Dispose( zoutputStream );
                 compressionAlgorithm = new AlgorithmIdentifier( new DerObjectIdentifier( compressionOid ) );
@@ -35,7 +34,7 @@ namespace Org.BouncyCastle.Cms
             {
                 throw new CmsException( "exception encoding data.", ex );
             }
-            ContentInfo encapContentInfo = new ContentInfo( CmsObjectIdentifiers.Data, content1 );
+            ContentInfo encapContentInfo = new( CmsObjectIdentifiers.Data, content1 );
             return new CmsCompressedData( new ContentInfo( CmsObjectIdentifiers.CompressedData, new CompressedData( compressionAlgorithm, encapContentInfo ) ) );
         }
     }

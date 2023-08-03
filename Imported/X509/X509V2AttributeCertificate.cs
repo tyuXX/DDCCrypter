@@ -12,7 +12,6 @@ using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -71,9 +70,9 @@ namespace Org.BouncyCastle.X509
 
         public virtual BigInteger SerialNumber => this.cert.ACInfo.SerialNumber.Value;
 
-        public virtual AttributeCertificateHolder Holder => new AttributeCertificateHolder( (Asn1Sequence)this.cert.ACInfo.Holder.ToAsn1Object() );
+        public virtual AttributeCertificateHolder Holder => new( (Asn1Sequence)this.cert.ACInfo.Holder.ToAsn1Object() );
 
-        public virtual AttributeCertificateIssuer Issuer => new AttributeCertificateIssuer( this.cert.ACInfo.Issuer );
+        public virtual AttributeCertificateIssuer Issuer => new( this.cert.ACInfo.Issuer );
 
         public virtual DateTime NotBefore => this.notBefore;
 
@@ -151,7 +150,7 @@ namespace Org.BouncyCastle.X509
             IList arrayList = Platform.CreateArrayList();
             for (int index = 0; index != attributes1.Count; ++index)
             {
-                X509Attribute x509Attribute = new X509Attribute( attributes1[index] );
+                X509Attribute x509Attribute = new( attributes1[index] );
                 if (x509Attribute.Oid.Equals( oid ))
                     arrayList.Add( x509Attribute );
             }

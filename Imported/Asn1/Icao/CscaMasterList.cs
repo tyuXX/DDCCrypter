@@ -5,13 +5,12 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Asn1.X509;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Icao
 {
     public class CscaMasterList : Asn1Encodable
     {
-        private DerInteger version = new DerInteger( 0 );
+        private DerInteger version = new( 0 );
         private X509CertificateStructure[] certList;
 
         public static CscaMasterList GetInstance( object obj )

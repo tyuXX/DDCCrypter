@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1.Oiw;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Pkcs
 {
@@ -17,10 +16,10 @@ namespace Org.BouncyCastle.Asn1.Pkcs
         private AlgorithmIdentifier maskGenAlgorithm;
         private DerInteger saltLength;
         private DerInteger trailerField;
-        public static readonly AlgorithmIdentifier DefaultHashAlgorithm = new AlgorithmIdentifier( OiwObjectIdentifiers.IdSha1, DerNull.Instance );
-        public static readonly AlgorithmIdentifier DefaultMaskGenFunction = new AlgorithmIdentifier( PkcsObjectIdentifiers.IdMgf1, DefaultHashAlgorithm );
-        public static readonly DerInteger DefaultSaltLength = new DerInteger( 20 );
-        public static readonly DerInteger DefaultTrailerField = new DerInteger( 1 );
+        public static readonly AlgorithmIdentifier DefaultHashAlgorithm = new( OiwObjectIdentifiers.IdSha1, DerNull.Instance );
+        public static readonly AlgorithmIdentifier DefaultMaskGenFunction = new( PkcsObjectIdentifiers.IdMgf1, DefaultHashAlgorithm );
+        public static readonly DerInteger DefaultSaltLength = new( 20 );
+        public static readonly DerInteger DefaultTrailerField = new( 1 );
 
         public static RsassaPssParameters GetInstance( object obj )
         {
@@ -95,7 +94,7 @@ namespace Org.BouncyCastle.Asn1.Pkcs
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+            Asn1EncodableVector v = new( new Asn1Encodable[0] );
             if (!this.hashAlgorithm.Equals( DefaultHashAlgorithm ))
                 v.Add( new DerTaggedObject( true, 0, hashAlgorithm ) );
             if (!this.maskGenAlgorithm.Equals( DefaultMaskGenFunction ))

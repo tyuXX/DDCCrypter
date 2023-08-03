@@ -6,9 +6,7 @@
 
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
-using System.Text;
 
 namespace Org.BouncyCastle.Asn1
 {
@@ -51,7 +49,7 @@ namespace Org.BouncyCastle.Asn1
 
         public string Id => this.identifier;
 
-        public virtual DerObjectIdentifier Branch( string branchID ) => new DerObjectIdentifier( this, branchID );
+        public virtual DerObjectIdentifier Branch( string branchID ) => new( this, branchID );
 
         public virtual bool On( DerObjectIdentifier stem )
         {
@@ -104,7 +102,7 @@ namespace Org.BouncyCastle.Asn1
 
         private void DoOutput( MemoryStream bOut )
         {
-            OidTokenizer oidTokenizer = new OidTokenizer( this.identifier );
+            OidTokenizer oidTokenizer = new( this.identifier );
             int num = int.Parse( oidTokenizer.NextToken() ) * 40;
             string s1 = oidTokenizer.NextToken();
             if (s1.Length <= 18)
@@ -127,7 +125,7 @@ namespace Org.BouncyCastle.Asn1
             {
                 if (this.body == null)
                 {
-                    MemoryStream bOut = new MemoryStream();
+                    MemoryStream bOut = new();
                     this.DoOutput( bOut );
                     this.body = bOut.ToArray();
                 }
@@ -174,7 +172,7 @@ namespace Org.BouncyCastle.Asn1
 
         private static string MakeOidStringFromBytes( byte[] bytes )
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             long num1 = 0;
             BigInteger bigInteger1 = null;
             bool flag = true;

@@ -5,9 +5,7 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Globalization;
-using System.Text;
 
 namespace Org.BouncyCastle.Asn1
 {
@@ -111,7 +109,7 @@ namespace Org.BouncyCastle.Asn1
 
         private string FString( int count )
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             for (int index = 0; index < count; ++index)
                 stringBuilder.Append( 'f' );
             return stringBuilder.ToString();

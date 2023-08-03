@@ -9,7 +9,6 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Signers
 {
@@ -46,7 +45,7 @@ namespace Org.BouncyCastle.Crypto.Signers
                 throw new InvalidOperationException( "not initialised for signing" );
             BigInteger n = this.key.Parameters.N;
             int bitLength1 = n.BitLength;
-            BigInteger bigInteger1 = new BigInteger( 1, message );
+            BigInteger bigInteger1 = new( 1, message );
             int bitLength2 = bigInteger1.BitLength;
             ECPrivateKeyParameters key = (ECPrivateKeyParameters)this.key;
             if (bitLength2 > bitLength1)
@@ -55,7 +54,7 @@ namespace Org.BouncyCastle.Crypto.Signers
             BigInteger bigInteger2;
             do
             {
-                ECKeyPairGenerator keyPairGenerator = new ECKeyPairGenerator();
+                ECKeyPairGenerator keyPairGenerator = new();
                 keyPairGenerator.Init( new ECKeyGenerationParameters( key.Parameters, this.random ) );
                 keyPair = keyPairGenerator.GenerateKeyPair();
                 bigInteger2 = ((ECPublicKeyParameters)keyPair.Public).Q.AffineXCoord.ToBigInteger().Add( bigInteger1 ).Mod( n );
@@ -73,7 +72,7 @@ namespace Org.BouncyCastle.Crypto.Signers
             ECPublicKeyParameters key = (ECPublicKeyParameters)this.key;
             BigInteger n = key.Parameters.N;
             int bitLength = n.BitLength;
-            BigInteger bigInteger1 = new BigInteger( 1, message );
+            BigInteger bigInteger1 = new( 1, message );
             if (bigInteger1.BitLength > bitLength)
                 throw new DataLengthException( "input too large for ECNR key." );
             if (r.CompareTo( BigInteger.One ) < 0 || r.CompareTo( n ) >= 0 || s.CompareTo( BigInteger.Zero ) < 0 || s.CompareTo( n ) >= 0)

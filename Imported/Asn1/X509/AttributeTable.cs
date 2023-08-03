@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Asn1.X509
@@ -42,7 +41,7 @@ namespace Org.BouncyCastle.Asn1.X509
         public AttributeX509 Get( DerObjectIdentifier oid ) => (AttributeX509)this.attributes[oid];
 
         [Obsolete( "Use 'ToDictionary' instead" )]
-        public Hashtable ToHashtable() => new Hashtable( this.attributes );
+        public Hashtable ToHashtable() => new( this.attributes );
 
         public IDictionary ToDictionary() => Platform.CreateHashtable( this.attributes );
     }

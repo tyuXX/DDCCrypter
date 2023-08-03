@@ -19,7 +19,7 @@ namespace Org.BouncyCastle.Crypto.Generators
         {
             DHKeyGeneratorHelper instance = DHKeyGeneratorHelper.Instance;
             ElGamalParameters parameters = this.param.Parameters;
-            DHParameters dhParams = new DHParameters( parameters.P, parameters.G, null, 0, parameters.L );
+            DHParameters dhParams = new( parameters.P, parameters.G, null, 0, parameters.L );
             BigInteger x = instance.CalculatePrivate( dhParams, this.param.Random );
             return new AsymmetricCipherKeyPair( new ElGamalPublicKeyParameters( instance.CalculatePublic( dhParams, x ), parameters ), new ElGamalPrivateKeyParameters( x, parameters ) );
         }

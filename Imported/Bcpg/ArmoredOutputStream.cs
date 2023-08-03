@@ -9,7 +9,6 @@ using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
 using System.Collections;
 using System.IO;
-using System.Reflection;
 
 namespace Org.BouncyCastle.Bcpg
 {
@@ -85,7 +84,7 @@ namespace Org.BouncyCastle.Bcpg
         private readonly Stream outStream;
         private int[] buf = new int[3];
         private int bufPtr = 0;
-        private Crc24 crc = new Crc24();
+        private Crc24 crc = new();
         private int chunkCount = 0;
         private int lastb;
         private bool start = true;

@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -15,7 +14,7 @@ namespace Org.BouncyCastle.Crypto.Tls
 {
     public class Certificate
     {
-        public static readonly Certificate EmptyChain = new Certificate( new X509CertificateStructure[0] );
+        public static readonly Certificate EmptyChain = new( new X509CertificateStructure[0] );
         protected readonly X509CertificateStructure[] mCertificateList;
 
         public Certificate( X509CertificateStructure[] certificateList ) => this.mCertificateList = certificateList != null ? certificateList : throw new ArgumentNullException( nameof( certificateList ) );
@@ -49,7 +48,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             int length = TlsUtilities.ReadUint24( input );
             if (length == 0)
                 return EmptyChain;
-            MemoryStream input1 = new MemoryStream( TlsUtilities.ReadFully( length, input ), false );
+            MemoryStream input1 = new( TlsUtilities.ReadFully( length, input ), false );
             IList arrayList = Platform.CreateArrayList();
             while (input1.Position < input1.Length)
             {

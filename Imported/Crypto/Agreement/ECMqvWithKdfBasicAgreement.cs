@@ -9,7 +9,6 @@ using Org.BouncyCastle.Asn1.X9;
 using Org.BouncyCastle.Crypto.Agreement.Kdf;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Agreement
 {

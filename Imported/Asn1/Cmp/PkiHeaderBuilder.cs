@@ -110,7 +110,7 @@ namespace Org.BouncyCastle.Asn1.Cmp
             Asn1Sequence asn1Sequence = null;
             if (generalInfos != null)
             {
-                Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+                Asn1EncodableVector v = new( new Asn1Encodable[0] );
                 for (int index = 0; index < generalInfos.Length; ++index)
                     v.Add( generalInfos[index] );
                 asn1Sequence = new DerSequence( v );
@@ -120,7 +120,7 @@ namespace Org.BouncyCastle.Asn1.Cmp
 
         public virtual PkiHeader Build()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[3]
+            Asn1EncodableVector v = new( new Asn1Encodable[3]
             {
          pvno,
          sender,

@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Signers
 {
@@ -41,7 +40,7 @@ namespace Org.BouncyCastle.Crypto.Signers
             byte[] bytes = new byte[message.Length];
             for (int index = 0; index != bytes.Length; ++index)
                 bytes[index] = message[bytes.Length - 1 - index];
-            BigInteger val1 = new BigInteger( 1, bytes );
+            BigInteger val1 = new( 1, bytes );
             Gost3410Parameters parameters = this.key.Parameters;
             BigInteger e;
             do
@@ -59,7 +58,7 @@ namespace Org.BouncyCastle.Crypto.Signers
             byte[] bytes = new byte[message.Length];
             for (int index = 0; index != bytes.Length; ++index)
                 bytes[index] = message[bytes.Length - 1 - index];
-            BigInteger bigInteger = new BigInteger( 1, bytes );
+            BigInteger bigInteger = new( 1, bytes );
             Gost3410Parameters parameters = this.key.Parameters;
             if (r.SignValue < 0 || parameters.Q.CompareTo( r ) <= 0 || s.SignValue < 0 || parameters.Q.CompareTo( s ) <= 0)
                 return false;

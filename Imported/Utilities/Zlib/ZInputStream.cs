@@ -4,7 +4,6 @@
 // MVID: 2C1E8153-B25B-4CDE-9676-EEDAF8A00392
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Utilities.Zlib
@@ -12,7 +11,7 @@ namespace Org.BouncyCastle.Utilities.Zlib
     public class ZInputStream : Stream
     {
         private const int BufferSize = 512;
-        protected ZStream z = new ZStream();
+        protected ZStream z = new();
         protected int flushLevel = 0;
         protected byte[] buf = new byte[512];
         protected byte[] buf1 = new byte[1];

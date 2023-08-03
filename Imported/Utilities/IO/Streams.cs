@@ -26,14 +26,14 @@ namespace Org.BouncyCastle.Utilities.IO
 
         public static byte[] ReadAll( Stream inStr )
         {
-            MemoryStream outStr = new MemoryStream();
+            MemoryStream outStr = new();
             PipeAll( inStr, outStr );
             return outStr.ToArray();
         }
 
         public static byte[] ReadAllLimited( Stream inStr, int limit )
         {
-            MemoryStream outStr = new MemoryStream();
+            MemoryStream outStr = new();
             PipeAllLimited( inStr, limit, outStr );
             return outStr.ToArray();
         }

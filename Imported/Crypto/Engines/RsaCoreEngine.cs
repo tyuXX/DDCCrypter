@@ -7,7 +7,6 @@
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Crypto.Engines
 {
@@ -35,7 +34,7 @@ namespace Org.BouncyCastle.Crypto.Engines
             int num = (this.bitSize + 7) / 8;
             if (inLen > num)
                 throw new DataLengthException( "input too large for RSA cipher." );
-            BigInteger bigInteger = new BigInteger( 1, inBuf, inOff, inLen );
+            BigInteger bigInteger = new( 1, inBuf, inOff, inLen );
             if (bigInteger.CompareTo( this.key.Modulus ) >= 0)
                 throw new DataLengthException( "input too large for RSA cipher." );
             return bigInteger;

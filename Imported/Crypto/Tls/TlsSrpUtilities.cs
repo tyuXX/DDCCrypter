@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -32,7 +31,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             return numArray;
         }
 
-        public static BigInteger ReadSrpParameter( Stream input ) => new BigInteger( 1, TlsUtilities.ReadOpaque16( input ) );
+        public static BigInteger ReadSrpParameter( Stream input ) => new( 1, TlsUtilities.ReadOpaque16( input ) );
 
         public static void WriteSrpParameter( BigInteger x, Stream output ) => TlsUtilities.WriteOpaque16( BigIntegers.AsUnsignedByteArray( x ), output );
 

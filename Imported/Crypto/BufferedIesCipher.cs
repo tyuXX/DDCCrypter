@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Utilities;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Crypto
@@ -15,7 +14,7 @@ namespace Org.BouncyCastle.Crypto
     {
         private readonly IesEngine engine;
         private bool forEncryption;
-        private MemoryStream buffer = new MemoryStream();
+        private MemoryStream buffer = new();
 
         public BufferedIesCipher( IesEngine engine ) => this.engine = engine != null ? engine : throw new ArgumentNullException( nameof( engine ) );
 

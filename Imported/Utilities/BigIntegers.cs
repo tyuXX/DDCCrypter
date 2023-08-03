@@ -6,7 +6,6 @@
 
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
-using System;
 
 namespace Org.BouncyCastle.Utilities
 {
@@ -44,7 +43,7 @@ namespace Org.BouncyCastle.Utilities
                 return CreateRandomInRange( BigInteger.Zero, max.Subtract( min ), random ).Add( min );
             for (int index = 0; index < 1000; ++index)
             {
-                BigInteger randomInRange = new BigInteger( max.BitLength, random );
+                BigInteger randomInRange = new( max.BitLength, random );
                 if (randomInRange.CompareTo( min ) >= 0 && randomInRange.CompareTo( max ) <= 0)
                     return randomInRange;
             }

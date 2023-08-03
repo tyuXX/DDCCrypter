@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Bcpg.Sig;
-using System;
 
 namespace Org.BouncyCastle.Bcpg.OpenPgp
 {

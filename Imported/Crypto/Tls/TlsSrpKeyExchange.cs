@@ -11,7 +11,6 @@ using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -134,8 +133,8 @@ namespace Org.BouncyCastle.Crypto.Tls
         public override byte[] GenerateServerKeyExchange()
         {
             this.mSrpServer.Init( this.mSrpGroup, this.mSrpVerifier, TlsUtilities.CreateHash( 2 ), this.mContext.SecureRandom );
-            ServerSrpParams serverSrpParams = new ServerSrpParams( this.mSrpGroup.N, this.mSrpGroup.G, this.mSrpSalt, this.mSrpServer.GenerateServerCredentials() );
-            DigestInputBuffer output = new DigestInputBuffer();
+            ServerSrpParams serverSrpParams = new( this.mSrpGroup.N, this.mSrpGroup.G, this.mSrpSalt, this.mSrpServer.GenerateServerCredentials() );
+            DigestInputBuffer output = new();
             serverSrpParams.Encode( output );
             if (this.mServerCredentials != null)
             {

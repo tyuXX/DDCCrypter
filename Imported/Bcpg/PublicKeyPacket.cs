@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities.Date;
-using System;
 using System.IO;
 
 namespace Org.BouncyCastle.Bcpg
@@ -70,8 +69,8 @@ namespace Org.BouncyCastle.Bcpg
 
         public virtual byte[] GetEncodedContents()
         {
-            MemoryStream outStr = new MemoryStream();
-            BcpgOutputStream bcpgOutputStream = new BcpgOutputStream( outStr );
+            MemoryStream outStr = new();
+            BcpgOutputStream bcpgOutputStream = new( outStr );
             bcpgOutputStream.WriteByte( (byte)this.version );
             bcpgOutputStream.WriteInt( (int)this.time );
             if (this.version <= 3)

@@ -10,7 +10,6 @@ using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -18,7 +17,7 @@ namespace Org.BouncyCastle.X509
 {
     public class X509CertificateParser
     {
-        private static readonly PemParser PemCertParser = new PemParser( "CERTIFICATE" );
+        private static readonly PemParser PemCertParser = new( "CERTIFICATE" );
         private Asn1Set sData;
         private int sDataObjectCount;
         private Stream currentStream;
@@ -52,7 +51,7 @@ namespace Org.BouncyCastle.X509
             return asn1Sequence != null ? this.CreateX509Certificate( X509CertificateStructure.GetInstance( asn1Sequence ) ) : null;
         }
 
-        protected virtual X509Certificate CreateX509Certificate( X509CertificateStructure c ) => new X509Certificate( c );
+        protected virtual X509Certificate CreateX509Certificate( X509CertificateStructure c ) => new( c );
 
         public X509Certificate ReadCertificate( byte[] input ) => this.ReadCertificate( new MemoryStream( input, false ) );
 
@@ -86,7 +85,7 @@ namespace Org.BouncyCastle.X509
                     this.sDataObjectCount = 0;
                     return null;
                 }
-                PushbackStream pushbackStream = new PushbackStream( inStream );
+                PushbackStream pushbackStream = new( inStream );
                 int b = pushbackStream.ReadByte();
                 if (b < 0)
                     return null;

@@ -73,7 +73,7 @@ namespace Org.BouncyCastle.Crypto.Tls
             if (TlsUtilities.IsTlsV12( context ))
                 supportedSignatureAlgorithms = TlsUtilities.ParseSupportedSignatureAlgorithms( false, input );
             IList arrayList = Platform.CreateArrayList();
-            MemoryStream input1 = new MemoryStream( TlsUtilities.ReadOpaque16( input ), false );
+            MemoryStream input1 = new( TlsUtilities.ReadOpaque16( input ), false );
             while (input1.Position < input1.Length)
             {
                 Asn1Object asn1Object = TlsUtilities.ReadDerObject( TlsUtilities.ReadOpaque16( input1 ) );

@@ -13,14 +13,13 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509.Extension;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.X509
 {
     public class X509V3CertificateGenerator
     {
-        private readonly X509ExtensionsGenerator extGenerator = new X509ExtensionsGenerator();
+        private readonly X509ExtensionsGenerator extGenerator = new();
         private V3TbsCertificateGenerator tbsGen;
         private DerObjectIdentifier sigOid;
         private AlgorithmIdentifier sigAlgId;

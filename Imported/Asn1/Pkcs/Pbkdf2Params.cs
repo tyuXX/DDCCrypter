@@ -7,13 +7,12 @@
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Pkcs
 {
     public class Pbkdf2Params : Asn1Encodable
     {
-        private static AlgorithmIdentifier algid_hmacWithSHA1 = new AlgorithmIdentifier( PkcsObjectIdentifiers.IdHmacWithSha1, DerNull.Instance );
+        private static AlgorithmIdentifier algid_hmacWithSHA1 = new( PkcsObjectIdentifiers.IdHmacWithSha1, DerNull.Instance );
         private readonly Asn1OctetString octStr;
         private readonly DerInteger iterationCount;
         private readonly DerInteger keyLength;
@@ -94,7 +93,7 @@ namespace Org.BouncyCastle.Asn1.Pkcs
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[2]
+            Asn1EncodableVector v = new( new Asn1Encodable[2]
             {
          octStr,
          iterationCount

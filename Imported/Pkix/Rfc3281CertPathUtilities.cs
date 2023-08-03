@@ -11,7 +11,6 @@ using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities.Collections;
 using Org.BouncyCastle.X509;
 using Org.BouncyCastle.X509.Store;
-using System;
 using System.Collections;
 
 namespace Org.BouncyCastle.Pkix
@@ -71,8 +70,8 @@ namespace Org.BouncyCastle.Pkix
                 {
                     throw new PkixCertPathValidatorException( "No additional CRL locations could be decoded from CRL distribution point extension.", ex );
                 }
-                CertStatus certStatus = new CertStatus();
-                ReasonsMask reasonMask = new ReasonsMask();
+                CertStatus certStatus = new();
+                ReasonsMask reasonMask = new();
                 Exception cause = null;
                 bool flag = false;
                 if (instance != null)
@@ -125,7 +124,7 @@ namespace Org.BouncyCastle.Pkix
                             {
                                 throw new Exception( "Issuer from certificate for CRL could not be reencoded.", ex );
                             }
-                            DistributionPoint dp = new DistributionPoint( new DistributionPointName( 0, new GeneralNames( new GeneralName( 4, name ) ) ), null, null );
+                            DistributionPoint dp = new( new DistributionPointName( 0, new GeneralNames( new GeneralName( 4, name ) ) ), null, null );
                             PkixParameters paramsPKIX2 = (PkixParameters)paramsPKIX.Clone();
                             CheckCrl( dp, attrCert, paramsPKIX2, validDate, issuerCert, certStatus, reasonMask, certPathCerts );
                             flag = true;
@@ -209,7 +208,7 @@ namespace Org.BouncyCastle.Pkix
           PkixCertPath certPath,
           PkixParameters pkixParams )
         {
-            PkixCertPathValidator certPathValidator = new PkixCertPathValidator();
+            PkixCertPathValidator certPathValidator = new();
             try
             {
                 return certPathValidator.Validate( certPath, pkixParams );
@@ -228,7 +227,7 @@ namespace Org.BouncyCastle.Pkix
             ISet set = new HashSet();
             if (attrCert.Holder.GetIssuer() != null)
             {
-                X509CertStoreSelector certSelect = new X509CertStoreSelector
+                X509CertStoreSelector certSelect = new()
                 {
                     SerialNumber = attrCert.Holder.SerialNumber
                 };
@@ -249,7 +248,7 @@ namespace Org.BouncyCastle.Pkix
             }
             if (attrCert.Holder.GetEntityNames() != null)
             {
-                X509CertStoreSelector certSelect = new X509CertStoreSelector();
+                X509CertStoreSelector certSelect = new();
                 foreach (X509Name entityName in attrCert.Holder.GetEntityNames())
                 {
                     try
@@ -273,7 +272,7 @@ namespace Org.BouncyCastle.Pkix
                 {
                     Certificate = x509Certificate
                 } );
-                PkixCertPathBuilder pkixCertPathBuilder = new PkixCertPathBuilder();
+                PkixCertPathBuilder pkixCertPathBuilder = new();
                 try
                 {
                     pathBuilderResult = pkixCertPathBuilder.Build( PkixBuilderParameters.GetInstance( instance ) );

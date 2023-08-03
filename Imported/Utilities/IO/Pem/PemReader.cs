@@ -5,10 +5,8 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Utilities.Encoders;
-using System;
 using System.Collections;
 using System.IO;
-using System.Text;
 
 namespace Org.BouncyCastle.Utilities.IO.Pem
 {
@@ -40,7 +38,7 @@ namespace Org.BouncyCastle.Utilities.IO.Pem
         {
             string str1 = "-----END " + type;
             IList arrayList = Platform.CreateArrayList();
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             string source;
             while ((source = this.reader.ReadLine()) != null && Platform.IndexOf( source, str1 ) == -1)
             {

@@ -10,8 +10,6 @@ using Org.BouncyCastle.Crypto.Utilities;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
-using System;
-using System.Text;
 
 namespace Org.BouncyCastle.Crypto.Agreement.JPake
 {
@@ -24,7 +22,7 @@ namespace Org.BouncyCastle.Crypto.Agreement.JPake
 
         public static BigInteger GenerateX2( BigInteger q, SecureRandom random ) => BigIntegers.CreateRandomInRange( One, q.Subtract( One ), random );
 
-        public static BigInteger CalculateS( char[] password ) => new BigInteger( Encoding.UTF8.GetBytes( password ) );
+        public static BigInteger CalculateS( char[] password ) => new( Encoding.UTF8.GetBytes( password ) );
 
         public static BigInteger CalculateGx( BigInteger p, BigInteger g, BigInteger x ) => g.ModPow( x, p );
 
@@ -146,7 +144,7 @@ namespace Org.BouncyCastle.Crypto.Agreement.JPake
           IDigest digest )
         {
             byte[] macKey = CalculateMacKey( keyingMaterial, digest );
-            HMac hmac = new HMac( digest );
+            HMac hmac = new( digest );
             hmac.Init( new KeyParameter( macKey ) );
             Arrays.Fill( macKey, 0 );
             UpdateMac( hmac, "KC_1_U" );

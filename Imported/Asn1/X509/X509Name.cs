@@ -7,54 +7,52 @@
 using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.Encoders;
-using System;
 using System.Collections;
 using System.IO;
-using System.Text;
 
 namespace Org.BouncyCastle.Asn1.X509
 {
     public class X509Name : Asn1Encodable
     {
-        public static readonly DerObjectIdentifier C = new DerObjectIdentifier( "2.5.4.6" );
-        public static readonly DerObjectIdentifier O = new DerObjectIdentifier( "2.5.4.10" );
-        public static readonly DerObjectIdentifier OU = new DerObjectIdentifier( "2.5.4.11" );
-        public static readonly DerObjectIdentifier T = new DerObjectIdentifier( "2.5.4.12" );
-        public static readonly DerObjectIdentifier CN = new DerObjectIdentifier( "2.5.4.3" );
-        public static readonly DerObjectIdentifier Street = new DerObjectIdentifier( "2.5.4.9" );
-        public static readonly DerObjectIdentifier SerialNumber = new DerObjectIdentifier( "2.5.4.5" );
-        public static readonly DerObjectIdentifier L = new DerObjectIdentifier( "2.5.4.7" );
-        public static readonly DerObjectIdentifier ST = new DerObjectIdentifier( "2.5.4.8" );
-        public static readonly DerObjectIdentifier Surname = new DerObjectIdentifier( "2.5.4.4" );
-        public static readonly DerObjectIdentifier GivenName = new DerObjectIdentifier( "2.5.4.42" );
-        public static readonly DerObjectIdentifier Initials = new DerObjectIdentifier( "2.5.4.43" );
-        public static readonly DerObjectIdentifier Generation = new DerObjectIdentifier( "2.5.4.44" );
-        public static readonly DerObjectIdentifier UniqueIdentifier = new DerObjectIdentifier( "2.5.4.45" );
-        public static readonly DerObjectIdentifier BusinessCategory = new DerObjectIdentifier( "2.5.4.15" );
-        public static readonly DerObjectIdentifier PostalCode = new DerObjectIdentifier( "2.5.4.17" );
-        public static readonly DerObjectIdentifier DnQualifier = new DerObjectIdentifier( "2.5.4.46" );
-        public static readonly DerObjectIdentifier Pseudonym = new DerObjectIdentifier( "2.5.4.65" );
-        public static readonly DerObjectIdentifier DateOfBirth = new DerObjectIdentifier( "1.3.6.1.5.5.7.9.1" );
-        public static readonly DerObjectIdentifier PlaceOfBirth = new DerObjectIdentifier( "1.3.6.1.5.5.7.9.2" );
-        public static readonly DerObjectIdentifier Gender = new DerObjectIdentifier( "1.3.6.1.5.5.7.9.3" );
-        public static readonly DerObjectIdentifier CountryOfCitizenship = new DerObjectIdentifier( "1.3.6.1.5.5.7.9.4" );
-        public static readonly DerObjectIdentifier CountryOfResidence = new DerObjectIdentifier( "1.3.6.1.5.5.7.9.5" );
-        public static readonly DerObjectIdentifier NameAtBirth = new DerObjectIdentifier( "1.3.36.8.3.14" );
-        public static readonly DerObjectIdentifier PostalAddress = new DerObjectIdentifier( "2.5.4.16" );
-        public static readonly DerObjectIdentifier DmdName = new DerObjectIdentifier( "2.5.4.54" );
+        public static readonly DerObjectIdentifier C = new( "2.5.4.6" );
+        public static readonly DerObjectIdentifier O = new( "2.5.4.10" );
+        public static readonly DerObjectIdentifier OU = new( "2.5.4.11" );
+        public static readonly DerObjectIdentifier T = new( "2.5.4.12" );
+        public static readonly DerObjectIdentifier CN = new( "2.5.4.3" );
+        public static readonly DerObjectIdentifier Street = new( "2.5.4.9" );
+        public static readonly DerObjectIdentifier SerialNumber = new( "2.5.4.5" );
+        public static readonly DerObjectIdentifier L = new( "2.5.4.7" );
+        public static readonly DerObjectIdentifier ST = new( "2.5.4.8" );
+        public static readonly DerObjectIdentifier Surname = new( "2.5.4.4" );
+        public static readonly DerObjectIdentifier GivenName = new( "2.5.4.42" );
+        public static readonly DerObjectIdentifier Initials = new( "2.5.4.43" );
+        public static readonly DerObjectIdentifier Generation = new( "2.5.4.44" );
+        public static readonly DerObjectIdentifier UniqueIdentifier = new( "2.5.4.45" );
+        public static readonly DerObjectIdentifier BusinessCategory = new( "2.5.4.15" );
+        public static readonly DerObjectIdentifier PostalCode = new( "2.5.4.17" );
+        public static readonly DerObjectIdentifier DnQualifier = new( "2.5.4.46" );
+        public static readonly DerObjectIdentifier Pseudonym = new( "2.5.4.65" );
+        public static readonly DerObjectIdentifier DateOfBirth = new( "1.3.6.1.5.5.7.9.1" );
+        public static readonly DerObjectIdentifier PlaceOfBirth = new( "1.3.6.1.5.5.7.9.2" );
+        public static readonly DerObjectIdentifier Gender = new( "1.3.6.1.5.5.7.9.3" );
+        public static readonly DerObjectIdentifier CountryOfCitizenship = new( "1.3.6.1.5.5.7.9.4" );
+        public static readonly DerObjectIdentifier CountryOfResidence = new( "1.3.6.1.5.5.7.9.5" );
+        public static readonly DerObjectIdentifier NameAtBirth = new( "1.3.36.8.3.14" );
+        public static readonly DerObjectIdentifier PostalAddress = new( "2.5.4.16" );
+        public static readonly DerObjectIdentifier DmdName = new( "2.5.4.54" );
         public static readonly DerObjectIdentifier TelephoneNumber = X509ObjectIdentifiers.id_at_telephoneNumber;
         public static readonly DerObjectIdentifier Name = X509ObjectIdentifiers.id_at_name;
         public static readonly DerObjectIdentifier EmailAddress = PkcsObjectIdentifiers.Pkcs9AtEmailAddress;
         public static readonly DerObjectIdentifier UnstructuredName = PkcsObjectIdentifiers.Pkcs9AtUnstructuredName;
         public static readonly DerObjectIdentifier UnstructuredAddress = PkcsObjectIdentifiers.Pkcs9AtUnstructuredAddress;
         public static readonly DerObjectIdentifier E = EmailAddress;
-        public static readonly DerObjectIdentifier DC = new DerObjectIdentifier( "0.9.2342.19200300.100.1.25" );
-        public static readonly DerObjectIdentifier UID = new DerObjectIdentifier( "0.9.2342.19200300.100.1.1" );
+        public static readonly DerObjectIdentifier DC = new( "0.9.2342.19200300.100.1.25" );
+        public static readonly DerObjectIdentifier UID = new( "0.9.2342.19200300.100.1.1" );
         private static readonly bool[] defaultReverse = new bool[1];
-        public static readonly Hashtable DefaultSymbols = new Hashtable();
-        public static readonly Hashtable RFC2253Symbols = new Hashtable();
-        public static readonly Hashtable RFC1779Symbols = new Hashtable();
-        public static readonly Hashtable DefaultLookup = new Hashtable();
+        public static readonly Hashtable DefaultSymbols = new();
+        public static readonly Hashtable RFC2253Symbols = new();
+        public static readonly Hashtable RFC1779Symbols = new();
+        public static readonly Hashtable DefaultLookup = new();
         private readonly IList ordering = Platform.CreateArrayList();
         private readonly X509NameEntryConverter converter;
         private IList values = Platform.CreateArrayList();
@@ -274,7 +272,7 @@ namespace Org.BouncyCastle.Asn1.X509
           X509NameEntryConverter converter )
         {
             this.converter = converter;
-            X509NameTokenizer x509NameTokenizer1 = new X509NameTokenizer( dirName );
+            X509NameTokenizer x509NameTokenizer1 = new( dirName );
             while (x509NameTokenizer1.HasMoreTokens())
             {
                 string str1 = x509NameTokenizer1.NextToken();
@@ -284,7 +282,7 @@ namespace Org.BouncyCastle.Asn1.X509
                 DerObjectIdentifier objectIdentifier = this.DecodeOid( name1, lookUp );
                 if (oid.IndexOf( '+' ) > 0)
                 {
-                    X509NameTokenizer x509NameTokenizer2 = new X509NameTokenizer( oid, '+' );
+                    X509NameTokenizer x509NameTokenizer2 = new( oid, '+' );
                     string str2 = x509NameTokenizer2.NextToken();
                     this.ordering.Add( objectIdentifier );
                     this.values.Add( str2 );
@@ -351,8 +349,8 @@ namespace Org.BouncyCastle.Asn1.X509
         {
             if (this.seq == null)
             {
-                Asn1EncodableVector v1 = new Asn1EncodableVector( new Asn1Encodable[0] );
-                Asn1EncodableVector v2 = new Asn1EncodableVector( new Asn1Encodable[0] );
+                Asn1EncodableVector v1 = new( new Asn1Encodable[0] );
+                Asn1EncodableVector v2 = new( new Asn1Encodable[0] );
                 DerObjectIdentifier objectIdentifier = null;
                 for (int index = 0; index != this.ordering.Count; ++index)
                 {
@@ -481,7 +479,7 @@ namespace Org.BouncyCastle.Asn1.X509
 
         private static string stripInternalSpaces( string str )
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             if (str.Length != 0)
             {
                 char ch1 = str[0];
@@ -526,7 +524,7 @@ namespace Org.BouncyCastle.Asn1.X509
 
         public string ToString( bool reverse, IDictionary oidSymbols )
         {
-            ArrayList arrayList = new ArrayList();
+            ArrayList arrayList = new();
             StringBuilder buf = null;
             for (int index = 0; index < this.ordering.Count; ++index)
             {
@@ -544,7 +542,7 @@ namespace Org.BouncyCastle.Asn1.X509
             }
             if (reverse)
                 arrayList.Reverse();
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             if (arrayList.Count > 0)
             {
                 stringBuilder.Append( arrayList[0].ToString() );

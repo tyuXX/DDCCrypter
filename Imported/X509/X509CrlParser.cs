@@ -10,7 +10,6 @@ using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Security.Certificates;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.Utilities.IO;
-using System;
 using System.Collections;
 using System.IO;
 
@@ -18,7 +17,7 @@ namespace Org.BouncyCastle.X509
 {
     public class X509CrlParser
     {
-        private static readonly PemParser PemCrlParser = new PemParser( "CRL" );
+        private static readonly PemParser PemCrlParser = new( "CRL" );
         private readonly bool lazyAsn1;
         private Asn1Set sCrlData;
         private int sCrlDataObjectCount;
@@ -48,7 +47,7 @@ namespace Org.BouncyCastle.X509
 
         private X509Crl GetCrl() => this.sCrlData == null || this.sCrlDataObjectCount >= this.sCrlData.Count ? null : this.CreateX509Crl( CertificateList.GetInstance( this.sCrlData[this.sCrlDataObjectCount++] ) );
 
-        protected virtual X509Crl CreateX509Crl( CertificateList c ) => new X509Crl( c );
+        protected virtual X509Crl CreateX509Crl( CertificateList c ) => new( c );
 
         public X509Crl ReadCrl( byte[] input ) => this.ReadCrl( new MemoryStream( input, false ) );
 
@@ -82,7 +81,7 @@ namespace Org.BouncyCastle.X509
                     this.sCrlDataObjectCount = 0;
                     return null;
                 }
-                PushbackStream pushbackStream = new PushbackStream( inStream );
+                PushbackStream pushbackStream = new( inStream );
                 int b = pushbackStream.ReadByte();
                 if (b < 0)
                     return null;

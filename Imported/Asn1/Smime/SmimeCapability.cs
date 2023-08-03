@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Asn1.Pkcs;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Smime
 {
@@ -14,7 +13,7 @@ namespace Org.BouncyCastle.Asn1.Smime
         public static readonly DerObjectIdentifier PreferSignedData = PkcsObjectIdentifiers.PreferSignedData;
         public static readonly DerObjectIdentifier CannotDecryptAny = PkcsObjectIdentifiers.CannotDecryptAny;
         public static readonly DerObjectIdentifier SmimeCapabilitiesVersions = PkcsObjectIdentifiers.SmimeCapabilitiesVersions;
-        public static readonly DerObjectIdentifier DesCbc = new DerObjectIdentifier( "1.3.14.3.2.7" );
+        public static readonly DerObjectIdentifier DesCbc = new( "1.3.14.3.2.7" );
         public static readonly DerObjectIdentifier DesEde3Cbc = PkcsObjectIdentifiers.DesEde3Cbc;
         public static readonly DerObjectIdentifier RC2Cbc = PkcsObjectIdentifiers.RC2Cbc;
         private DerObjectIdentifier capabilityID;
@@ -56,7 +55,7 @@ namespace Org.BouncyCastle.Asn1.Smime
 
         public override Asn1Object ToAsn1Object()
         {
-            Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[1]
+            Asn1EncodableVector v = new( new Asn1Encodable[1]
             {
          capabilityID
             } );

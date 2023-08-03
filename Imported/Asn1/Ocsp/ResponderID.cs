@@ -5,7 +5,6 @@
 // Assembly location: C:\Users\MÜRVET YÜZDEN ŞEN\Downloads\BouncyCastle.Crypto.dll
 
 using Org.BouncyCastle.Asn1.X509;
-using System;
 
 namespace Org.BouncyCastle.Asn1.Ocsp
 {
