@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -3174,7 +3175,7 @@ public abstract class Primes
     private static readonly BigInteger Two = BigInteger.Two;
     private static readonly BigInteger Three = BigInteger.Three;
 
-    public static Primes.STOutput GenerateSTRandomPrime( IDigest hash, int length, byte[] inputSeed )
+    public static STOutput GenerateSTRandomPrime( IDigest hash, int length, byte[] inputSeed )
     {
         if (hash == null)
             throw new ArgumentNullException( nameof( hash ) );
@@ -3187,7 +3188,7 @@ public abstract class Primes
         return ImplSTRandomPrime( hash, length, Arrays.Clone( inputSeed ) );
     }
 
-    public static Primes.MROutput EnhancedMRProbablePrimeTest(
+    public static MROutput EnhancedMRProbablePrimeTest(
       BigInteger candidate,
       SecureRandom random,
       int iterations )
@@ -3367,7 +3368,7 @@ public abstract class Primes
         return flag;
     }
 
-    private static Primes.STOutput ImplSTRandomPrime( IDigest d, int length, byte[] primeSeed )
+    private static STOutput ImplSTRandomPrime( IDigest d, int length, byte[] primeSeed )
     {
         int digestSize = d.GetDigestSize();
         if (length < 33)
@@ -3384,12 +3385,12 @@ public abstract class Primes
                 uint x = ((Extract32( numArray1 ) ^ Extract32( numArray2 )) & (uint.MaxValue >> (32 - length))) | (uint)((1 << (length - 1)) | 1);
                 ++primeGenCounter;
                 if (IsPrime32( x ))
-                    return new Primes.STOutput( BigInteger.ValueOf( x ), primeSeed, primeGenCounter );
+                    return new STOutput( BigInteger.ValueOf( x ), primeSeed, primeGenCounter );
             }
             while (primeGenCounter <= 4 * length);
             throw new InvalidOperationException( "Too many iterations in Shawe-Taylor Random_Prime Routine" );
         }
-        Primes.STOutput stOutput = ImplSTRandomPrime( d, (length + 3) / 2, primeSeed );
+        STOutput stOutput = ImplSTRandomPrime( d, (length + 3) / 2, primeSeed );
         BigInteger prime = stOutput.Prime;
         primeSeed = stOutput.PrimeSeed;
         int primeGenCounter1 = stOutput.PrimeGenCounter;
@@ -3428,7 +3429,7 @@ public abstract class Primes
             else
                 goto label_14;
         }
-        return new Primes.STOutput( bigInteger2, primeSeed, primeGenCounter1 );
+        return new STOutput( bigInteger2, primeSeed, primeGenCounter1 );
     label_14:
         throw new InvalidOperationException( "Too many iterations in Shawe-Taylor Random_Prime Routine" );
     }
@@ -3525,11 +3526,11 @@ public abstract class Primes
         private readonly bool mProvablyComposite;
         private readonly BigInteger mFactor;
 
-        internal static Primes.MROutput ProbablyPrime() => new Primes.MROutput( false, null );
+        internal static MROutput ProbablyPrime() => new MROutput( false, null );
 
-        internal static Primes.MROutput ProvablyCompositeWithFactor( BigInteger factor ) => new Primes.MROutput( true, factor );
+        internal static MROutput ProvablyCompositeWithFactor( BigInteger factor ) => new MROutput( true, factor );
 
-        internal static Primes.MROutput ProvablyCompositeNotPrimePower() => new Primes.MROutput( true, null );
+        internal static MROutput ProvablyCompositeNotPrimePower() => new MROutput( true, null );
 
         private MROutput( bool provablyComposite, BigInteger factor )
         {
@@ -4091,7 +4092,7 @@ public sealed class DigestUtilities
 
     static DigestUtilities()
     {
-        ((DigestUtilities.DigestAlgorithm)Enums.GetArbitraryValue( typeof( DigestUtilities.DigestAlgorithm ) )).ToString();
+        ((DigestAlgorithm)Enums.GetArbitraryValue( typeof( DigestAlgorithm ) )).ToString();
         algorithms[PkcsObjectIdentifiers.MD2.Id] = "MD2";
         algorithms[PkcsObjectIdentifiers.MD4.Id] = "MD4";
         algorithms[PkcsObjectIdentifiers.MD5.Id] = "MD5";
@@ -4164,7 +4165,7 @@ public sealed class DigestUtilities
         string s = (string)algorithms[upperInvariant] ?? upperInvariant;
         try
         {
-            switch ((DigestUtilities.DigestAlgorithm)Enums.GetEnumValue( typeof( DigestUtilities.DigestAlgorithm ), s ))
+            switch ((DigestAlgorithm)Enums.GetEnumValue( typeof( DigestAlgorithm ), s ))
             {
                 case DigestAlgorithm.GOST3411:
                     return new Gost3411Digest();
@@ -8593,9 +8594,9 @@ public class SkeinEngine : IMemoable
     private ulong[] chain;
     private ulong[] initialState;
     private byte[] key;
-    private SkeinEngine.Parameter[] preMessageParameters;
-    private SkeinEngine.Parameter[] postMessageParameters;
-    private readonly SkeinEngine.UBI ubi;
+    private Parameter[] preMessageParameters;
+    private Parameter[] postMessageParameters;
+    private readonly UBI ubi;
     private readonly byte[] singleByte = new byte[1];
 
     static SkeinEngine()
@@ -8695,7 +8696,7 @@ public class SkeinEngine : IMemoable
             throw new ArgumentException( "Output size must be a multiple of 8 bits. :" + outputSizeBits );
         outputSizeBytes = outputSizeBits / 8;
         threefish = new ThreefishEngine( blockSizeBits );
-        ubi = new SkeinEngine.UBI( this, threefish.GetBlockSize() );
+        ubi = new UBI( this, threefish.GetBlockSize() );
     }
 
     public SkeinEngine( SkeinEngine engine )
@@ -8714,14 +8715,14 @@ public class SkeinEngine : IMemoable
         postMessageParameters = Clone( engine.postMessageParameters, postMessageParameters );
     }
 
-    private static SkeinEngine.Parameter[] Clone(
-      SkeinEngine.Parameter[] data,
-      SkeinEngine.Parameter[] existing )
+    private static Parameter[] Clone(
+      Parameter[] data,
+      Parameter[] existing )
     {
         if (data == null)
             return null;
         if (existing == null || existing.Length != data.Length)
-            existing = new SkeinEngine.Parameter[data.Length];
+            existing = new Parameter[data.Length];
         Array.Copy( data, 0, existing, 0, existing.Length );
         return existing;
     }
@@ -8768,14 +8769,14 @@ public class SkeinEngine : IMemoable
             if (current == 0)
                 key = parameter;
             else if (current < 48)
-                arrayList1.Add( new SkeinEngine.Parameter( current, parameter ) );
+                arrayList1.Add( new Parameter( current, parameter ) );
             else
-                arrayList2.Add( new SkeinEngine.Parameter( current, parameter ) );
+                arrayList2.Add( new Parameter( current, parameter ) );
         }
-        preMessageParameters = new SkeinEngine.Parameter[arrayList1.Count];
+        preMessageParameters = new Parameter[arrayList1.Count];
         arrayList1.CopyTo( preMessageParameters, 0 );
         Array.Sort( (Array)preMessageParameters );
-        postMessageParameters = new SkeinEngine.Parameter[arrayList2.Count];
+        postMessageParameters = new Parameter[arrayList2.Count];
         arrayList2.CopyTo( postMessageParameters, 0 );
         Array.Sort( (Array)postMessageParameters );
     }
@@ -8792,13 +8793,13 @@ public class SkeinEngine : IMemoable
             chain = new ulong[BlockSize / 8];
             if (key != null)
                 UbiComplete( 0, key );
-            UbiComplete( 4, new SkeinEngine.Configuration( outputSizeBytes * 8 ).Bytes );
+            UbiComplete( 4, new Configuration( outputSizeBytes * 8 ).Bytes );
         }
         if (preMessageParameters != null)
         {
             for (int index = 0; index < preMessageParameters.Length; ++index)
             {
-                SkeinEngine.Parameter messageParameter = preMessageParameters[index];
+                Parameter messageParameter = preMessageParameters[index];
                 UbiComplete( messageParameter.Type, messageParameter.Value );
             }
         }
@@ -8850,7 +8851,7 @@ public class SkeinEngine : IMemoable
         {
             for (int index = 0; index < postMessageParameters.Length; ++index)
             {
-                SkeinEngine.Parameter messageParameter = postMessageParameters[index];
+                Parameter messageParameter = postMessageParameters[index];
                 UbiComplete( messageParameter.Type, messageParameter.Value );
             }
         }
@@ -8933,7 +8934,7 @@ public class SkeinEngine : IMemoable
 
         public UbiTweak() => Reset();
 
-        public void Reset( SkeinEngine.UbiTweak tweak )
+        public void Reset( UbiTweak tweak )
         {
             this.tweak = Arrays.Clone( tweak.tweak, this.tweak );
             extendedPosition = tweak.extendedPosition;
@@ -9026,7 +9027,7 @@ public class SkeinEngine : IMemoable
 
     private class UBI
     {
-        private readonly SkeinEngine.UbiTweak tweak = new SkeinEngine.UbiTweak();
+        private readonly UbiTweak tweak = new UbiTweak();
         private readonly SkeinEngine engine;
         private byte[] currentBlock;
         private int currentOffset;
@@ -9039,7 +9040,7 @@ public class SkeinEngine : IMemoable
             message = new ulong[currentBlock.Length / 8];
         }
 
-        public void Reset( SkeinEngine.UBI ubi )
+        public void Reset( UBI ubi )
         {
             currentBlock = Arrays.Clone( ubi.currentBlock, currentBlock );
             currentOffset = ubi.currentOffset;
@@ -9316,7 +9317,7 @@ public class ThreefishEngine : IBlockCipher
     private readonly ulong[] currentBlock;
     private readonly ulong[] t = new ulong[5];
     private readonly ulong[] kw;
-    private readonly ThreefishEngine.ThreefishCipher cipher;
+    private readonly ThreefishCipher cipher;
     private bool forEncryption;
 
     static ThreefishEngine()
@@ -9339,13 +9340,13 @@ public class ThreefishEngine : IBlockCipher
         switch (blocksizeBits)
         {
             case 256:
-                cipher = new ThreefishEngine.Threefish256Cipher( kw, t );
+                cipher = new Threefish256Cipher( kw, t );
                 break;
             case 512:
-                cipher = new ThreefishEngine.Threefish512Cipher( kw, t );
+                cipher = new Threefish512Cipher( kw, t );
                 break;
             case 1024:
-                cipher = new ThreefishEngine.Threefish1024Cipher( kw, t );
+                cipher = new Threefish1024Cipher( kw, t );
                 break;
             default:
                 throw new ArgumentException( "Invalid blocksize - Threefish is defined with block size of 256, 512, or 1024 bits" );
@@ -9578,7 +9579,7 @@ public class ThreefishEngine : IBlockCipher
         internal abstract void DecryptBlock( ulong[] block, ulong[] outWords );
     }
 
-    private sealed class Threefish256Cipher : ThreefishEngine.ThreefishCipher
+    private sealed class Threefish256Cipher : ThreefishCipher
     {
         private const int ROTATION_0_0 = 14;
         private const int ROTATION_0_1 = 16;
@@ -9739,7 +9740,7 @@ public class ThreefishEngine : IBlockCipher
         }
     }
 
-    private sealed class Threefish512Cipher : ThreefishEngine.ThreefishCipher
+    private sealed class Threefish512Cipher : ThreefishCipher
     {
         private const int ROTATION_0_0 = 46;
         private const int ROTATION_0_1 = 36;
@@ -10022,7 +10023,7 @@ public class ThreefishEngine : IBlockCipher
         }
     }
 
-    private sealed class Threefish1024Cipher : ThreefishEngine.ThreefishCipher
+    private sealed class Threefish1024Cipher : ThreefishCipher
     {
         private const int ROTATION_0_0 = 24;
         private const int ROTATION_0_1 = 13;
@@ -15393,4 +15394,792 @@ public interface IBlockCipher
     int ProcessBlock( byte[] inBuf, int inOff, byte[] outBuf, int outOff );
 
     void Reset();
+}
+public interface IXof : IDigest
+{
+    int DoFinal( byte[] output, int outOff, int outLen );
+}
+public class SkeinParameters : ICipherParameters
+{
+    public const int PARAM_TYPE_KEY = 0;
+    public const int PARAM_TYPE_CONFIG = 4;
+    public const int PARAM_TYPE_PERSONALISATION = 8;
+    public const int PARAM_TYPE_PUBLIC_KEY = 12;
+    public const int PARAM_TYPE_KEY_IDENTIFIER = 16;
+    public const int PARAM_TYPE_NONCE = 20;
+    public const int PARAM_TYPE_MESSAGE = 48;
+    public const int PARAM_TYPE_OUTPUT = 63;
+    private IDictionary parameters;
+
+    public SkeinParameters()
+      : this( Platform.CreateHashtable() )
+    {
+    }
+
+    private SkeinParameters( IDictionary parameters ) => this.parameters = parameters;
+
+    public IDictionary GetParameters() => this.parameters;
+
+    public byte[] GetKey() => (byte[])this.parameters[0];
+
+    public byte[] GetPersonalisation() => (byte[])this.parameters[8];
+
+    public byte[] GetPublicKey() => (byte[])this.parameters[12];
+
+    public byte[] GetKeyIdentifier() => (byte[])this.parameters[16];
+
+    public byte[] GetNonce() => (byte[])this.parameters[20];
+
+    public class Builder
+    {
+        private IDictionary parameters = Platform.CreateHashtable();
+
+        public Builder()
+        {
+        }
+
+        public Builder( IDictionary paramsMap )
+        {
+            foreach (int key in (IEnumerable)paramsMap.Keys)
+                this.parameters.Add( key, paramsMap[key] );
+        }
+
+        public Builder( SkeinParameters parameters )
+        {
+            foreach (int key in (IEnumerable)parameters.parameters.Keys)
+                this.parameters.Add( key, parameters.parameters[key] );
+        }
+
+        public Builder Set( int type, byte[] value )
+        {
+            if (value == null)
+                throw new ArgumentException( "Parameter value must not be null." );
+            if (type != 0 && (type <= 4 || type >= 63 || type == 48))
+                throw new ArgumentException( "Parameter types must be in the range 0,5..47,49..62." );
+            if (type == 4)
+                throw new ArgumentException( "Parameter type " + 4 + " is reserved for internal use." );
+            this.parameters.Add( type, value );
+            return this;
+        }
+
+        public Builder SetKey( byte[] key ) => this.Set( 0, key );
+
+        public Builder SetPersonalisation( byte[] personalisation ) => this.Set( 8, personalisation );
+
+        public Builder SetPersonalisation(
+          DateTime date,
+          string emailAddress,
+          string distinguisher )
+        {
+            try
+            {
+                MemoryStream memoryStream = new MemoryStream();
+                StreamWriter t = new StreamWriter( memoryStream, Encoding.UTF8 );
+                t.Write( date.ToString( "YYYYMMDD", CultureInfo.InvariantCulture ) );
+                t.Write( " " );
+                t.Write( emailAddress );
+                t.Write( " " );
+                t.Write( distinguisher );
+                Platform.Dispose( t );
+                return this.Set( 8, memoryStream.ToArray() );
+            }
+            catch (IOException ex)
+            {
+                throw new InvalidOperationException( "Byte I/O failed.", ex );
+            }
+        }
+
+        public Builder SetPublicKey( byte[] publicKey ) => this.Set( 12, publicKey );
+
+        public Builder SetKeyIdentifier( byte[] keyIdentifier ) => this.Set( 16, keyIdentifier );
+
+        public Builder SetNonce( byte[] nonce ) => this.Set( 20, nonce );
+
+        public SkeinParameters Build() => new SkeinParameters( this.parameters );
+    }
+}
+internal class Check
+{
+    internal static void DataLength( bool condition, string msg )
+    {
+        if (condition)
+            throw new DataLengthException( msg );
+    }
+
+    internal static void DataLength( byte[] buf, int off, int len, string msg )
+    {
+        if (off + len > buf.Length)
+            throw new DataLengthException( msg );
+    }
+
+    internal static void OutputLength( byte[] buf, int off, int len, string msg )
+    {
+        if (off + len > buf.Length)
+            throw new OutputLengthException( msg );
+    }
+}
+[Serializable]
+public class OutputLengthException : DataLengthException
+{
+    public OutputLengthException()
+    {
+    }
+
+    public OutputLengthException( string message )
+      : base( message )
+    {
+    }
+
+    public OutputLengthException( string message, Exception exception )
+      : base( message, exception )
+    {
+    }
+}
+public abstract class Asn1Sequence : Asn1Object, IEnumerable
+{
+    private readonly IList seq;
+
+    public static Asn1Sequence GetInstance( object obj )
+    {
+        switch (obj)
+        {
+            case null:
+            case Asn1Sequence _:
+                return (Asn1Sequence)obj;
+            case Asn1SequenceParser _:
+                return GetInstance( ((IAsn1Convertible)obj).ToAsn1Object() );
+            case byte[] _:
+                try
+                {
+                    return GetInstance( FromByteArray( (byte[])obj ) );
+                }
+                catch (IOException ex)
+                {
+                    throw new ArgumentException( "failed to construct sequence from byte[]: " + ex.Message );
+                }
+            case Asn1Encodable _:
+                Asn1Object asn1Object = ((Asn1Encodable)obj).ToAsn1Object();
+                if (asn1Object is Asn1Sequence)
+                    return (Asn1Sequence)asn1Object;
+                break;
+        }
+        throw new ArgumentException( "Unknown object in GetInstance: " + Platform.GetTypeName( obj ), nameof( obj ) );
+    }
+
+    public static Asn1Sequence GetInstance( Asn1TaggedObject obj, bool explicitly )
+    {
+        Asn1Object instance = obj.GetObject();
+        if (explicitly)
+        {
+            if (!obj.IsExplicit())
+                throw new ArgumentException( "object implicit - explicit expected." );
+            return (Asn1Sequence)instance;
+        }
+        if (obj.IsExplicit())
+            return obj is BerTaggedObject ? new BerSequence( instance ) : (Asn1Sequence)new DerSequence( instance );
+        return instance is Asn1Sequence ? (Asn1Sequence)instance : throw new ArgumentException( "Unknown object in GetInstance: " + Platform.GetTypeName( obj ), nameof( obj ) );
+    }
+
+    protected internal Asn1Sequence( int capacity ) => this.seq = Platform.CreateArrayList( capacity );
+
+    public virtual IEnumerator GetEnumerator() => this.seq.GetEnumerator();
+
+    [Obsolete( "Use GetEnumerator() instead" )]
+    public IEnumerator GetObjects() => this.GetEnumerator();
+
+    public virtual Asn1SequenceParser Parser => new Asn1Sequence.Asn1SequenceParserImpl( this );
+
+    public virtual Asn1Encodable this[int index] => (Asn1Encodable)this.seq[index];
+
+    [Obsolete( "Use 'object[index]' syntax instead" )]
+    public Asn1Encodable GetObjectAt( int index ) => this[index];
+
+    [Obsolete( "Use 'Count' property instead" )]
+    public int Size => this.Count;
+
+    public virtual int Count => this.seq.Count;
+
+    protected override int Asn1GetHashCode()
+    {
+        int count = this.Count;
+        foreach (object obj in this)
+        {
+            count *= 17;
+            if (obj == null)
+                count ^= DerNull.Instance.GetHashCode();
+            else
+                count ^= obj.GetHashCode();
+        }
+        return count;
+    }
+
+    protected override bool Asn1Equals( Asn1Object asn1Object )
+    {
+        if (!(asn1Object is Asn1Sequence asn1Sequence) || this.Count != asn1Sequence.Count)
+            return false;
+        IEnumerator enumerator1 = this.GetEnumerator();
+        IEnumerator enumerator2 = asn1Sequence.GetEnumerator();
+        while (enumerator1.MoveNext() && enumerator2.MoveNext())
+        {
+            if (!this.GetCurrent( enumerator1 ).ToAsn1Object().Equals( this.GetCurrent( enumerator2 ).ToAsn1Object() ))
+                return false;
+        }
+        return true;
+    }
+
+    private Asn1Encodable GetCurrent( IEnumerator e ) => (Asn1Encodable)e.Current ?? DerNull.Instance;
+
+    protected internal void AddObject( Asn1Encodable obj ) => this.seq.Add( obj );
+
+    public override string ToString() => CollectionUtilities.ToString( seq );
+
+    private class Asn1SequenceParserImpl : Asn1SequenceParser, IAsn1Convertible
+    {
+        private readonly Asn1Sequence outer;
+        private readonly int max;
+        private int index;
+
+        public Asn1SequenceParserImpl( Asn1Sequence outer )
+        {
+            this.outer = outer;
+            this.max = outer.Count;
+        }
+
+        public IAsn1Convertible ReadObject()
+        {
+            if (this.index == this.max)
+                return null;
+            Asn1Encodable asn1Encodable = this.outer[this.index++];
+            switch (asn1Encodable)
+            {
+                case Asn1Sequence _:
+                    return ((Asn1Sequence)asn1Encodable).Parser;
+                case Asn1Set _:
+                    return ((Asn1Set)asn1Encodable).Parser;
+                default:
+                    return asn1Encodable;
+            }
+        }
+
+        public Asn1Object ToAsn1Object() => outer;
+    }
+}
+public interface Asn1SequenceParser : IAsn1Convertible
+{
+    IAsn1Convertible ReadObject();
+}
+public abstract class Asn1Set : Asn1Object, IEnumerable
+{
+    private readonly IList _set;
+
+    public static Asn1Set GetInstance( object obj )
+    {
+        switch (obj)
+        {
+            case null:
+            case Asn1Set _:
+                return (Asn1Set)obj;
+            case Asn1SetParser _:
+                return GetInstance( ((IAsn1Convertible)obj).ToAsn1Object() );
+            case byte[] _:
+                try
+                {
+                    return GetInstance( FromByteArray( (byte[])obj ) );
+                }
+                catch (IOException ex)
+                {
+                    throw new ArgumentException( "failed to construct set from byte[]: " + ex.Message );
+                }
+            case Asn1Encodable _:
+                Asn1Object asn1Object = ((Asn1Encodable)obj).ToAsn1Object();
+                if (asn1Object is Asn1Set)
+                    return (Asn1Set)asn1Object;
+                break;
+        }
+        throw new ArgumentException( "Unknown object in GetInstance: " + Platform.GetTypeName( obj ), nameof( obj ) );
+    }
+
+    public static Asn1Set GetInstance( Asn1TaggedObject obj, bool explicitly )
+    {
+        Asn1Object instance = obj.GetObject();
+        if (explicitly)
+        {
+            if (!obj.IsExplicit())
+                throw new ArgumentException( "object implicit - explicit expected." );
+            return (Asn1Set)instance;
+        }
+        if (obj.IsExplicit())
+            return new DerSet( instance );
+        switch (instance)
+        {
+            case Asn1Set _:
+                return (Asn1Set)instance;
+            case Asn1Sequence _:
+                Asn1EncodableVector v = new Asn1EncodableVector( new Asn1Encodable[0] );
+                foreach (Asn1Encodable asn1Encodable in (Asn1Sequence)instance)
+                    v.Add( asn1Encodable );
+                return new DerSet( v, false );
+            default:
+                throw new ArgumentException( "Unknown object in GetInstance: " + Platform.GetTypeName( obj ), nameof( obj ) );
+        }
+    }
+
+    protected internal Asn1Set( int capacity ) => this._set = Platform.CreateArrayList( capacity );
+
+    public virtual IEnumerator GetEnumerator() => this._set.GetEnumerator();
+
+    [Obsolete( "Use GetEnumerator() instead" )]
+    public IEnumerator GetObjects() => this.GetEnumerator();
+
+    public virtual Asn1Encodable this[int index] => (Asn1Encodable)this._set[index];
+
+    [Obsolete( "Use 'object[index]' syntax instead" )]
+    public Asn1Encodable GetObjectAt( int index ) => this[index];
+
+    [Obsolete( "Use 'Count' property instead" )]
+    public int Size => this.Count;
+
+    public virtual int Count => this._set.Count;
+
+    public virtual Asn1Encodable[] ToArray()
+    {
+        Asn1Encodable[] array = new Asn1Encodable[this.Count];
+        for (int index = 0; index < this.Count; ++index)
+            array[index] = this[index];
+        return array;
+    }
+
+    public Asn1SetParser Parser => new Asn1Set.Asn1SetParserImpl( this );
+
+    protected override int Asn1GetHashCode()
+    {
+        int count = this.Count;
+        foreach (object obj in this)
+        {
+            count *= 17;
+            if (obj == null)
+                count ^= DerNull.Instance.GetHashCode();
+            else
+                count ^= obj.GetHashCode();
+        }
+        return count;
+    }
+
+    protected override bool Asn1Equals( Asn1Object asn1Object )
+    {
+        if (!(asn1Object is Asn1Set asn1Set) || this.Count != asn1Set.Count)
+            return false;
+        IEnumerator enumerator1 = this.GetEnumerator();
+        IEnumerator enumerator2 = asn1Set.GetEnumerator();
+        while (enumerator1.MoveNext() && enumerator2.MoveNext())
+        {
+            if (!this.GetCurrent( enumerator1 ).ToAsn1Object().Equals( this.GetCurrent( enumerator2 ).ToAsn1Object() ))
+                return false;
+        }
+        return true;
+    }
+
+    private Asn1Encodable GetCurrent( IEnumerator e ) => (Asn1Encodable)e.Current ?? DerNull.Instance;
+
+    protected internal void Sort()
+    {
+        if (this._set.Count < 2)
+            return;
+        Asn1Encodable[] items = new Asn1Encodable[this._set.Count];
+        byte[][] keys = new byte[this._set.Count][];
+        for (int index = 0; index < this._set.Count; ++index)
+        {
+            Asn1Encodable asn1Encodable = (Asn1Encodable)this._set[index];
+            items[index] = asn1Encodable;
+            keys[index] = asn1Encodable.GetEncoded( "DER" );
+        }
+        Array.Sort( keys, items, new Asn1Set.DerComparer() );
+        for (int index = 0; index < this._set.Count; ++index)
+            this._set[index] = items[index];
+    }
+
+    protected internal void AddObject( Asn1Encodable obj ) => this._set.Add( obj );
+
+    public override string ToString() => CollectionUtilities.ToString( _set );
+
+    private class Asn1SetParserImpl : Asn1SetParser, IAsn1Convertible
+    {
+        private readonly Asn1Set outer;
+        private readonly int max;
+        private int index;
+
+        public Asn1SetParserImpl( Asn1Set outer )
+        {
+            this.outer = outer;
+            this.max = outer.Count;
+        }
+
+        public IAsn1Convertible ReadObject()
+        {
+            if (this.index == this.max)
+                return null;
+            Asn1Encodable asn1Encodable = this.outer[this.index++];
+            switch (asn1Encodable)
+            {
+                case Asn1Sequence _:
+                    return ((Asn1Sequence)asn1Encodable).Parser;
+                case Asn1Set _:
+                    return ((Asn1Set)asn1Encodable).Parser;
+                default:
+                    return asn1Encodable;
+            }
+        }
+
+        public virtual Asn1Object ToAsn1Object() => outer;
+    }
+
+    private class DerComparer : IComparer
+    {
+        public int Compare( object x, object y )
+        {
+            byte[] bs1 = (byte[])x;
+            byte[] bs2 = (byte[])y;
+            int pos = System.Math.Min( bs1.Length, bs2.Length );
+            for (int index = 0; index != pos; ++index)
+            {
+                byte num1 = bs1[index];
+                byte num2 = bs2[index];
+                if (num1 != num2)
+                    return num1 >= num2 ? 1 : -1;
+            }
+            return bs1.Length > bs2.Length ? (!this.AllZeroesFrom( bs1, pos ) ? 1 : 0) : (bs1.Length < bs2.Length && !this.AllZeroesFrom( bs2, pos ) ? -1 : 0);
+        }
+
+        private bool AllZeroesFrom( byte[] bs, int pos )
+        {
+            while (pos < bs.Length)
+            {
+                if (bs[pos++] != 0)
+                    return false;
+            }
+            return true;
+        }
+    }
+}
+public interface Asn1SetParser : IAsn1Convertible
+{
+    IAsn1Convertible ReadObject();
+}
+public abstract class Asn1Null : Asn1Object
+{
+    internal Asn1Null()
+    {
+    }
+
+    public override string ToString() => "NULL";
+}
+public abstract class Asn1Encodable : IAsn1Convertible
+{
+    public const string Der = "DER";
+    public const string Ber = "BER";
+
+    public byte[] GetEncoded()
+    {
+        MemoryStream os = new MemoryStream();
+        new Asn1OutputStream( os ).WriteObject( this );
+        return os.ToArray();
+    }
+
+    public byte[] GetEncoded( string encoding )
+    {
+        if (!encoding.Equals( "DER" ))
+            return this.GetEncoded();
+        MemoryStream os = new MemoryStream();
+        new DerOutputStream( os ).WriteObject( this );
+        return os.ToArray();
+    }
+
+    public byte[] GetDerEncoded()
+    {
+        try
+        {
+            return this.GetEncoded( "DER" );
+        }
+        catch (IOException ex)
+        {
+            return null;
+        }
+    }
+
+    public override sealed int GetHashCode() => this.ToAsn1Object().CallAsn1GetHashCode();
+
+    public override sealed bool Equals( object obj )
+    {
+        if (obj == this)
+            return true;
+        if (!(obj is IAsn1Convertible asn1Convertible))
+            return false;
+        Asn1Object asn1Object1 = this.ToAsn1Object();
+        Asn1Object asn1Object2 = asn1Convertible.ToAsn1Object();
+        return asn1Object1 == asn1Object2 || asn1Object1.CallAsn1Equals( asn1Object2 );
+    }
+
+    public abstract Asn1Object ToAsn1Object();
+}
+public class Asn1EncodableVector : IEnumerable
+{
+    private IList v = Platform.CreateArrayList();
+
+    public static Asn1EncodableVector FromEnumerable( IEnumerable e )
+    {
+        Asn1EncodableVector asn1EncodableVector = new Asn1EncodableVector( new Asn1Encodable[0] );
+        foreach (Asn1Encodable asn1Encodable in e)
+            asn1EncodableVector.Add( asn1Encodable );
+        return asn1EncodableVector;
+    }
+
+    public Asn1EncodableVector( params Asn1Encodable[] v ) => this.Add( v );
+
+    public void Add( params Asn1Encodable[] objs )
+    {
+        foreach (object obj in objs)
+            this.v.Add( obj );
+    }
+
+    public void AddOptional( params Asn1Encodable[] objs )
+    {
+        if (objs == null)
+            return;
+        foreach (Asn1Encodable asn1Encodable in objs)
+        {
+            if (asn1Encodable != null)
+                this.v.Add( asn1Encodable );
+        }
+    }
+
+    public Asn1Encodable this[int index] => (Asn1Encodable)this.v[index];
+
+    [Obsolete( "Use 'object[index]' syntax instead" )]
+    public Asn1Encodable Get( int index ) => this[index];
+
+    [Obsolete( "Use 'Count' property instead" )]
+    public int Size => this.v.Count;
+
+    public int Count => this.v.Count;
+
+    public IEnumerator GetEnumerator() => this.v.GetEnumerator();
+}
+public abstract class CollectionUtilities
+{
+    public static void AddRange( IList to, IEnumerable range )
+    {
+        foreach (object obj in range)
+            to.Add( obj );
+    }
+
+    public static bool CheckElementsAreOfType( IEnumerable e, Type t )
+    {
+        foreach (object o in e)
+        {
+            if (!t.IsInstanceOfType( o ))
+                return false;
+        }
+        return true;
+    }
+
+    public static IDictionary ReadOnly( IDictionary d ) => new UnmodifiableDictionaryProxy( d );
+
+    public static IList ReadOnly( IList l ) => new UnmodifiableListProxy( l );
+
+    public static ISet ReadOnly( ISet s ) => new UnmodifiableSetProxy( s );
+
+    public static string ToString( IEnumerable c )
+    {
+        StringBuilder stringBuilder = new StringBuilder( "[" );
+        IEnumerator enumerator = c.GetEnumerator();
+        if (enumerator.MoveNext())
+        {
+            stringBuilder.Append( enumerator.Current.ToString() );
+            while (enumerator.MoveNext())
+            {
+                stringBuilder.Append( ", " );
+                stringBuilder.Append( enumerator.Current.ToString() );
+            }
+        }
+        stringBuilder.Append( ']' );
+        return stringBuilder.ToString();
+    }
+}
+public class UnmodifiableDictionaryProxy : UnmodifiableDictionary
+{
+    private readonly IDictionary d;
+
+    public UnmodifiableDictionaryProxy( IDictionary d ) => this.d = d;
+
+    public override bool Contains( object k ) => this.d.Contains( k );
+
+    public override void CopyTo( Array array, int index ) => this.d.CopyTo( array, index );
+
+    public override int Count => this.d.Count;
+
+    public override IDictionaryEnumerator GetEnumerator() => this.d.GetEnumerator();
+
+    public override bool IsFixedSize => this.d.IsFixedSize;
+
+    public override bool IsSynchronized => this.d.IsSynchronized;
+
+    public override object SyncRoot => this.d.SyncRoot;
+
+    public override ICollection Keys => this.d.Keys;
+
+    public override ICollection Values => this.d.Values;
+
+    protected override object GetValue( object k ) => this.d[k];
+}
+public abstract class UnmodifiableDictionary : IDictionary, ICollection, IEnumerable
+{
+    public virtual void Add( object k, object v ) => throw new NotSupportedException();
+
+    public virtual void Clear() => throw new NotSupportedException();
+
+    public abstract bool Contains( object k );
+
+    public abstract void CopyTo( Array array, int index );
+
+    public abstract int Count { get; }
+
+    IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+
+    public abstract IDictionaryEnumerator GetEnumerator();
+
+    public virtual void Remove( object k ) => throw new NotSupportedException();
+
+    public abstract bool IsFixedSize { get; }
+
+    public virtual bool IsReadOnly => true;
+
+    public abstract bool IsSynchronized { get; }
+
+    public abstract object SyncRoot { get; }
+
+    public abstract ICollection Keys { get; }
+
+    public abstract ICollection Values { get; }
+
+    public virtual object this[object k]
+    {
+        get => this.GetValue( k );
+        set => throw new NotSupportedException();
+    }
+
+    protected abstract object GetValue( object k );
+}
+public class UnmodifiableListProxy : UnmodifiableList
+{
+    private readonly IList l;
+
+    public UnmodifiableListProxy( IList l ) => this.l = l;
+
+    public override bool Contains( object o ) => this.l.Contains( o );
+
+    public override void CopyTo( Array array, int index ) => this.l.CopyTo( array, index );
+
+    public override int Count => this.l.Count;
+
+    public override IEnumerator GetEnumerator() => this.l.GetEnumerator();
+
+    public override int IndexOf( object o ) => this.l.IndexOf( o );
+
+    public override bool IsFixedSize => this.l.IsFixedSize;
+
+    public override bool IsSynchronized => this.l.IsSynchronized;
+
+    public override object SyncRoot => this.l.SyncRoot;
+
+    protected override object GetValue( int i ) => this.l[i];
+}
+public abstract class UnmodifiableList : IList, ICollection, IEnumerable
+{
+    public virtual int Add( object o ) => throw new NotSupportedException();
+
+    public virtual void Clear() => throw new NotSupportedException();
+
+    public abstract bool Contains( object o );
+
+    public abstract void CopyTo( Array array, int index );
+
+    public abstract int Count { get; }
+
+    public abstract IEnumerator GetEnumerator();
+
+    public abstract int IndexOf( object o );
+
+    public virtual void Insert( int i, object o ) => throw new NotSupportedException();
+
+    public abstract bool IsFixedSize { get; }
+
+    public virtual bool IsReadOnly => true;
+
+    public abstract bool IsSynchronized { get; }
+
+    public virtual void Remove( object o ) => throw new NotSupportedException();
+
+    public virtual void RemoveAt( int i ) => throw new NotSupportedException();
+
+    public abstract object SyncRoot { get; }
+
+    public virtual object this[int i]
+    {
+        get => this.GetValue( i );
+        set => throw new NotSupportedException();
+    }
+
+    protected abstract object GetValue( int i );
+}
+public class UnmodifiableSetProxy : UnmodifiableSet
+{
+    private readonly ISet s;
+
+    public UnmodifiableSetProxy( ISet s ) => this.s = s;
+
+    public override bool Contains( object o ) => this.s.Contains( o );
+
+    public override void CopyTo( Array array, int index ) => this.s.CopyTo( array, index );
+
+    public override int Count => this.s.Count;
+
+    public override IEnumerator GetEnumerator() => this.s.GetEnumerator();
+
+    public override bool IsEmpty => this.s.IsEmpty;
+
+    public override bool IsFixedSize => this.s.IsFixedSize;
+
+    public override bool IsSynchronized => this.s.IsSynchronized;
+
+    public override object SyncRoot => this.s.SyncRoot;
+}
+public abstract class UnmodifiableSet : ISet, ICollection, IEnumerable
+{
+    public virtual void Add( object o ) => throw new NotSupportedException();
+
+    public virtual void AddAll( IEnumerable e ) => throw new NotSupportedException();
+
+    public virtual void Clear() => throw new NotSupportedException();
+
+    public abstract bool Contains( object o );
+
+    public abstract void CopyTo( Array array, int index );
+
+    public abstract int Count { get; }
+
+    public abstract IEnumerator GetEnumerator();
+
+    public abstract bool IsEmpty { get; }
+
+    public abstract bool IsFixedSize { get; }
+
+    public virtual bool IsReadOnly => true;
+
+    public abstract bool IsSynchronized { get; }
+
+    public abstract object SyncRoot { get; }
+
+    public virtual void Remove( object o ) => throw new NotSupportedException();
+
+    public virtual void RemoveAll( IEnumerable e ) => throw new NotSupportedException();
 }
