@@ -89,6 +89,7 @@
             this.sizedRichTextBox1.Location = new System.Drawing.Point(12, 67);
             this.sizedRichTextBox1.Name = "sizedRichTextBox1";
             this.sizedRichTextBox1.Origin = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.sizedRichTextBox1.ReadOnly = true;
             this.sizedRichTextBox1.Size = new System.Drawing.Size(319, 220);
             this.sizedRichTextBox1.TabIndex = 3;
             this.sizedRichTextBox1.Text = "Description:";
@@ -101,6 +102,7 @@
             this.sizedTextBox1.Location = new System.Drawing.Point(12, 12);
             this.sizedTextBox1.Name = "sizedTextBox1";
             this.sizedTextBox1.Origin = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.sizedTextBox1.ReadOnly = true;
             this.sizedTextBox1.Size = new System.Drawing.Size(319, 22);
             this.sizedTextBox1.TabIndex = 4;
             this.sizedTextBox1.Text = "ID:";
@@ -113,6 +115,7 @@
             this.sizedTextBox2.Location = new System.Drawing.Point(12, 40);
             this.sizedTextBox2.Name = "sizedTextBox2";
             this.sizedTextBox2.Origin = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.sizedTextBox2.ReadOnly = true;
             this.sizedTextBox2.Size = new System.Drawing.Size(319, 22);
             this.sizedTextBox2.TabIndex = 5;
             this.sizedTextBox2.Text = "Name:";

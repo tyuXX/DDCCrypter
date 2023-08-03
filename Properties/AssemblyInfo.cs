@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle( "DDCCrypter" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "HP" )]
+[assembly: AssemblyCompany( "GsDistance" )]
 [assembly: AssemblyProduct( "DDCCrypter" )]
-[assembly: AssemblyCopyright( "Copyright © HP 2023" )]
+[assembly: AssemblyCopyright( "Copyright © GsDistance 2023" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
